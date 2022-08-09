@@ -1,9 +1,15 @@
 from database.connect import connect
+import os
 
 from Repairing import split_subgraph, create_patterns_list
 
-a = split_subgraph("C:/Users/aless/Desktop/UNIVERSITA/Machine Learning e Big Data/Progetto/testBank2000NoRandomNoise_new_patterns.subs")
-b = create_patterns_list("C:/Users/aless/Desktop/UNIVERSITA/Machine Learning e Big Data/Progetto/testBank2000NoRandomNoise_new_patterns.subs")
+path = os.path.abspath(os.path.dirname(__file__))
+path = path.removesuffix("scripts")
+print(path)
+os.chdir(path)  # Cambio della cartella attuale nella cartella in cui si trova il file .py
+
+a = split_subgraph(path+"testBank2000NoRandomNoise_new_patterns.subs")
+b = create_patterns_list(path+"testBank2000NoRandomNoise_new_patterns.subs")
 selected_subgraphs = b[16] #SELECTED SUB
 in_list = ""
 for idx, x in enumerate(selected_subgraphs):
