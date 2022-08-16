@@ -28,6 +28,8 @@ import random
 import argparse
 from pm4py.objects.petri_net.exporter import exporter as pnml_exporter
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
+import os
+from progress.bar import IncrementalBar
 
 """ serve per splittare il file con le sub e ritorna una lista
 INPUT: -pathubfile: path al "*_new_patterns_filtered.subs"
@@ -2060,12 +2062,14 @@ def second_repairing(graph, graph_dict, log, dict_trace, start_name, end_name, n
 
 
 def main(pattern, dataset, numsub):
-    debug = False
+    debug = True
 
     # Eventlog
     log = xes_importer.apply(pattern + dataset + '.xes')
+    #log = xes_importer.apply(pattern + '.xes')
     # Modello Rete
     net, initial_marking, final_marking = pnml_importer.apply(pattern + dataset + '_petriNet.pnml')
+    #net, initial_marking, final_marking = pnml_importer.apply(pattern + '_petriNet.pnml')
     # qui per i test mi importavo la rete di Fahland per calcolare fitness ecc..
     # net, initial_marking, final_marking = pnml_importer.apply(pattern + '/reti_Fahland/repaired_'+str(x)+'.pnml')
 
@@ -2085,6 +2089,7 @@ def main(pattern, dataset, numsub):
 
     # passata una sub ritorna la lista di grafi in cui occorre la sub
     graph_list = list_graph_occurence(pattern + dataset + "_table2_on_file.csv", sub)
+    #graph_list = list_graph_occurence(pattern + "_table2_on_file.csv", sub)
     new_graph_list = check_graphlist(graph_list, sub, pattern)
     write_outputfile("Numero di grafi in cui occorre la sub: " + str(len(new_graph_list)), pattern, sub, "a")
     dict_graph = create_dict_graph(pattern, "sub", new_graph_list, sub)
@@ -2188,15 +2193,26 @@ def main(pattern, dataset, numsub):
     # esporta pnml rete
     pnml_exporter.apply(rete[0], rete[1], "../repaired_" + "Sub" + sub + "_petriNet.pnml", final_marking=rete[2])
 
+path = os.path.abspath(os.path.dirname(__file__))
+path = path.removesuffix("scripts")
+print(path)
+os.chdir(path)  # Cambio della cartella attuale nella cartella in cui si trova il file .py
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="Model Repair Supported by Frequent Anomalous Local Instance Graphs")
-    #parser.add_argument("path", type=str,
-      #                  help="Path della directory contenente: *_table2_on_file.csv | *_new_patterns_filtered.subs | rules_log.txt")
+    parser.add_argument("path", type=str,
+                       help="Path della directory contenente: *_table2_on_file.csv | *_new_patterns_filtered.subs | rules_log.txt", default=str(path+"patterns_file_testBank2000NoRandomNoise"))
     parser.add_argument("datasetname", type=str, help="Nome del dataset da analizzare", default="fineExp")
-    parser.add_argument("numsub", type=str, help="Numero sub con cui riparare il modello", default="59")
-    args = parser.parse_args()
-    main("../patterns_file/", args.datasetname, args.numsub) #BPI2017Denied, testBank2000NoRandomNoise
+    parser.add_argument("numsub", type=str, help="Numero sub con cui riparare il modello", default="59") 
+
+    prova = str(path+"patterns_file_testBank2000NoRandomNoise")
+    print(prova)
+    #args = parser.parse_args()
+    #main(str(path+"patterns_file_testBank2000NoRandomNoise\\"), "testbank2000norandomnoise", "2")
+    #main(str(path+"patterns_file_testBank2000NoRandomNoise/"), "testBank2000NoRandomNoise", "4")
+    main(str(path+"patterns_file_fineExp/"), "fineExp", "59")
+    #main(args.path, args.datasetname, args.numsub)
+    #main("../patterns_file/", args.datasetname, args.numsub) #BPI2017Denied, testBank2000NoRandomNoise
 
     #main("../patterns_file/", "fineExp", "59")

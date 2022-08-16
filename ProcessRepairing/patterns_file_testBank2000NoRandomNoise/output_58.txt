@@ -1,0 +1,2 @@
+Sub Selected:  58
+Numero di grafi in cui occorre la sub: 0
