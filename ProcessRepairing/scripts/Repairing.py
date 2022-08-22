@@ -2194,7 +2194,7 @@ def main(pattern, dataset, numsub):
     pnml_exporter.apply(rete[0], rete[1], "../repaired_" + "Sub" + sub + "_petriNet.pnml", final_marking=rete[2])
 
 path = os.path.abspath(os.path.dirname(__file__))
-path = path.removesuffix("scripts")
+path = path.replace("scripts","")
 print(path)
 os.chdir(path)  # Cambio della cartella attuale nella cartella in cui si trova il file .py
 
@@ -2206,8 +2206,6 @@ if __name__ == '__main__':
     parser.add_argument("datasetname", type=str, help="Nome del dataset da analizzare", default="fineExp")
     parser.add_argument("numsub", type=str, help="Numero sub con cui riparare il modello", default="59") 
 
-    prova = str(path+"patterns_file_testBank2000NoRandomNoise")
-    print(prova)
     #args = parser.parse_args()
     #main(str(path+"patterns_file_testBank2000NoRandomNoise\\"), "testbank2000norandomnoise", "2")
     #main(str(path+"patterns_file_testBank2000NoRandomNoise/"), "testBank2000NoRandomNoise", "4")

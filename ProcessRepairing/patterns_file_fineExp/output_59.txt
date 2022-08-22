@@ -5,7 +5,7 @@ Graph Selected:  graph1222  Matching Cost:  0.0
 Valutazione rete iniziale:
 Fitness:  {'percFitTraces': 0.0, 'averageFitness': 0.8388267964391743, 'percentage_of_fitting_traces': 0.0, 'average_trace_fitness': 0.8388267964391743, 'log_fitness': 0.8408349850098982}
 Precision:  0.8934992260983451
-Generalization:  0.9218532927830201
+Generalization:  0.8474586404927035
 Simplicity:  0.5833333333333333
 Subgraph:  ['Instance', '1:', 'v', '1', 'CreateFine', 'v', '2', 'SendFine', 'v', '3', 'Notification', 'v', '4', 'AppealToPrefecture', 'v', '5', 'AppealToJudge', 'd', '1', '2', 'CreateFine__SendFine', 'd', '2', '3', 'SendFine__Notification', 'd', '3', '4', 'Notification__AppealToPrefecture', 'd', '4', '5', 'AppealToPrefecture__AppealToJudge', 'Found', '1', 'instances.']
 Sub iniziale:  ['CreateFine', 'SendFine', 'Notification', 'AppealToPrefecture', 'AppealToJudge']
@@ -14,22 +14,3 @@ Alignment: ['[L/M]CreateFine', '[L/M]SendFine', '[L/M]Notification', '[L]AppealT
 Subgraph semplificata:  ['Instance', '1:', 'v', '4', 'AppealToPrefecture', 'Found', '1', 'instances.']
 Sub semplificata:  ['AppealToPrefecture']
 Start:  4
-Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.75, 'activated_transitions': [(n26, 'CreateFine'), (n27, 'SendFine'), (n11, 'Notification')], 'reached_marking': ['n5:1'], 'enabled_transitions_in_marking': {(n14, 'Payment'), (n17, 'AppealToJudge'), (n21, 'SendAppeal'), (n18, 'SendForCreditCollection'), (n15, 'AddPenalty')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 4, 'remaining_tokens': 1, 'produced_tokens': 4}]
-Reached Marking:  ['n5']
-End:  4
-Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.75, 'activated_transitions': [(n26, 'CreateFine'), (n27, 'SendFine'), (n11, 'Notification')], 'reached_marking': ['n5:1'], 'enabled_transitions_in_marking': {(n17, 'AppealToJudge'), (n21, 'SendAppeal'), (n15, 'AddPenalty'), (n14, 'Payment'), (n18, 'SendForCreditCollection')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 4, 'remaining_tokens': 1, 'produced_tokens': 4}]
-Reached Marking:  ['n5']
-Added: n5 -- > (s1, 'AppealToPrefecture') s1
-Added: (s1, 'AppealToPrefecture') s1 -- > n5
-
-Valutazione rete riparata:
-Fitness:  {'percFitTraces': 79.5900439238653, 'averageFitness': 0.9704633058928611, 'percentage_of_fitting_traces': 79.5900439238653, 'average_trace_fitness': 0.9704633058928611, 'log_fitness': 0.9689306147537197}
-Precision:  0.7045943252740337
-Generalization:  0.9249545870870914
-Simplicity:  0.5686274509803921
-
-Valutazione rete riparata finale:
-Fitness:  {'percFitTraces': 79.5900439238653, 'averageFitness': 0.9704633058928611, 'percentage_of_fitting_traces': 79.5900439238653, 'average_trace_fitness': 0.9704633058928611, 'log_fitness': 0.9689306147537197}
-Precision:  0.7045943252740337
-Generalization:  0.9249545870870914
-Simplicity:  0.5686274509803921
