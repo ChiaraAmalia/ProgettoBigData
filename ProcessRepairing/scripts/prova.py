@@ -18,7 +18,7 @@ os.chdir(path)  # Cambio della cartella attuale nella cartella in cui si trova i
 
 a = split_subgraph(path+"testBank2000NoRandomNoise_new_patterns.subs")
 b = create_patterns_list(path+"testBank2000NoRandomNoise_new_patterns.subs")
-selected_subgraphs = b[16] #SELECTED SUB
+selected_subgraphs = b[16] #SELECTED PATTER
 in_list = ""
 for idx, x in enumerate(selected_subgraphs):
     in_list += selected_subgraphs[idx]
@@ -135,14 +135,21 @@ for idx, x in enumerate(record):
                     t = trans_objects[j[0]]
             petri_utils.add_arc_from_to(t,p,net)
     
+
+    for i in enumerate(places_objects):
+                if(places_objects[i[0]].name==init_places[0]):
+                    pi = places_objects[i[0]]
     initial_marking = Marking()
-    initial_marking[PetriNet.Place('p6')] = 1
+    initial_marking[pi] = 1
+    for i in enumerate(places_objects):
+                if(places_objects[i[0]].name==final_places[0]):
+                    pf = places_objects[i[0]]
     final_marking = Marking()
-    final_marking[PetriNet.Place('p7')] = 1
+    final_marking[pf] = 1
 
     #pm4py.write_pnml(net, initial_marking, final_marking, "createdPetriNets/petriNet_"+str(idx)+".pnml")
     pm4py.view_petri_net(net, initial_marking, final_marking,)
-print(record)
+print("FIN")
 
 
 
