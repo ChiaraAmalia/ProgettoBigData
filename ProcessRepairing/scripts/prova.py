@@ -7,6 +7,45 @@ from pm4py.objects.petri_net.utils import petri_utils
 import pm4py
 from Repairing import split_subgraph, create_patterns_list
 
+
+from pm4py.objects.petri_net.obj import PetriNet, Marking
+net1 = PetriNet("new_petri_net")
+# creating source, p_1 and sink place
+source = PetriNet.Place("source")
+sink = PetriNet.Place("sink")
+p_1 = PetriNet.Place("p_1")
+# add the places to the Petri Net
+net1.places.add(source)
+net1.places.add(sink)
+net1.places.add(p_1)
+
+t_1 = PetriNet.Transition("name_1", "label_1")
+t_2 = PetriNet.Transition("name_2", "label_2")
+# Add the transitions to the Petri Net
+net1.transitions.add(t_1)
+net1.transitions.add(t_2)
+
+from pm4py.objects.petri_net.utils import petri_utils
+petri_utils.add_arc_from_to(source, t_1, net1)
+petri_utils.add_arc_from_to(t_1, p_1, net1)
+petri_utils.add_arc_from_to(p_1, t_2, net1)
+petri_utils.add_arc_from_to(t_2, sink, net1)
+
+
+
+# Adding tokens
+initial_marking = Marking()
+initial_marking[source] = 1
+final_marking = Marking()
+final_marking[sink] = 1
+
+
+#pm4py.view_petri_net(net1, initial_marking, final_marking)
+pm4py.view_petri_net(net1, initial_marking, final_marking, format="png")
+
+
+
+
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
 print(path)
@@ -95,7 +134,7 @@ for idx, x in enumerate(record):
     #PLACES
     for place in places:
         pl = PetriNet.Place(place)
-        net.places.add(PetriNet.Place(pl))
+        net.places.add(pl)
     #TRANSITIONS
     trans_map = {}
     for trans_num in enumerate(transactions):
@@ -121,7 +160,7 @@ for idx, x in enumerate(record):
 
     #pm4py.write_pnml(net, initial_marking, final_marking, "createdPetriNets/petriNet_"+str(idx)+".pnml")
     pm4py.view_petri_net(net, initial_marking, final_marking)
-print(record)   
+print(record)
 
 
 
