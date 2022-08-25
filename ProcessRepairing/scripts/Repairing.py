@@ -2093,6 +2093,8 @@ def main(pattern, dataset, numsub):
     new_graph_list = check_graphlist(graph_list, sub, pattern)
     write_outputfile("Numero di grafi in cui occorre la sub: " + str(len(new_graph_list)), pattern, sub, "a")
     dict_graph = create_dict_graph(pattern, "sub", new_graph_list, sub)
+    
+    #GRAPH SAREBBE L-IG DELLA TRACCIA SCELTA (MC + BASSO)
     graph = dict_graph[1][0]
     # print("Graph Selected: ", graph, " Matching Cost: ", dict_graph[1][1])
     write_outputfile("Graph Selected:  " + str(graph) + "  Matching Cost:  " + str(dict_graph[1][1]), pattern, sub, "a")
@@ -2107,6 +2109,7 @@ def main(pattern, dataset, numsub):
     visualizza_rete_performance(log, net, initial_marking, final_marking)
 
     # esegue sgiso e ritorna la sub con i nodi rispetto al grafo
+    #RESTITUISCE LA PORZIONEW DI GRAFO (CON LABEL) ISOMORFA ALLA TRACE(GRAPH)
     subgraph = find_instances(sub, graph, pattern)
     # print("Subgraph: ", subgraph)
     write_outputfile("Subgraph:  " + str(subgraph), pattern, sub, "a")
@@ -2119,7 +2122,7 @@ def main(pattern, dataset, numsub):
     # print("Sub iniziale: ", sub_label)
     write_outputfile("Sub iniziale:  " + str(sub_label), pattern, sub, "a")
 
-    # Trace
+    # vado a trovare nel log la traccia corrispondente al grafo con mc +basso
     trace = search_trace(log, dict_trace, graph)
     # print('Trace: ', trace.attributes['concept:name'])
     write_outputfile('Trace:  ' + str(trace.attributes['concept:name']), pattern, sub, "a")

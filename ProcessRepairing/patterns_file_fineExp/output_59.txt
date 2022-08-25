@@ -14,3 +14,7 @@ Alignment: ['[L/M]CreateFine', '[L/M]SendFine', '[L/M]Notification', '[L]AppealT
 Subgraph semplificata:  ['Instance', '1:', 'v', '4', 'AppealToPrefecture', 'Found', '1', 'instances.']
 Sub semplificata:  ['AppealToPrefecture']
 Start:  4
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.75, 'activated_transitions': [(n26, 'CreateFine'), (n27, 'SendFine'), (n11, 'Notification')], 'reached_marking': ['n5:1'], 'enabled_transitions_in_marking': {(n21, 'SendAppeal'), (n14, 'Payment'), (n17, 'AppealToJudge'), (n18, 'SendForCreditCollection'), (n15, 'AddPenalty')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 4, 'remaining_tokens': 1, 'produced_tokens': 4}]
+Reached Marking:  ['n5']
+End:  4
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.75, 'activated_transitions': [(n26, 'CreateFine'), (n27, 'SendFine'), (n11, 'Notification')], 'reached_marking': ['n5:1'], 'enabled_transitions_in_marking': {(n21, 'SendAppeal'), (n17, 'AppealToJudge'), (n14, 'Payment'), (n18, 'SendForCreditCollection'), (n15, 'AddPenalty')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 4, 'remaining_tokens': 1, 'produced_tokens': 4}]

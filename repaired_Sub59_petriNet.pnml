@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <pnml>
-  <net id="imported_1660991923.1284184" type="http://www.pnml.org/version-2009/grammar/pnmlcoremodel">
+  <net id="imported_1661249673.0090683" type="http://www.pnml.org/version-2009/grammar/pnmlcoremodel">
     <name>
-      <text>imported_1660991923.1284184</text>
+      <text>imported_1661249673.0090683</text>
     </name>
     <page id="n0">
       <place id="n1">
@@ -133,7 +133,7 @@
           <position x="1107.0" y="287.0"/>
           <dimension x="15.0" y="15.0"/>
         </graphics>
-        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="cfef19bc-dcd9-440d-8bac-6873f5811c3d"/>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="1ff5993f-5cf4-4571-bccb-51e4f8606161"/>
       </transition>
       <transition id="n28">
         <name>
@@ -143,7 +143,7 @@
           <position x="287.0" y="217.0"/>
           <dimension x="15.0" y="15.0"/>
         </graphics>
-        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="2930be3f-9c29-4ae6-a250-0bcec097e44b"/>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="420f8538-a451-4a55-b94d-361447f0a866"/>
       </transition>
       <transition id="n21">
         <name>
@@ -162,7 +162,7 @@
           <position x="437.0" y="187.0"/>
           <dimension x="15.0" y="15.0"/>
         </graphics>
-        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="55fe462d-0438-4b4a-82c0-b0bfccbd5cec"/>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="f482f2b9-8fa8-49fa-88a4-420a29866d58"/>
       </transition>
       <transition id="n16">
         <name>
@@ -172,7 +172,7 @@
           <position x="547.0" y="167.0"/>
           <dimension x="15.0" y="15.0"/>
         </graphics>
-        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="e1ca5fd7-8db8-46c8-8c34-c2417b63540c"/>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="a020ad5d-eef4-471f-a3ee-5abad64c459f"/>
       </transition>
       <transition id="n19">
         <name>
@@ -182,7 +182,7 @@
           <position x="1357.0" y="447.0"/>
           <dimension x="15.0" y="15.0"/>
         </graphics>
-        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="cfc8e9fa-a674-4b71-b038-1335ccd4c413"/>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="01a52f6d-9c0c-4107-8493-66592f03041f"/>
       </transition>
       <transition id="n22">
         <name>
@@ -192,7 +192,7 @@
           <position x="767.0" y="147.0"/>
           <dimension x="15.0" y="15.0"/>
         </graphics>
-        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="f3b6f1f5-b7fa-40c6-b3c2-c68caa1ad1ca"/>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="410cf195-ed67-47a3-8d38-e9592a352d67"/>
       </transition>
       <transition id="n26">
         <name>
@@ -239,6 +239,11 @@
           <dimension x="40.0" y="40.0"/>
         </graphics>
       </transition>
+      <transition id="s1">
+        <name>
+          <text>AppealToPrefecture</text>
+        </name>
+      </transition>
       <transition id="n14">
         <name>
           <text>Payment</text>
@@ -274,53 +279,48 @@
           <position x="847.0" y="-2.0"/>
           <dimension x="15.0" y="15.0"/>
         </graphics>
-        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="ac90f454-6c90-4244-aa0b-236a9f3b83ac"/>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="9dba8063-1606-48d3-8a67-b8b10bd49ab0"/>
       </transition>
-      <transition id="s1">
-        <name>
-          <text>AppealToPrefecture</text>
-        </name>
-      </transition>
-      <arc id="140048765152128" source="n18" target="n3"/>
-      <arc id="140048765152512" source="n11" target="n5"/>
-      <arc id="140048764674304" source="n10" target="n2"/>
-      <arc id="140048765152896" source="n12" target="n3"/>
-      <arc id="140048764674688" source="n26" target="n2"/>
-      <arc id="140048764675072" source="n5" target="n16"/>
-      <arc id="140048764675456" source="n5" target="n18"/>
-      <arc id="140048764675840" source="n6" target="n19"/>
-      <arc id="140048764676224" source="n2" target="n27"/>
-      <arc id="140048757210128" source="s1" target="n5"/>
-      <arc id="140048765152032" source="n1" target="n26"/>
-      <arc id="140048765152416" source="n8" target="n25"/>
-      <arc id="140048764674208" source="n7" target="n21"/>
-      <arc id="140048765152800" source="n4" target="n13"/>
-      <arc id="140048765153184" source="n5" target="n22"/>
-      <arc id="140048764674592" source="n22" target="n7"/>
-      <arc id="140048764674976" source="n2" target="n28"/>
-      <arc id="140048764675360" source="n25" target="n3"/>
-      <arc id="140048764675744" source="n14" target="n5"/>
-      <arc id="140048764676128" source="n5" target="n14"/>
-      <arc id="140048765151936" source="n23" target="n5"/>
-      <arc id="140048765152320" source="n19" target="n3"/>
-      <arc id="140048765152704" source="n6" target="n20"/>
-      <arc id="140048764674112" source="n5" target="n17"/>
-      <arc id="140048765153088" source="n24" target="n9"/>
-      <arc id="140048764674496" source="n17" target="n6"/>
-      <arc id="140048764674880" source="n20" target="n5"/>
-      <arc id="140048764675264" source="n4" target="n12"/>
-      <arc id="140048764675648" source="n2" target="n10"/>
-      <arc id="140048764676032" source="n16" target="n3"/>
-      <arc id="140048765151840" source="n27" target="n4"/>
-      <arc id="140048765152224" source="n4" target="n11"/>
-      <arc id="140048765152608" source="n8" target="n24"/>
-      <arc id="140048764674400" source="n13" target="n4"/>
-      <arc id="140048765152992" source="n28" target="n3"/>
-      <arc id="140048764674784" source="n15" target="n5"/>
-      <arc id="140048764675168" source="n5" target="n15"/>
-      <arc id="140048764675552" source="n21" target="n8"/>
-      <arc id="140048764675936" source="n9" target="n23"/>
-      <arc id="140048756794080" source="n5" target="s1"/>
+      <arc id="140494583753600" source="n18" target="n3"/>
+      <arc id="140494583753984" source="n11" target="n5"/>
+      <arc id="140494583275776" source="n10" target="n2"/>
+      <arc id="140494583754368" source="n12" target="n3"/>
+      <arc id="140494583276160" source="n26" target="n2"/>
+      <arc id="140494583276544" source="n5" target="n16"/>
+      <arc id="140494583276928" source="n5" target="n18"/>
+      <arc id="140494583277312" source="n6" target="n19"/>
+      <arc id="140494583277696" source="n2" target="n27"/>
+      <arc id="140494583753504" source="n1" target="n26"/>
+      <arc id="140494583753888" source="n8" target="n25"/>
+      <arc id="140494583275680" source="n7" target="n21"/>
+      <arc id="140494583754272" source="n4" target="n13"/>
+      <arc id="140494583754656" source="n5" target="n22"/>
+      <arc id="140494583276064" source="n22" target="n7"/>
+      <arc id="140494583276448" source="n2" target="n28"/>
+      <arc id="140494583276832" source="n25" target="n3"/>
+      <arc id="140494583277216" source="n14" target="n5"/>
+      <arc id="140494583277600" source="n5" target="n14"/>
+      <arc id="140494583753408" source="n23" target="n5"/>
+      <arc id="140494583753792" source="n19" target="n3"/>
+      <arc id="140494583754176" source="n6" target="n20"/>
+      <arc id="140494583275584" source="n5" target="n17"/>
+      <arc id="140494583754560" source="n24" target="n9"/>
+      <arc id="140494583275968" source="n17" target="n6"/>
+      <arc id="140494583276352" source="n20" target="n5"/>
+      <arc id="140494583276736" source="n4" target="n12"/>
+      <arc id="140494583277120" source="n2" target="n10"/>
+      <arc id="140494583277504" source="n16" target="n3"/>
+      <arc id="140494578501328" source="s1" target="n5"/>
+      <arc id="140494583753312" source="n27" target="n4"/>
+      <arc id="140494583753696" source="n4" target="n11"/>
+      <arc id="140494583754080" source="n8" target="n24"/>
+      <arc id="140494583275872" source="n13" target="n4"/>
+      <arc id="140494583754464" source="n28" target="n3"/>
+      <arc id="140494583276256" source="n15" target="n5"/>
+      <arc id="140494583276640" source="n5" target="n15"/>
+      <arc id="140494583277024" source="n21" target="n8"/>
+      <arc id="140494583277408" source="n9" target="n23"/>
+      <arc id="140494581464176" source="n5" target="s1"/>
     </page>
     <finalmarkings>
       <marking>

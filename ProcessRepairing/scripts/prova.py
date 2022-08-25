@@ -1,14 +1,15 @@
+import enum
 from lib2to3.pgen2.token import TILDE
 from operator import ne
+from typing import Counter
 from database.connect import connect
 import os
 from pm4py.objects.petri_net.obj import PetriNet, Marking
 from pm4py.objects.petri_net.utils import petri_utils
 import pm4py
-from Repairing import split_subgraph, create_patterns_list
-
-
-
+from Repairing import *
+from pm4py.objects.petri_net.utils import reachability_graph
+from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 path = os.path.abspath(os.path.dirname(__file__))
@@ -32,6 +33,33 @@ cursor = conn.cursor()
 cursor.execute(sql_select_query)
 record = cursor.fetchall()
 #record[0] = 'v 7 FRPP\nv 8 REPC\nv 9 RIBPC\nv 10 RBPC\nv 11 SRPP\nd 7 8 FRPP__REPC\nd 7 9 FRPP__RIBPC\nd 7 10 FRPP__RBPC\nd 10 11 RBPC__SRPP\nd 9 11 RIBPC__SRPP\nd 8 11 REPC__SRPP\n'
+
+path_cartella = "patterns_file_testBank2000NoRandomNoise/"
+dataset = "testBank2000NoRandomNoise"
+# passata una sub ritorna la lista di grafi in cui occorre la sub
+
+
+
+graph_lists = []
+for idx in selected_subgraphs:
+    occs = list_graph_occurence(path + path_cartella+ dataset + "_table2_on_file.csv", idx)
+    for graph_id in occs:
+        graph_lists.append(graph_id)
+
+occs = Counter(graph_lists)
+ 
+#Troviamo i grafi con 3(n) occorrezze
+selected_graphs = []
+for graph in occs:
+    if occs[graph] == len(selected_subgraphs):
+        selected_graphs.append(graph)
+
+#Ordiniamo in base al maching cost l-array
+
+
+
+
+
 
 #BUILDING PETRI NET
 
@@ -148,6 +176,10 @@ for idx, x in enumerate(record):
     final_marking[pf] = 1
 
     #pm4py.write_pnml(net, initial_marking, final_marking, "createdPetriNets/petriNet_"+str(idx)+".pnml")
+    
+    ts = reachability_graph.construct_reachability_graph(net, initial_marking)
+    gviz = ts_visualizer.apply(ts, parameters={ts_visualizer.Variants.VIEW_BASED.value.Parameters.FORMAT: "svg"})
+    ts_visualizer.view(gviz)
     pm4py.view_petri_net(net, initial_marking, final_marking,)
 print("FIN")
 
