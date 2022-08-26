@@ -40,6 +40,8 @@ dataset = "testBank2000NoRandomNoise"
 
 
 
+#create_subelements_file("testbank2000sccupdated",path+path_cartella)
+
 graph_lists = []
 for idx in selected_subgraphs:
     occs = list_graph_occurence(path + path_cartella+ dataset + "_table2_on_file.csv", idx)
@@ -55,8 +57,13 @@ for graph in occs:
         selected_graphs.append(graph)
 
 #Ordiniamo in base al maching cost l-array
-
-
+costs = {}
+for graph in selected_graphs:
+    costs[graph] = 0
+for sub in selected_subgraphs:
+    temp = create_dict_graph(path+path_cartella, "sub", selected_graphs, sub)
+    for element in temp:
+        costs[temp[element][0]]+=temp[element][1]
 
 
 

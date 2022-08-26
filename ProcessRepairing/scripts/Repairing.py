@@ -91,7 +91,6 @@ def massimo_lista(lista):
 INPUT: -lista: lista di stringhe
 RETURN: -min: minimo della lista
 """
-
 def minimo_lista(lista):
     min = int(lista[0])
     pos = 1
@@ -317,7 +316,11 @@ RETURN: risultato di sgiso
 
 
 def find_instances(sub_number, graph_number, pattern):
-    subgraph = sub_graph(int(sub_number), pattern + "subelements.txt")
+    
+    sub_num = int(sub_number)
+   
+   
+    subgraph = sub_graph(sub_num, pattern + "subelements.txt")
 
     write_subfile(subgraph, pattern)
 
@@ -1841,6 +1844,8 @@ def graph_sub(pattern, graph, sub_number):
 
     # ritorna i nodi di inizio e fine sub
     start, end, sub_label = startend_node(subgraph)
+
+    
 
     n_sub = []
 
