@@ -1,1 +1,20 @@
 Sub Selected:  59
+Numero di grafi in cui occorre la sub: 6
+Graph Selected:  graph1222  Matching Cost:  0.0
+
+Valutazione rete iniziale:
+Fitness:  {'percFitTraces': 0.0, 'averageFitness': 0.8388267964391743, 'percentage_of_fitting_traces': 0.0, 'average_trace_fitness': 0.8388267964391743, 'log_fitness': 0.8408349850098982}
+Precision:  0.8934992260983451
+Generalization:  0.9218532927830201
+Simplicity:  0.5833333333333333
+Subgraph:  ['Instance', '1:', 'v', '1', 'CreateFine', 'v', '2', 'SendFine', 'v', '3', 'Notification', 'v', '4', 'AppealToPrefecture', 'v', '5', 'AppealToJudge', 'd', '1', '2', 'CreateFine__SendFine', 'd', '2', '3', 'SendFine__Notification', 'd', '3', '4', 'Notification__AppealToPrefecture', 'd', '4', '5', 'AppealToPrefecture__AppealToJudge', 'Found', '1', 'instances.']
+Sub iniziale:  ['CreateFine', 'SendFine', 'Notification', 'AppealToPrefecture', 'AppealToJudge']
+Trace:  N96265
+Alignment: ['[L/M]CreateFine', '[L/M]SendFine', '[L/M]Notification', '[L]AppealToPrefecture', '[L/M]AppealToJudge', '[M-INVI]Inv5', '[L/M]AddPenalty', '[M-INVI]AppealToPrefecture', '[L/M]SendAppeal', '[L/M]ReceiveResults', '[L/M]NotifyOffenders', '[M-INVI]Inv3']
+Subgraph semplificata:  ['Instance', '1:', 'v', '4', 'AppealToPrefecture', 'Found', '1', 'instances.']
+Sub semplificata:  ['AppealToPrefecture']
+Start:  4
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.75, 'activated_transitions': [(n26, 'CreateFine'), (n27, 'SendFine'), (n11, 'Notification')], 'reached_marking': ['n5:1'], 'enabled_transitions_in_marking': {(n17, 'AppealToJudge'), (n18, 'SendForCreditCollection'), (n21, 'SendAppeal'), (n14, 'Payment'), (n15, 'AddPenalty')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 4, 'remaining_tokens': 1, 'produced_tokens': 4}]
+Reached Marking:  ['n5']
+End:  4
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.75, 'activated_transitions': [(n26, 'CreateFine'), (n27, 'SendFine'), (n11, 'Notification')], 'reached_marking': ['n5:1'], 'enabled_transitions_in_marking': {(n14, 'Payment'), (n18, 'SendForCreditCollection'), (n15, 'AddPenalty'), (n21, 'SendAppeal'), (n17, 'AppealToJudge')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 4, 'remaining_tokens': 1, 'produced_tokens': 4}]

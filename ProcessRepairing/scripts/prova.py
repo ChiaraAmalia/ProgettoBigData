@@ -39,8 +39,8 @@ dataset = "testBank2000NoRandomNoise"
 # passata una sub ritorna la lista di grafi in cui occorre la sub
 
 
-
-#create_subelements_file("testbank2000sccupdated",path+path_cartella)
+dict_trace = create_dict_trace("testbank2000sccupdated")
+create_subelements_file("testbank2000sccupdated",path+path_cartella)
 
 graph_lists = []
 for idx in selected_subgraphs:
@@ -65,7 +65,15 @@ for sub in selected_subgraphs:
     for element in temp:
         costs[temp[element][0]]+=temp[element][1]
 
+ordered_costs = {k: v for k, v in sorted(costs.items(), key=lambda item: item[1])}
 
+
+chosen_graph = next(iter(ordered_costs))
+
+
+graph_istances = []
+for sub in selected_subgraphs:
+    graph_istances.append(find_instances(sub,chosen_graph,path+path_cartella))
 
 
 #BUILDING PETRI NET
