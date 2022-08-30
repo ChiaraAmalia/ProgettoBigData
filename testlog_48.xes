@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<log xes.version="1849-2016" xes.features="nested-attributes" xmlns="http://www.xes-standard.org/">
+	<trace>
+		<string key="variant" value="Variant 102" />
+		<int key="variant-index" value="102" />
+		<string key="creator" value="Fluxicon Disco" />
+		<string key="concept:name" value="trace_513" />
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="SRP" />
+			<date key="time:timestamp" value="2017-09-02T20:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="FRPP" />
+			<date key="time:timestamp" value="2017-09-02T21:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="RIBPC" />
+			<date key="time:timestamp" value="2017-09-02T22:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="REPC" />
+			<date key="time:timestamp" value="2017-09-02T23:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="RBPC" />
+			<date key="time:timestamp" value="2017-09-03T00:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="SRPP" />
+			<date key="time:timestamp" value="2017-09-03T01:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="EPP" />
+			<date key="time:timestamp" value="2017-09-03T02:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="SHRRP" />
+			<date key="time:timestamp" value="2017-09-03T03:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="HRHA" />
+			<date key="time:timestamp" value="2017-09-03T04:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="HRRAN" />
+			<date key="time:timestamp" value="2017-09-03T05:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="SHRRPC" />
+			<date key="time:timestamp" value="2017-09-03T06:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="AHRRPC" />
+			<date key="time:timestamp" value="2017-09-03T07:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="FHRRPC" />
+			<date key="time:timestamp" value="2017-09-03T08:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="RHRRPC" />
+			<date key="time:timestamp" value="2017-09-03T09:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="SHRRPC" />
+			<date key="time:timestamp" value="2017-09-03T10:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="MHRRPC" />
+			<date key="time:timestamp" value="2017-09-03T11:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="FHRRPC" />
+			<date key="time:timestamp" value="2017-09-03T12:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="HRRR" />
+			<date key="time:timestamp" value="2017-09-03T13:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="FHRRP" />
+			<date key="time:timestamp" value="2017-09-03T14:01:24.772000+02:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="FRP" />
+			<date key="time:timestamp" value="2017-09-03T15:01:24.772000+02:00" />
+		</event>
+	</trace>
+	<trace>
+		<string key="variant" value="Variant 7" />
+		<int key="variant-index" value="7" />
+		<string key="creator" value="Fluxicon Disco" />
+		<string key="concept:name" value="trace_699" />
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="SRP" />
+			<date key="time:timestamp" value="2019-01-14T13:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="FRPP" />
+			<date key="time:timestamp" value="2019-01-14T14:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="RBPC" />
+			<date key="time:timestamp" value="2019-01-14T15:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="RIBPC" />
+			<date key="time:timestamp" value="2019-01-14T16:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="REPC" />
+			<date key="time:timestamp" value="2019-01-14T17:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="SRPP" />
+			<date key="time:timestamp" value="2019-01-14T18:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="EPP" />
+			<date key="time:timestamp" value="2019-01-14T19:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="SLRRP" />
+			<date key="time:timestamp" value="2019-01-14T20:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="LRIRV" />
+			<date key="time:timestamp" value="2019-01-14T21:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="LRIRV" />
+			<date key="time:timestamp" value="2019-01-14T21:31:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="LRERV" />
+			<date key="time:timestamp" value="2019-01-14T22:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="FLRRP" />
+			<date key="time:timestamp" value="2019-01-14T23:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="LRRR" />
+			<date key="time:timestamp" value="2019-01-15T00:01:24.772000+01:00" />
+		</event>
+		<event>
+			<string key="org:resource" value="NONE" />
+			<string key="lifecycle:transition" value="complete" />
+			<string key="concept:name" value="FRP" />
+			<date key="time:timestamp" value="2019-01-15T01:01:24.772000+01:00" />
+		</event>
+	</trace>
+</log>

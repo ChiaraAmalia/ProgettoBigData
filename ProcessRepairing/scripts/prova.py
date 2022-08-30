@@ -12,15 +12,14 @@ from pm4py.objects.petri_net.utils import reachability_graph
 from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
-pattern_num = 11
+pattern_num = 16
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
 print(path)
 os.chdir(path)  # Cambio della cartella attuale nella cartella in cui si trova il file .py
 
-a = split_subgraph(path+"testBank2000NoRandomNoise_new_patterns.subs")
-b = create_patterns_list(path+"testBank2000NoRandomNoise_new_patterns.subs")
+b = create_patterns_list(path+"testBank2000NoRandomNoise_new_patterns_filtered_original.subs")
 selected_subgraphs = b[pattern_num] #SELECTED PATTER
 in_list = ""
 for idx, x in enumerate(selected_subgraphs):
@@ -103,11 +102,38 @@ start_map = {}
 end_map = {}
 sub_label_map = {}
 
+
 for idx,graph in enumerate(graph_istances):
     start, end, sub_label = startend_node(graph)
     start_map[selected_subgraphs[idx]] = start
     end_map[selected_subgraphs[idx]] = end
     sub_label_map[selected_subgraphs[idx]] = sub_label
+
+trace = search_trace(log, dict_trace, chosen_graph)
+
+
+#Leggiamo la relazione fra le sub
+a = split_subgraph(path+"testBank2000NoRandomNoise_new_patterns_filtered_original.subs")
+
+pattern_counter = -1
+
+sub_id_map = {}
+subs_relations = []
+
+
+for i in a:
+    if pattern_counter>pattern_num:
+        break
+    if pattern_counter==pattern_num:
+        if(i[0]=='v'):
+            sub_id_map[i[1]]=i[2]
+        if(i[0]=='d'):
+            subs_relations.append([sub_id_map[i[1]],sub_id_map[i[2]],i[3]])
+    if i[0]=='S':
+        pattern_counter+=1
+    
+        
+
 
 
 
