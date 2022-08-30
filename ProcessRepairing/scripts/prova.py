@@ -12,7 +12,7 @@ from pm4py.objects.petri_net.utils import reachability_graph
 from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
-pattern_num = 16
+pattern_num = 11
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
