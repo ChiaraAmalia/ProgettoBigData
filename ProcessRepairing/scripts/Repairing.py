@@ -71,6 +71,16 @@ def list_graph_occurence(sub_ocmatrix_file, subname):
             graphs.append("graph" + n)
     return graphs
 
+def list_pattern_occurence(sub_ocmatrix_file, patname):
+   
+    df = pd.read_csv(sub_ocmatrix_file, sep=',')
+    graphs = []
+    for x in range(len(df)):
+        if (df.loc[x]["Pattern" + patname] == 1):
+            grafo = df.loc[x]['grafo']
+            n = grafo[5:]
+            graphs.append("graph" + n)
+    return graphs
 
 """ 
 INPUT: -lista: lista di interi
@@ -1802,7 +1812,7 @@ def export_eventlog_test(graph_list, log, dict_trace, sub):
     for gra in graph_list:
         tra = search_trace(log, dict_trace, gra)
         new_eventlog.append(tra)
-
+    print(os.path)
     xes_exporter.apply(new_eventlog, '../testlog_' + sub + '.xes')
 
 

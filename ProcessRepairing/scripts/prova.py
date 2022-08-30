@@ -12,6 +12,8 @@ from pm4py.objects.petri_net.utils import reachability_graph
 from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
+pattern_num = 11
+
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
 print(path)
@@ -19,7 +21,7 @@ os.chdir(path)  # Cambio della cartella attuale nella cartella in cui si trova i
 
 a = split_subgraph(path+"testBank2000NoRandomNoise_new_patterns.subs")
 b = create_patterns_list(path+"testBank2000NoRandomNoise_new_patterns.subs")
-selected_subgraphs = b[16] #SELECTED PATTER
+selected_subgraphs = b[pattern_num] #SELECTED PATTER
 in_list = ""
 for idx, x in enumerate(selected_subgraphs):
     in_list += selected_subgraphs[idx]
@@ -39,8 +41,18 @@ dataset = "testBank2000NoRandomNoise"
 # passata una sub ritorna la lista di grafi in cui occorre la sub
 
 
+log = xes_importer.apply(path+path_cartella + dataset + '.xes')
+
+# Modello Rete
+net, initial_marking, final_marking = pnml_importer.apply(path+path_cartella + dataset + '_petriNet.pnml')
+
+
+
+
 dict_trace = create_dict_trace("testbank2000sccupdated")
-create_subelements_file("testbank2000sccupdated",path+path_cartella)
+#create_subelements_file("testbank2000sccupdated",path+path_cartella)
+
+"""
 
 graph_lists = []
 for idx in selected_subgraphs:
@@ -55,6 +67,13 @@ selected_graphs = []
 for graph in occs:
     if occs[graph] == len(selected_subgraphs):
         selected_graphs.append(graph)
+
+"""
+
+selected_graphs = list_pattern_occurence(path + path_cartella+ dataset + "_pattern_occurrence_matrix.csv", str(pattern_num))
+
+for sub in selected_subgraphs:
+    selected_graphs = check_graphlist(selected_graphs, sub, path+path_cartella)
 
 #Ordiniamo in base al maching cost l-array
 costs = {}
@@ -75,6 +94,9 @@ graph_istances = []
 for sub in selected_subgraphs:
     graph_istances.append(find_instances(sub,chosen_graph,path+path_cartella))
 
+
+for sub in selected_subgraphs:
+    export_eventlog_test(selected_graphs, log, dict_trace, sub)
 
 #BUILDING PETRI NET
 
