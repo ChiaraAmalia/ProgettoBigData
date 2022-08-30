@@ -98,6 +98,19 @@ for sub in selected_subgraphs:
 for sub in selected_subgraphs:
     export_eventlog_test(selected_graphs, log, dict_trace, sub)
 
+
+start_map = {}
+end_map = {}
+sub_label_map = {}
+
+for idx,graph in enumerate(graph_istances):
+    start, end, sub_label = startend_node(graph)
+    start_map[selected_subgraphs[idx]] = start
+    end_map[selected_subgraphs[idx]] = end
+    sub_label_map[selected_subgraphs[idx]] = sub_label
+
+
+
 #BUILDING PETRI NET
 
 place_counter = 0
