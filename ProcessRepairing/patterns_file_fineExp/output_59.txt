@@ -5,6 +5,9 @@ Graph Selected:  graph1222  Matching Cost:  0.0
 Valutazione rete iniziale:
 Fitness:  {'percFitTraces': 0.0, 'averageFitness': 0.8388267964391743, 'percentage_of_fitting_traces': 0.0, 'average_trace_fitness': 0.8388267964391743, 'log_fitness': 0.8408349850098982}
 Precision:  0.8934992260983451
-Generalization:  0.8474586404927035
+Generalization:  0.9218532927830201
 Simplicity:  0.5833333333333333
 Subgraph:  ['Instance', '1:', 'v', '1', 'CreateFine', 'v', '2', 'SendFine', 'v', '3', 'Notification', 'v', '4', 'AppealToPrefecture', 'v', '5', 'AppealToJudge', 'd', '1', '2', 'CreateFine__SendFine', 'd', '2', '3', 'SendFine__Notification', 'd', '3', '4', 'Notification__AppealToPrefecture', 'd', '4', '5', 'AppealToPrefecture__AppealToJudge', 'Found', '1', 'instances.']
+Sub iniziale:  ['CreateFine', 'SendFine', 'Notification', 'AppealToPrefecture', 'AppealToJudge']
+Trace:  N96265
+Alignment: ['[L/M]CreateFine', '[L/M]SendFine', '[L/M]Notification', '[L]AppealToPrefecture', '[L/M]AppealToJudge', '[M-INVI]Inv5', '[L/M]AddPenalty', '[M-INVI]AppealToPrefecture', '[L/M]SendAppeal', '[L/M]ReceiveResults', '[L/M]NotifyOffenders', '[M-INVI]Inv3']

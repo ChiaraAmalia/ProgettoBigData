@@ -179,8 +179,28 @@ for relation in subs_relations:
                 final_pattern.append(y[2])
                 final_pattern.append(y[3])
 
+    start, end, sub_label = startend_node(final_pattern)     
+    # Alignment
+    text = search_alignment(path+path_cartella, dict_trace, chosen_graph)      
 
-         
+    new_final_pattern = start_pre_process_repairing(start, text, final_pattern)
+    new_subgraph = end_pre_process_repairing(end, text, new_final_pattern)
+
+    start, end, sub_label = startend_node(new_subgraph)
+
+    reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+    reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)
+
+
+    visualizza_rete(log,net,initial_marking,final_marking)
+
+    start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
+                                             reached_marking_start, reached_marking_end, path+path_cartella, sub)
+   
+    
+    visualizza_rete(log,net_repaired,initial_marking,final_marking)
+
+
         
 
 
