@@ -105,15 +105,17 @@ sub_label_map = {}
 
 for idx,graph in enumerate(graph_istances):
     start, end, sub_label = startend_node(graph)
-    start_map[selected_subgraphs[idx]] = start
-    end_map[selected_subgraphs[idx]] = end
-    sub_label_map[selected_subgraphs[idx]] = sub_label
+    start_map[idx+1] = start
+    end_map[idx+1] = end
+    sub_label_map[idx+1] = sub_label
 
 trace = search_trace(log, dict_trace, chosen_graph)
 
 
 #Leggiamo la relazione fra le sub
 a = split_subgraph(path+"testBank2000NoRandomNoise_new_patterns_filtered_original.subs")
+
+chosen_graph_split = split_subgraph(path+path_cartella+"graphs/"+chosen_graph+".g")
 
 pattern_counter = -1
 
@@ -169,7 +171,7 @@ for relation in subs_relations:
                 final_pattern.append(relation[1][x+1])
                 final_pattern.append(relation[1][x+2])
                 final_pattern.append(relation[1][x+3])
-         
+        
          
         
 
