@@ -69,7 +69,7 @@ for graph in occs:
 
 """
 
-selected_graphs = list_pattern_occurence(path + path_cartella+ dataset + "_pattern_occurrence_matrix.csv", str(pattern_num))
+selected_graphs = list_pattern_occurence(path + path_cartella+ dataset + "_pattern_occurrence_matrix.csv", str(pattern_num+1))
 
 for sub in selected_subgraphs:
     selected_graphs = check_graphlist(selected_graphs, sub, path+path_cartella)
@@ -128,10 +128,49 @@ for i in a:
         if(i[0]=='v'):
             sub_id_map[i[1]]=i[2]
         if(i[0]=='d'):
-            subs_relations.append([sub_id_map[i[1]],sub_id_map[i[2]],i[3]])
+            #subs_relations.append([sub_id_map[i[1]],sub_id_map[i[2]],i[3]])
+            subs_relations.append([i[1],i[2],i[3]])
     if i[0]=='S':
         pattern_counter+=1
     
+
+final_pattern = []
+for relation in subs_relations:
+    if relation[2]=='strictlySeq':
+        
+        for x in range(len(relation[0])):
+            if relation[0][x] == "instances.":
+                break
+            elif relation[0][x] == "v":
+                final_pattern.append(relation[0][x])
+                final_pattern.append(relation[0][x+1])
+                final_pattern.append(relation[0][x+2])
+        
+        for x in range(len(relation[1])):
+            if relation[1][x] == "instances.":
+                break
+            elif relation[1][x] == "v":
+                final_pattern.append(relation[1][x])
+                final_pattern.append(relation[1][x+1])
+                final_pattern.append(relation[1][x+2])
+        for x in range(len(relation[0])):
+            if relation[0][x] == "instances.":
+                break
+            elif relation[0][x] == "d":
+                final_pattern.append(relation[0][x])
+                final_pattern.append(relation[0][x+1])
+                final_pattern.append(relation[0][x+2])
+                final_pattern.append(relation[0][x+3])
+        for x in range(len(relation[1])):
+            if relation[1][x] == "instances.":
+                break
+            elif relation[1][x] == "d":
+                final_pattern.append(relation[1][x])
+                final_pattern.append(relation[1][x+1])
+                final_pattern.append(relation[1][x+2])
+                final_pattern.append(relation[1][x+3])
+         
+         
         
 
 
