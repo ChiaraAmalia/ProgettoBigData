@@ -140,39 +140,39 @@ final_pattern = []
 for relation in subs_relations:
     if relation[2]=='strictlySeq':
         
-        for x in range(len(graph_istances[relation[0]-1])):
-            if graph_istances[relation[0]-1][x] == "instances.":
+        for x in range(len(graph_istances[int(relation[0])-1])):
+            if graph_istances[int(relation[0])-1][x] == "instances.":
                 break
-            elif graph_istances[relation[0]-1][x] == "v":
-                final_pattern.append(graph_istances[relation[0]-1][x])
-                final_pattern.append(graph_istances[relation[0]-1][x+1])
-                final_pattern.append(graph_istances[relation[0]-1][x+2])
+            elif graph_istances[int(relation[0])-1][x] == "v":
+                final_pattern.append(graph_istances[int(relation[0])-1][x])
+                final_pattern.append(graph_istances[int(relation[0])-1][x+1])
+                final_pattern.append(graph_istances[int(relation[0])-1][x+2])
         
-        for x in range(len(graph_istances[relation[1]-1])):
-            if graph_istances[relation[1]-1][x] == "instances.":
+        for x in range(len(graph_istances[int(relation[1])-1])):
+            if graph_istances[int(relation[1])-1][x] == "instances.":
                 break
-            elif graph_istances[relation[1]-1][x] == "v":
-                final_pattern.append(graph_istances[relation[1]-1][x])
-                final_pattern.append(graph_istances[relation[1]-1][x+1])
-                final_pattern.append(graph_istances[relation[1]-1][x+2])
-        for x in range(len(graph_istances[relation[0]-1])):
-            if graph_istances[relation[0]-1][x] == "instances.":
+            elif graph_istances[int(relation[1])-1][x] == "v":
+                final_pattern.append(graph_istances[int(relation[1])-1][x])
+                final_pattern.append(graph_istances[int(relation[1])-1][x+1])
+                final_pattern.append(graph_istances[int(relation[1])-1][x+2])
+        for x in range(len(graph_istances[int(relation[0])-1])):
+            if graph_istances[int(relation[0])-1][x] == "instances.":
                 break
-            elif graph_istances[relation[0]-1][x] == "d":
-                final_pattern.append(graph_istances[relation[0]-1][x])
-                final_pattern.append(graph_istances[relation[0]-1][x+1])
-                final_pattern.append(graph_istances[relation[0]-1][x+2])
-                final_pattern.append(graph_istances[relation[0]-1][x+3])
-        for x in range(len(graph_istances[relation[1]-1])):
-            if graph_istances[relation[1]-1][x] == "instances.":
+            elif graph_istances[int(relation[0])-1][x] == "d":
+                final_pattern.append(graph_istances[int(relation[0])-1][x])
+                final_pattern.append(graph_istances[int(relation[0])-1][x+1])
+                final_pattern.append(graph_istances[int(relation[0])-1][x+2])
+                final_pattern.append(graph_istances[int(relation[0])-1][x+3])
+        for x in range(len(graph_istances[int(relation[1])-1])):
+            if graph_istances[int(relation[1])-1][x] == "instances.":
                 break
-            elif graph_istances[relation[1]-1][x] == "d":
-                final_pattern.append(graph_istances[relation[1]-1][x])
-                final_pattern.append(graph_istances[relation[1]-1][x+1])
-                final_pattern.append(graph_istances[relation[1]-1][x+2])
-                final_pattern.append(graph_istances[relation[1]-1][x+3])
+            elif graph_istances[int(relation[1])-1][x] == "d":
+                final_pattern.append(graph_istances[int(relation[1])-1][x])
+                final_pattern.append(graph_istances[int(relation[1])-1][x+1])
+                final_pattern.append(graph_istances[int(relation[1])-1][x+2])
+                final_pattern.append(graph_istances[int(relation[1])-1][x+3])
         for y in chosen_graph_split:
-            if y[0]=='e' and y[1] in end_map[relation[0]] and y[2] in start_map[relation[1]]:
+            if y[0]=='e' and y[1] in end_map[int(relation[0])] and y[2] in start_map[int(relation[1])]:
                 #transitions = y[3].split('__')
                 final_pattern.append("d")
                 final_pattern.append(y[1])
