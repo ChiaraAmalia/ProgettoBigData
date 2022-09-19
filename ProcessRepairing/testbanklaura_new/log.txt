@@ -1,0 +1,25 @@
+Creazione cartella e upload files eseguiti!
+0 :0
+1 :1500000
+2 :testbanklaura_new
+3 :1
+4 :10000000
+5 :../files/testbanklaura_new/testbanklaura_new.g
+6 :../files/testbanklaura_new/testbanklaura_new.xes
+7 :../files/testbanklaura_new/testbanklaura_new_petriNet.pnml
+8 :../files/testbanklaura_new/Conformance
+9 :../files/testbanklaura_new/graphsDot/
+Graphs tables generated 
+0 :0
+1 :1500000
+2 :testbanklaura_new
+3 :1
+4 :10000000
+5 :../files/testbanklaura_new/testbanklaura_new.g
+6 :../files/testbanklaura_new/filteredLog.xes
+7 :../files/testbanklaura_new/testbanklaura_new_petriNet.pnml
+8 :../files/testbanklaura_new/Conformance
+9 :../files/testbanklaura_new/graphsDot/
+Graphs generated 
+Conversione xes->grafi terminata: esito 0  
+Chiamata a subdue 

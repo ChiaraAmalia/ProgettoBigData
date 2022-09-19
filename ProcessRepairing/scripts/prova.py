@@ -28,6 +28,7 @@ for idx, x in enumerate(selected_subgraphs):
         in_list += ","
 
 conn = None
+#conn = connect("testbank2000sccupdated")
 conn = connect("testbank2000sccupdated")
 sql_select_query = "SELECT subcontent FROM submeasures WHERE idsub IN ("+in_list+")"
 cursor = conn.cursor()
@@ -48,7 +49,8 @@ net, initial_marking, final_marking = pnml_importer.apply(path+path_cartella + d
 
 
 
-dict_trace = create_dict_trace("testbank2000sccupdated")
+#dict_trace = create_dict_trace("testbank2000sccupdated")
+dict_trace = create_dict_trace("testbanklaura_new")
 #create_subelements_file("testbank2000sccupdated",path+path_cartella)
 
 """
@@ -179,6 +181,9 @@ for relation in subs_relations:
                 final_pattern.append(y[2])
                 final_pattern.append(y[3])
 
+    #Visualizziamo rete pre riparazione
+    visualizza_rete_performance(log,net,initial_marking,final_marking)
+
     start, end, sub_label = startend_node(final_pattern)     
     # Alignment
     text = search_alignment(path+path_cartella, dict_trace, chosen_graph)      
@@ -192,13 +197,20 @@ for relation in subs_relations:
     reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)
 
 
-    visualizza_rete(log,net,initial_marking,final_marking)
+    
 
+    """
+    initial/final marking : marking iniziale e finale del modello della rete
+    start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
+    reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
+    """
     start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
                                              reached_marking_start, reached_marking_end, path+path_cartella, sub)
-   
+
+    visualizza_rete_performance(log,net,initial_marking,final_marking)
+
     
-    visualizza_rete(log,net_repaired,initial_marking,final_marking)
+   
 
 
         

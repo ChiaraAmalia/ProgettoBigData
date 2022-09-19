@@ -1031,9 +1031,14 @@ INPUT: -subgraph: return di find_instances()
        -end_marking: return di dirk_marking_end()
 """
 
-
+"""
+initial/final marking : marking iniziale e finale del modello della rete
+start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
+start/end marking : nomi dei place a cui agganciare start e end dell'instanza della sub
+ """
 def repairing(subgraph, net, initial_marking, final_marking, start, end, start_marking, end_marking, pattern, sub):
     start_trans, end_trans = create_sub_petrinet(subgraph, net, start, end, pattern, sub)
+
 
     places = net.places
     transitions = net.transitions
@@ -1098,7 +1103,6 @@ def repairing(subgraph, net, initial_marking, final_marking, start, end, start_m
                         "Added: " + str(end_trans[end[0]]) + " " + str(end_trans[end[0]].name) + " -- > " + str(place),
                         pattern, sub, "a")
                     # print("Added: ", end_trans[end[0]], end_trans[end[0]].name, " -- > ", place)
-
     start_end_trans = [start_trans['start'], end_trans['end']]
     return start_end_trans, net
 

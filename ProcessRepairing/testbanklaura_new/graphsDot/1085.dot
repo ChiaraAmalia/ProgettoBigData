@@ -1,0 +1,37 @@
+digraph G { 
+1 [label="SRP",color=black,fontcolor=black];
+2 [label="SRPP",color=black,fontcolor=black];
+3 [label="REPC",color=black,fontcolor=black];
+4 [label="RIBPC",color=black,fontcolor=black];
+5 [label="RBPC",color=black,fontcolor=black];
+6 [label="FRPP",color=black,fontcolor=black];
+7 [label="EPP",color=black,fontcolor=black];
+8 [label="SHRRP",color=black,fontcolor=black];
+9 [label="SHRRPC",color=black,fontcolor=black];
+10 [label="AHRRPC",color=black,fontcolor=black];
+11 [label="HRHA",color=black,fontcolor=black];
+12 [label="HRRAN",color=black,fontcolor=black];
+13 [label="FHRRPC",color=black,fontcolor=black];
+14 [label="HRRR",color=black,fontcolor=black];
+15 [label="FHRRP",color=black,fontcolor=black];
+16 [label="FRP",color=black,fontcolor=black];
+17 [label="EPP",color=black,fontcolor=black];
+18 [label="SLRRP",color=black,fontcolor=black];
+1->2[label=" SRP__SRPP",color=black,fontcolor=black];
+2->3[label=" SRPP__REPC",color=black,fontcolor=black];
+2->4[label=" SRPP__RIBPC",color=black,fontcolor=black];
+2->5[label=" SRPP__RBPC",color=black,fontcolor=black];
+3->6[label=" REPC__FRPP",color=black,fontcolor=black];
+4->6[label=" RIBPC__FRPP",color=black,fontcolor=black];
+5->6[label=" RBPC__FRPP",color=black,fontcolor=black];
+6->7[label=" FRPP__EPP",color=black,fontcolor=black];
+6->17[label=" FRPP__EPP",color=black,fontcolor=black];
+7->8[label=" EPP__SHRRP",color=black,fontcolor=black];
+8->11[label=" SHRRP__HRHA",color=black,fontcolor=black];
+8->12[label=" SHRRP__HRRAN",color=black,fontcolor=black];
+11->14[label=" HRHA__HRRR",color=black,fontcolor=black];
+12->14[label=" HRRAN__HRRR",color=black,fontcolor=black];
+14->15[label=" HRRR__FHRRP",color=black,fontcolor=black];
+15->16[label=" FHRRP__FRP",color=black,fontcolor=black];
+17->18[label=" EPP__SLRRP",color=black,fontcolor=black];
+}
