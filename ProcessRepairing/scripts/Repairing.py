@@ -835,9 +835,9 @@ def start_pre_process_repairing(start, text, subgraph):
 
     for w in text:
         if k >= int(m):
-            if w[:3] == "[L]":
+            if w[:3] == "[L]":  #pezzi del pattern non replayable
                 break
-            elif w[:5] == "[L/M]":
+            elif w[:5] == "[L/M]":  #pezzi del pattern replayable
                 del_event.append(w[5:])
             elif w[:8] == "[M-REAL]" or w[:8] == "[M-INVI]":
                 break
@@ -1107,6 +1107,88 @@ def repairing(subgraph, net, initial_marking, final_marking, start, end, start_m
                     # print("Added: ", end_trans[end[0]], end_trans[end[0]].name, " -- > ", place)
     start_end_trans = [start_trans['start'], end_trans['end']]
     return start_end_trans, net
+
+
+
+"""
+initial/final marking : marking iniziale e finale del modello della rete
+start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
+start/end marking : nomi dei place a cui agganciare start e end dell'instanza della sub
+ """
+def repairing_pattern(subgraph, net, initial_marking, final_marking, start, end, start_marking, end_marking, pattern, sub, relation):
+    start_trans, end_trans = create_sub_petrinet(subgraph, net, start, end, pattern, sub)
+
+
+    places = net.places
+    transitions = net.transitions
+
+    if len(start) > 1:
+        if(relation=='strictlySeq'):
+            n = transition_hidden_available(transitions)
+            t = PetriNet.Transition("h" + n, None)
+            net.transitions.add(t)
+            for v in start_marking:
+                for place in net.places:
+                    if place.name == v:
+                        utils.add_arc_from_to(place, t, net)
+                        write_outputfile("Added: " + str(place) + " -- > " + str(t) + " " + str(t.name), pattern, sub, "a")
+                        # print("Added: ", place, " -- > ", t, t.name)
+            for x in start:
+                n = places_name_available(places, transitions)
+                place = PetriNet.Place("n" + n)
+                net.places.add(place)
+                utils.add_arc_from_to(t, place, net)
+                write_outputfile("Added:  " + str(t) + " " + str(t.name) + " -- > " + str(place), pattern, sub, "a")
+                # print("Added: ", t, t.name, " -- > ", place)
+                utils.add_arc_from_to(place, start_trans[x], net)
+                write_outputfile("Added: " + str(place) + " -- > " + str(start_trans[x]) + " " + str(start_trans[x].name),
+                                pattern, sub, "a")
+                # print("Added: ", place, " -- > ", start_trans[x], start_trans[x].name)
+        elif(relation=='sequentially'):
+            print("fff")
+    else:
+        for v in start_marking:
+            for place in net.places:
+                if place.name == v:
+                    utils.add_arc_from_to(place, start_trans[start[0]], net)
+                    write_outputfile("Added: " + str(place) + " -- > " + str(start_trans[start[0]]) + " " + str(
+                        start_trans[start[0]].name), pattern, sub, "a")
+                    # print("Added: ", place, " -- > ", start_trans[start[0]], start_trans[start[0]].name)
+
+    if len(end) > 1:
+        n = transition_hidden_available(transitions)
+        t = PetriNet.Transition("h" + n, None)
+        net.transitions.add(t)
+        for y in end_marking:
+            for place in net.places:
+                if place.name == y:
+                    utils.add_arc_from_to(t, place, net)
+                    write_outputfile("Added: " + str(t) + " " + str(t.name) + " --> " + str(place), pattern, sub, "a")
+                    # print("Added: ", t, t.name, " --> ", place)
+        for x in end:
+            n = places_name_available(places, transitions)
+            place = PetriNet.Place("n" + n)
+            net.places.add(place)
+            utils.add_arc_from_to(place, t, net)
+            write_outputfile("Added: " + str(place) + " -- > " + str(t), pattern, sub, "a")
+            # print("Added: ", place, " -- > ", t)
+            utils.add_arc_from_to(end_trans[x], place, net)
+            write_outputfile("Added: " + str(end_trans[x]) + " " + str(end_trans[x].name) + " -- > " + str(place),
+                             pattern, sub, "a")
+            # print("Added: ", end_trans[x], end_trans[x].name, " -- > ", place)
+    else:
+        for v in end_marking:
+            for place in net.places:
+                if place.name == v:
+                    utils.add_arc_from_to(end_trans[end[0]], place, net)
+                    write_outputfile(
+                        "Added: " + str(end_trans[end[0]]) + " " + str(end_trans[end[0]].name) + " -- > " + str(place),
+                        pattern, sub, "a")
+                    # print("Added: ", end_trans[end[0]], end_trans[end[0]].name, " -- > ", place)
+    start_end_trans = [start_trans['start'], end_trans['end']]
+    return start_end_trans, net
+
+
 
 
 """ ripara il modello inserendo una hidden transition tra gli ultimi nodi della sub e del modello e il nodo di end

@@ -1,3 +1,4 @@
+from ctypes import Union
 import enum
 from lib2to3.pgen2.token import TILDE
 from operator import ne
@@ -12,7 +13,7 @@ from pm4py.objects.petri_net.utils import reachability_graph
 from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
-pattern_num = 11
+pattern_num = 17
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
@@ -185,7 +186,20 @@ for relation in subs_relations:
         final_pattern.append("Found")
         final_pattern.append("1")
         final_pattern.append("istances.")
+
+    elif(relation[2]=='sequentially'):
+        start_prima, end_prima, sublable_prima = startend_node(graph_istances[0])
+        start_seconda, end_seconda, sublabel_seconda = startend_node(graph_istances[1])
+        nodi_di_mezzo = end_prima + start_seconda
+        for y in chosen_graph_split:
+            if y[0]=='e' and y[1] in end_prima and y[2] in start_seconda:
+                nodi_di_mezzo.remove(y[1])
+                nodi_di_mezzo.remove(y[2])
+
+        print("i")
+    
     #Visualizziamo rete pre riparazione
+    
     visualizza_rete_performance(log,net,initial_marking,final_marking)
 
     start, end, sub_label = startend_node(final_pattern)     
@@ -195,7 +209,7 @@ for relation in subs_relations:
     new_final_pattern = start_pre_process_repairing(start, text, final_pattern)
     new_subgraph = end_pre_process_repairing(end, text, new_final_pattern)
 
-    visualizza_rete_performance(log,net,initial_marking,final_marking)
+
     start, end, sub_label = startend_node(new_subgraph)
 
     reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
@@ -209,8 +223,8 @@ for relation in subs_relations:
     start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
     reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
     """
-    start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
-                                             reached_marking_start, reached_marking_end, path+path_cartella, sub)
+    start_end_name, net_repaired = repairing_pattern(new_subgraph, net, initial_marking, final_marking, start, end,
+                                             reached_marking_start, reached_marking_end, path+path_cartella, sub,relation[2])
 
     visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
 
