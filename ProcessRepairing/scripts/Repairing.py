@@ -834,7 +834,6 @@ def start_pre_process_repairing(start, text, subgraph):
     del_event = []
 
     for w in text:
-
         if k >= int(m):
             if w[:3] == "[L]":
                 break

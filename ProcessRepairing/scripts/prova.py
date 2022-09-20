@@ -212,7 +212,7 @@ for relation in subs_relations:
     start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
                                              reached_marking_start, reached_marking_end, path+path_cartella, sub)
 
-    visualizza_rete_performance(log,net,initial_marking,final_marking)
+    visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
 
     
    
