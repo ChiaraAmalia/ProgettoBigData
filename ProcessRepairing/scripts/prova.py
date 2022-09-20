@@ -89,7 +89,7 @@ ordered_costs = {k: v for k, v in sorted(costs.items(), key=lambda item: item[1]
 
 
 chosen_graph = next(iter(ordered_costs))
-
+ 
 
 graph_istances = []
 for sub in selected_subgraphs:
@@ -141,7 +141,8 @@ for i in a:
 final_pattern = []
 for relation in subs_relations:
     if relation[2]=='strictlySeq':
-        
+        final_pattern.append("Istance")
+        final_pattern.append("1:")
         for x in range(len(graph_istances[int(relation[0])-1])):
             if graph_istances[int(relation[0])-1][x] == "instances.":
                 break
@@ -181,6 +182,9 @@ for relation in subs_relations:
                 final_pattern.append(y[2])
                 final_pattern.append(y[3])
 
+        final_pattern.append("Found")
+        final_pattern.append("1")
+        final_pattern.append("istances.")
     #Visualizziamo rete pre riparazione
     visualizza_rete_performance(log,net,initial_marking,final_marking)
 
@@ -191,6 +195,7 @@ for relation in subs_relations:
     new_final_pattern = start_pre_process_repairing(start, text, final_pattern)
     new_subgraph = end_pre_process_repairing(end, text, new_final_pattern)
 
+    visualizza_rete_performance(log,net,initial_marking,final_marking)
     start, end, sub_label = startend_node(new_subgraph)
 
     reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)

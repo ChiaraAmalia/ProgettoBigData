@@ -921,7 +921,9 @@ def end_pre_process_repairing(end, text, subgraph):
 
     number = []
     subgraph.reverse()
+    #SCORRE I NODI REPLAYABLE E LI CANCELLA DAL GRAFO
     for y in del_event:
+        #j = -1
         j = 0
         for p in subgraph:
             if y == p:
@@ -934,6 +936,7 @@ def end_pre_process_repairing(end, text, subgraph):
 
     subgraph.reverse()
     for n in number:
+        #j = -1
         j = 0
         for q in range(len(subgraph)):
             if subgraph[j] == 'Found':
