@@ -1115,7 +1115,7 @@ initial/final marking : marking iniziale e finale del modello della rete
 start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
 start/end marking : nomi dei place a cui agganciare start e end dell'instanza della sub
  """
-def repairing_pattern(subgraph, net, initial_marking, final_marking, start, end, start_marking, end_marking, pattern, sub, relation):
+def repairing_pattern(subgraph, net, initial_marking, final_marking, start, end, start_marking, end_marking, pattern, sub, relation, start_place_nodi_mezzo, end_place_nodi_mezzo):
     start_trans, end_trans = create_sub_petrinet(subgraph, net, start, end, pattern, sub)
 
 
@@ -1123,7 +1123,6 @@ def repairing_pattern(subgraph, net, initial_marking, final_marking, start, end,
     transitions = net.transitions
 
     if len(start) > 1:
-        if(relation=='strictlySeq'):
             n = transition_hidden_available(transitions)
             t = PetriNet.Transition("h" + n, None)
             net.transitions.add(t)
@@ -1144,8 +1143,6 @@ def repairing_pattern(subgraph, net, initial_marking, final_marking, start, end,
                 write_outputfile("Added: " + str(place) + " -- > " + str(start_trans[x]) + " " + str(start_trans[x].name),
                                 pattern, sub, "a")
                 # print("Added: ", place, " -- > ", start_trans[x], start_trans[x].name)
-        elif(relation=='sequentially'):
-            print("fff")
     else:
         for v in start_marking:
             for place in net.places:
@@ -1186,6 +1183,18 @@ def repairing_pattern(subgraph, net, initial_marking, final_marking, start, end,
                         pattern, sub, "a")
                     # print("Added: ", end_trans[end[0]], end_trans[end[0]].name, " -- > ", place)
     start_end_trans = [start_trans['start'], end_trans['end']]
+
+#////////////////////////////////////////////////////////////////
+    all_trans = start_trans
+    all_trans.update(end_trans)
+    if relation=='sequentially':
+        for row in start_place_nodi_mezzo:
+            for start_node in start_place_nodi_mezzo[row]:
+                for place in net.places:
+                    if place.name == start_node[0]:
+                        utils.add_arc_from_to(place,all_trans[row],net)
+                
+
     return start_end_trans, net
 
 
