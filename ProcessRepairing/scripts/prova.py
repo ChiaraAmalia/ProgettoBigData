@@ -307,8 +307,8 @@ for relation in subs_relations:
     start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
     reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
     """
-    start_end_name, net_repaired = repairing_pattern(new_subgraph, net, initial_marking, final_marking, start, end,
-                                             reached_marking_start, reached_marking_end, path+path_cartella, sub,relation[2],start_place_nodi_di_mezzo,end_place_nodi_di_mezzo)
+    start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
+                                             reached_marking_start, reached_marking_end, path+path_cartella, sub)
 
     visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
 
