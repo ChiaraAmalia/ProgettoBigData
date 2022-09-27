@@ -227,26 +227,45 @@ for relation in subs_relations:
             distances = {}
             previouses = {}
             
-            for node in nodes:
-                distances[node] = 1000000 
-                previouses[node] = None
-            distances[bellman_start] = 0
+            trees = {}
+
+            for bellman_start in bellman_starts:
+                for node in nodes:
+                    distances[node] = 1000000 
+                    previouses[node] = None
+                distances[bellman_start] = 0
 
 
-            for node in nodes:
-                n_edges = []
-                for edge in edges:
-                    if edge[1]==node:
-                        n_edges.append(edge)
-                for edge in n_edges:
-                    tempdist = distances[edge[0]] + 1
-                    if tempdist < distances[edge[1]]:
-                        distances[edge[1]] = tempdist
-                        previouses[edge[1]] = edge[0]
+                for node in nodes:
+                    n_edges = []
+                    for edge in edges:
+                        if edge[1]==node:
+                            n_edges.append(edge)
+                    for edge in n_edges:
+                        tempdist = distances[edge[0]] + 1
+                        if tempdist < distances[edge[1]]:
+                            distances[edge[1]] = tempdist
+                            previouses[edge[1]] = edge[0]
 
+                trees[bellman_start] = [distances,previouses]
+
+            
+            
             #We want to add the transitions not included in the final pattern 
             for nodo in end_shortest_path:
-                while(nodo not in end_prima):
+                min_cost = 1000000
+
+                for key, value in trees.items():
+                    if nodo not in trees:
+                        continue
+                    else: 
+                        if value[0][nodo] < min_cost:
+                            min_cost = value[0][nodo]
+                            previouses = value[1]
+                            distances = value[0]
+                            current_bellman_start = key
+
+                while(nodo != current_bellman_start):
                     flag = False
                     flag2 = False
                     tempFlag = False
@@ -281,7 +300,7 @@ for relation in subs_relations:
                                     break
                     nodo = previouses[nodo]    
                         
-            
+        
     final_pattern.append("Found")
     final_pattern.append("1")
     final_pattern.append("istances.")
