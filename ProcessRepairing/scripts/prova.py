@@ -15,7 +15,7 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 15
+pattern_num = 21
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
@@ -142,10 +142,14 @@ for i in a:
         pattern_counter+=1
     
 
+
+# Note : FOR THE STRTLYSEQ AND SEQ RELATION CASE WE ARE REFERRING TO GRAPH_ISTANCES USING THE IDS GIVEN
+# BY THE RELATIONS ARRAY (TELLING US THE RELATIONS BETWEEN THE DIFFERENT SUBS (POSSIBLY MORE THAN 2))
+#IN ALL OTHER CASES ( EVENT & INTER ) WE ARE JUST USING 0 AND 1 INDICES (IN CASE OF FUTURE IMPLEMENTATIONS 
+# FEATURING MORE THAN 2 SUBS THIS THING WILL REQUIRE PARTICULAR ATTENTION)
+
 final_pattern = []
-nodi_di_mezzo = []
-end_place_nodi_di_mezzo = {}
-start_place_nodi_di_mezzo = {}
+
 for relation in subs_relations:
     if relation[2]=='strictlySeq' or relation[2]=='sequentially':
         final_pattern.append("Istance")
@@ -354,7 +358,25 @@ for relation in subs_relations:
             start_end_name, net_repaired = repairing(final_graph_istance, net, initial_marking, final_marking, start, end,
                                                     reached_marking_start, reached_marking_end, path+path_cartella, sub)
 
+    elif relation[2] == 'interleaving':
+
+        #Starting from the bigger subinstance graph we want to insert all the transitions 
+        #from the second sub which are not already in the first one
+        big_sub_instance = []
+        tiny_sub_instance = []
         
+        #We add to the sub instance which has more stuff in it (less stuff to add)
+        if len(graph_istances[0]) > len(graph_istances[1]):
+            big_sub_instance = graph_istances[0]
+            tiny_sub_instance = graph_istances[1]
+        else :
+            big_sub_instance = graph_istances[1]
+            tiny_sub_instance = graph_istances[0]
+        
+        for id, element in enumerate(tiny_sub_instance):
+            if element=='v':
+                if(tiny_sub_instance[id+1] in big_sub_instance):
+                    print("Metti la trasformazione in big sub, lo stesso per gli archi")
 
     visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
    
