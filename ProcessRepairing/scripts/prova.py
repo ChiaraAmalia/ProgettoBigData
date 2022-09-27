@@ -13,7 +13,7 @@ from Repairing import *
 from pm4py.objects.petri_net.utils import reachability_graph
 from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
-
+# PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
 pattern_num = 17
 
 path = os.path.abspath(os.path.dirname(__file__))
@@ -73,6 +73,7 @@ for graph in occs:
 
 """
 
+# BISOGNA AGGIUNGERE +1 AL PATTERN PERCHE SOPRA LO PRENDEVAMO DALL'ARRAY
 selected_graphs = list_pattern_occurence(path + path_cartella+ dataset + "_pattern_occurrence_matrix.csv", str(pattern_num+1))
 
 for sub in selected_subgraphs:
