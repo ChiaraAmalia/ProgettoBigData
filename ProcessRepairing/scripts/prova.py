@@ -13,8 +13,9 @@ from Repairing import *
 from pm4py.objects.petri_net.utils import reachability_graph
 from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
+
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 17
+pattern_num = 15
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
@@ -146,7 +147,7 @@ nodi_di_mezzo = []
 end_place_nodi_di_mezzo = {}
 start_place_nodi_di_mezzo = {}
 for relation in subs_relations:
-    if relation[2]=='strictlySeq' or 'sequentially':
+    if relation[2]=='strictlySeq' or relation[2]=='sequentially':
         final_pattern.append("Istance")
         final_pattern.append("1:")
         for x in range(len(graph_istances[int(relation[0])-1])):
@@ -302,37 +303,60 @@ for relation in subs_relations:
                     nodo = previouses[nodo]    
                         
         
-    final_pattern.append("Found")
-    final_pattern.append("1")
-    final_pattern.append("istances.")
+        final_pattern.append("Found")
+        final_pattern.append("1")
+        final_pattern.append("istances.")
 
 
-    #Visualizziamo rete pre riparazione
-    
-    visualizza_rete_performance(log,net,initial_marking,final_marking)
+        #Visualizziamo rete pre riparazione
+        
+        visualizza_rete_performance(log,net,initial_marking,final_marking)
 
-    new_final_pattern = start_pre_process_repairing(start, text, final_pattern)
-    new_subgraph = end_pre_process_repairing(end, text, new_final_pattern)
+        new_final_pattern = start_pre_process_repairing(start, text, final_pattern)
+        new_subgraph = end_pre_process_repairing(end, text, new_final_pattern)
 
-    start, end, sub_label = startend_node(new_subgraph)
+        start, end, sub_label = startend_node(new_subgraph)
 
-    reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-    reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)
+        reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+        reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
 
+        """
+        initial/final marking : marking iniziale e finale del modello della rete
+        start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
+        reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
+        """
+        start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
+                                                reached_marking_start, reached_marking_end, path+path_cartella, sub)
 
-    
+        
 
-    """
-    initial/final marking : marking iniziale e finale del modello della rete
-    start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
-    reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
-    """
-    start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
-                                             reached_marking_start, reached_marking_end, path+path_cartella, sub)
+    elif relation[2]=='eventually':
+         
+        visualizza_rete_performance(log,net,initial_marking,final_marking)
+        text = search_alignment(path+path_cartella, dict_trace, chosen_graph) 
+        for graph_istance in graph_istances:
+            
+            start, end, sub_label = startend_node(graph_istance)
+            
+            new_graph_istance = start_pre_process_repairing(start, text, graph_istance)
+            final_graph_istance = end_pre_process_repairing(end, text, new_graph_istance)
+
+            start, end, sub_label = startend_node(final_graph_istance)
+
+            reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+
+            """
+            initial/final marking : marking iniziale e finale del modello della rete
+            start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
+            reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
+            """
+            start_end_name, net_repaired = repairing(final_graph_istance, net, initial_marking, final_marking, start, end,
+                                                    reached_marking_start, reached_marking_end, path+path_cartella, sub)
+
+        
 
     visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
-
-    
    
 
 
