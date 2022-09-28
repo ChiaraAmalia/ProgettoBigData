@@ -196,14 +196,6 @@ for relation in subs_relations:
         if (relation[2]=='sequentially'):
             start_prima, end_prima, sublable_prima = startend_node(graph_istances[0])
             start_seconda, end_seconda, sublabel_seconda = startend_node(graph_istances[1])
-        
-            
- 
-            start, end, sub_label = startend_node(final_pattern)  
-            # Alignment
-            text = search_alignment(path+path_cartella, dict_trace, chosen_graph)   
-            
-
 
             #Trying to apply Bellman-Ford algorithm to find the shortest path from end 1st sub to the start of the 2nd
             
@@ -311,11 +303,13 @@ for relation in subs_relations:
         final_pattern.append("1")
         final_pattern.append("istances.")
 
-
         #Visualizziamo rete pre riparazione
         
         visualizza_rete_performance(log,net,initial_marking,final_marking)
 
+        # Alignment
+        start, end, sub_label = startend_node(final_pattern)
+        text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
         new_final_pattern = start_pre_process_repairing(start, text, final_pattern)
         new_subgraph = end_pre_process_repairing(end, text, new_final_pattern)
 
@@ -373,11 +367,53 @@ for relation in subs_relations:
             big_sub_instance = graph_istances[1]
             tiny_sub_instance = graph_istances[0]
         
-        for id, element in enumerate(tiny_sub_instance):
-            if element=='v':
-                if(tiny_sub_instance[id+1] in big_sub_instance):
-                    print("Metti la trasformazione in big sub, lo stesso per gli archi")
+        for idx, element in enumerate(tiny_sub_instance):
 
+            if element=='v':
+
+                if(tiny_sub_instance[idx+1] not in big_sub_instance):
+
+                    for id in enumerate(big_sub_instance):
+                            if(big_sub_instance[id[0]+1]=='d'):
+                                    big_sub_instance = big_sub_instance[0:id[0]+1] + ['v',tiny_sub_instance[idx+1],tiny_sub_instance[idx+2]] + big_sub_instance[id[0]+1:]
+                                    break
+            if element=='d':
+                for id2, element2 in enumerate(big_sub_instance):
+                    flag = False
+                    if element2==tiny_sub_instance[idx+1] and big_sub_instance[id2+1]==tiny_sub_instance[idx+2]:
+                        flag = True
+                    if not flag:
+                        for id3 in enumerate(big_sub_instance):
+                            if(big_sub_instance[id3[0]+1]=='Found'):
+                                    big_sub_instance = big_sub_instance[0:id3[0]+1] + ['d',tiny_sub_instance[idx+1],tiny_sub_instance[idx+2],tiny_sub_instance[idx+3]] + big_sub_instance[id3[0]+1:]
+                                    break
+                        break
+
+        final_pattern = big_sub_instance
+        #Visualizziamo rete pre riparazione
+        
+        visualizza_rete_performance(log,net,initial_marking,final_marking)
+        text = search_alignment(path+path_cartella, dict_trace, chosen_graph) 
+        start, end, sub_label = startend_node(final_pattern)
+
+        new_final_pattern = start_pre_process_repairing(start, text, final_pattern)
+        new_subgraph = end_pre_process_repairing(end, text, new_final_pattern)
+
+        start, end, sub_label = startend_node(new_subgraph)
+
+        reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+        reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+
+        """
+        initial/final marking : marking iniziale e finale del modello della rete
+        start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
+        reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
+        """
+        start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
+                                                reached_marking_start, reached_marking_end, path+path_cartella, sub)
+
+           
+                        
     visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
    
 
@@ -386,6 +422,9 @@ for relation in subs_relations:
 
 
 
+
+
+"""
 
 #BUILDING PETRI NET
 
@@ -510,4 +549,4 @@ for idx, x in enumerate(record):
 print("FIN")
 
 
-
+"""

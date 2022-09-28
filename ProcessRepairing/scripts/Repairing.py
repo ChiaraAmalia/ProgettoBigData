@@ -71,6 +71,9 @@ def list_graph_occurence(sub_ocmatrix_file, subname):
             graphs.append("graph" + n)
     return graphs
 
+
+
+#AGGIUNTO : RITORNA LE OCCORRENZE DEI PATTERN NEI GRAFI CONSULTANDO LA MATRICE DEI PATTERN 
 def list_pattern_occurence(sub_ocmatrix_file, patname):
    
     df = pd.read_csv(sub_ocmatrix_file, sep=',')
@@ -1107,96 +1110,6 @@ def repairing(subgraph, net, initial_marking, final_marking, start, end, start_m
                     # print("Added: ", end_trans[end[0]], end_trans[end[0]].name, " -- > ", place)
     start_end_trans = [start_trans['start'], end_trans['end']]
     return start_end_trans, net
-
-
-
-"""
-initial/final marking : marking iniziale e finale del modello della rete
-start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
-start/end marking : nomi dei place a cui agganciare start e end dell'instanza della sub
- """
-def repairing_pattern(subgraph, net, initial_marking, final_marking, start, end, start_marking, end_marking, pattern, sub, relation, start_place_nodi_mezzo, end_place_nodi_mezzo):
-    start_trans, end_trans = create_sub_petrinet(subgraph, net, start, end, pattern, sub)
-
-
-    places = net.places
-    transitions = net.transitions
-
-    if len(start) > 1:
-            n = transition_hidden_available(transitions)
-            t = PetriNet.Transition("h" + n, None)
-            net.transitions.add(t)
-            for v in start_marking:
-                for place in net.places:
-                    if place.name == v:
-                        utils.add_arc_from_to(place, t, net)
-                        write_outputfile("Added: " + str(place) + " -- > " + str(t) + " " + str(t.name), pattern, sub, "a")
-                        # print("Added: ", place, " -- > ", t, t.name)
-            for x in start:
-                n = places_name_available(places, transitions)
-                place = PetriNet.Place("n" + n)
-                net.places.add(place)
-                utils.add_arc_from_to(t, place, net)
-                write_outputfile("Added:  " + str(t) + " " + str(t.name) + " -- > " + str(place), pattern, sub, "a")
-                # print("Added: ", t, t.name, " -- > ", place)
-                utils.add_arc_from_to(place, start_trans[x], net)
-                write_outputfile("Added: " + str(place) + " -- > " + str(start_trans[x]) + " " + str(start_trans[x].name),
-                                pattern, sub, "a")
-                # print("Added: ", place, " -- > ", start_trans[x], start_trans[x].name)
-    else:
-        for v in start_marking:
-            for place in net.places:
-                if place.name == v:
-                    utils.add_arc_from_to(place, start_trans[start[0]], net)
-                    write_outputfile("Added: " + str(place) + " -- > " + str(start_trans[start[0]]) + " " + str(
-                        start_trans[start[0]].name), pattern, sub, "a")
-                    # print("Added: ", place, " -- > ", start_trans[start[0]], start_trans[start[0]].name)
-
-    if len(end) > 1:
-        n = transition_hidden_available(transitions)
-        t = PetriNet.Transition("h" + n, None)
-        net.transitions.add(t)
-        for y in end_marking:
-            for place in net.places:
-                if place.name == y:
-                    utils.add_arc_from_to(t, place, net)
-                    write_outputfile("Added: " + str(t) + " " + str(t.name) + " --> " + str(place), pattern, sub, "a")
-                    # print("Added: ", t, t.name, " --> ", place)
-        for x in end:
-            n = places_name_available(places, transitions)
-            place = PetriNet.Place("n" + n)
-            net.places.add(place)
-            utils.add_arc_from_to(place, t, net)
-            write_outputfile("Added: " + str(place) + " -- > " + str(t), pattern, sub, "a")
-            # print("Added: ", place, " -- > ", t)
-            utils.add_arc_from_to(end_trans[x], place, net)
-            write_outputfile("Added: " + str(end_trans[x]) + " " + str(end_trans[x].name) + " -- > " + str(place),
-                             pattern, sub, "a")
-            # print("Added: ", end_trans[x], end_trans[x].name, " -- > ", place)
-    else:
-        for v in end_marking:
-            for place in net.places:
-                if place.name == v:
-                    utils.add_arc_from_to(end_trans[end[0]], place, net)
-                    write_outputfile(
-                        "Added: " + str(end_trans[end[0]]) + " " + str(end_trans[end[0]].name) + " -- > " + str(place),
-                        pattern, sub, "a")
-                    # print("Added: ", end_trans[end[0]], end_trans[end[0]].name, " -- > ", place)
-    start_end_trans = [start_trans['start'], end_trans['end']]
-
-#////////////////////////////////////////////////////////////////
-    all_trans = start_trans
-    all_trans.update(end_trans)
-    if relation=='sequentially':
-        for row in start_place_nodi_mezzo:
-            for start_node in start_place_nodi_mezzo[row]:
-                for place in net.places:
-                    if place.name == start_node[0]:
-                        utils.add_arc_from_to(place,all_trans[row],net)
-                
-
-    return start_end_trans, net
-
 
 
 
