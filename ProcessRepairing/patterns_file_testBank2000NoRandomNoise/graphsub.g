@@ -1,3 +1,3 @@
-v 1 REPP
+v 1 SRP
 v 2 FRPP
-d 1 2 REPP__FRPP
+d 1 2 SRP__FRPP

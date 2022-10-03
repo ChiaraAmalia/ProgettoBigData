@@ -1048,6 +1048,8 @@ def repairing(subgraph, net, initial_marking, final_marking, start, end, start_m
     places = net.places
     transitions = net.transitions
 
+
+
     if len(start) > 1:
         n = transition_hidden_available(transitions)
         t = PetriNet.Transition("h" + n, None)

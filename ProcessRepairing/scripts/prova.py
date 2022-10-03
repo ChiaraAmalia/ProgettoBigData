@@ -15,7 +15,7 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 21
+pattern_num = 23
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
@@ -152,6 +152,8 @@ final_pattern = []
 
 for relation in subs_relations:
     if relation[2]=='strictlySeq' or relation[2]=='sequentially':
+
+
         final_pattern.append("Istance")
         final_pattern.append("1:")
         for x in range(len(graph_istances[int(relation[0])-1])):
@@ -193,6 +195,10 @@ for relation in subs_relations:
                 final_pattern.append(y[2])
                 final_pattern.append(y[3])
         
+
+
+
+
         if (relation[2]=='sequentially'):
             start_prima, end_prima, sublable_prima = startend_node(graph_istances[0])
             start_seconda, end_seconda, sublabel_seconda = startend_node(graph_istances[1])
@@ -228,6 +234,7 @@ for relation in subs_relations:
             trees = {}
 
             for bellman_start in bellman_starts:
+                
                 for node in nodes:
                     distances[node] = 1000000 
                     previouses[node] = None
@@ -252,16 +259,13 @@ for relation in subs_relations:
             #We want to add the transitions not included in the final pattern 
             for nodo in end_shortest_path:
                 min_cost = 1000000
-
-                for key, value in trees.items():
-                    if nodo not in trees:
-                        continue
-                    else: 
-                        if value[0][nodo] < min_cost:
-                            min_cost = value[0][nodo]
-                            previouses = value[1]
-                            distances = value[0]
-                            current_bellman_start = key
+                current_bellman_start = ""
+                for key, value in trees.items():                    
+                    if value[0][nodo] < min_cost:
+                        min_cost = value[0][nodo]
+                        previouses = value[1]
+                        distances = value[0]
+                        current_bellman_start = key
 
                 while(nodo != current_bellman_start):
                     flag = False
@@ -354,6 +358,8 @@ for relation in subs_relations:
 
     elif relation[2] == 'interleaving':
 
+        flag_parallelo = True
+
         #Starting from the bigger subinstance graph we want to insert all the transitions 
         #from the second sub which are not already in the first one
         big_sub_instance = []
@@ -377,6 +383,9 @@ for relation in subs_relations:
                             if(big_sub_instance[id[0]+1]=='d'):
                                     big_sub_instance = big_sub_instance[0:id[0]+1] + ['v',tiny_sub_instance[idx+1],tiny_sub_instance[idx+2]] + big_sub_instance[id[0]+1:]
                                     break
+                else:
+                    flag_parallelo = False
+                
             if element=='d':
                 for id2, element2 in enumerate(big_sub_instance):
                     flag = False
@@ -388,6 +397,57 @@ for relation in subs_relations:
                                     big_sub_instance = big_sub_instance[0:id3[0]+1] + ['d',tiny_sub_instance[idx+1],tiny_sub_instance[idx+2],tiny_sub_instance[idx+3]] + big_sub_instance[id3[0]+1:]
                                     break
                         break
+
+        if True:
+            start, end, sublabel = startend_node(big_sub_instance)
+            start_trans, end_trans = create_sub_petrinet(big_sub_instance, net, start, end, path+path_cartella, sub)
+            places = net.places
+            transitions = net.transitions
+
+
+            start_marking = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+            end_marking = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)
+
+            #START HIDDEN TRANSITION
+            n = transition_hidden_available(transitions)
+            t = PetriNet.Transition("h" + n, None)
+            net.transitions.add(t)
+            for v in start_marking:
+                for place in net.places:
+                    if place.name == v:
+
+                        utils.add_arc_from_to(place, t, net)
+
+            for x in start:
+                n = places_name_available(places, transitions)
+                place = PetriNet.Place("n" + n)
+                net.places.add(place)
+
+                utils.add_arc_from_to(t, place, net)
+                
+                utils.add_arc_from_to(place, start_trans[x], net)
+
+
+            #END HIDDEN TRANSITION
+            n = transition_hidden_available(transitions)
+            t = PetriNet.Transition("h" + n, None)
+            net.transitions.add(t)
+            for y in end_marking:
+                for place in net.places:
+                    if place.name == y:
+                        
+                        utils.add_arc_from_to(t, place, net)
+                        
+            for x in end:
+                n = places_name_available(places, transitions)
+                place = PetriNet.Place("n" + n)
+                net.places.add(place)
+                
+                utils.add_arc_from_to(place, t, net)
+                
+                utils.add_arc_from_to(end_trans[x], place, net)
+            
+
 
         final_pattern = big_sub_instance
         #Visualizziamo rete pre riparazione
