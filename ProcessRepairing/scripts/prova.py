@@ -206,12 +206,13 @@ for relation in subs_relations:
 
         if (relation[2]=='sequentially' and not precision_mode):
 
-            start_totali, end_totali, sublabel = startend_node(final_pattern)
+            #start_totali, end_totali, sublabel = startend_node(final_pattern)
             
 
             start_prima, end_prima, sublable_prima = startend_node(istances[0])
             start_seconda, end_seconda, sublabel_seconda = startend_node(istances[1])
 
+            """            
             start_filtered = start_seconda
             end_filtered = end_prima
 
@@ -223,7 +224,7 @@ for relation in subs_relations:
             
             for finale in end_totali:
                 if finale not in end_prima:
-                    end_pattern.append(finale)
+                    end_pattern.append(finale)"""
 
 
             text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
@@ -243,15 +244,18 @@ for relation in subs_relations:
             start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
                                                     reached_marking_start, reached_marking_end, path+path_cartella, sub)
 
+            marking_start = dirk_marking_start(dataset, end_prima, text, trace, path+path_cartella, sub)
+            marking_end = dirk_marking_end(dataset, start_seconda, text, trace, path+path_cartella, sub) 
+
             transitions = net_repaired.transitions
             n = transition_hidden_available(transitions)
             t = PetriNet.Transition("h" + n, None)
             net_repaired.transitions.add(t)
-            for v in reached_marking_start:
+            for v in marking_start:
                 for place in net_repaired.places:
                     if place.name == v:
                         utils.add_arc_from_to(t, place, net_repaired)
-            for v in reached_marking_end:
+            for v in marking_end:
                 for place in net_repaired.places:
                     if place.name == v:
                         utils.add_arc_from_to(place, t, net_repaired)
