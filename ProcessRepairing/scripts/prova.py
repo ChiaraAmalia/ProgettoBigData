@@ -15,7 +15,10 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 23
+pattern_num = 15
+
+#SE SI VUOLE RIPARARE IL MODELLO CON PRECISIONE SE TRUE ALTRIMENTI APPROSSIMATO
+precision_mode = True
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
@@ -151,42 +154,46 @@ for i in a:
 final_pattern = []
 
 for relation in subs_relations:
+
+    istances = []
+    istances.append(graph_istances[int(relation[0])-1])
+    istances.append(graph_istances[int(relation[1])-1])
     if relation[2]=='strictlySeq' or relation[2]=='sequentially':
 
 
         final_pattern.append("Istance")
         final_pattern.append("1:")
-        for x in range(len(graph_istances[int(relation[0])-1])):
-            if graph_istances[int(relation[0])-1][x] == "instances.":
+        for x in range(len(istances[0])):
+            if istances[0][x] == "instances.":
                 break
-            elif graph_istances[int(relation[0])-1][x] == "v":
-                final_pattern.append(graph_istances[int(relation[0])-1][x])
-                final_pattern.append(graph_istances[int(relation[0])-1][x+1])
-                final_pattern.append(graph_istances[int(relation[0])-1][x+2])
+            elif istances[0][x] == "v":
+                final_pattern.append(istances[0][x])
+                final_pattern.append(istances[0][x+1])
+                final_pattern.append(istances[0][x+2])
         
-        for x in range(len(graph_istances[int(relation[1])-1])):
-            if graph_istances[int(relation[1])-1][x] == "instances.":
+        for x in range(len(istances[1])):
+            if istances[1][x] == "instances.":
                 break
-            elif graph_istances[int(relation[1])-1][x] == "v":
-                final_pattern.append(graph_istances[int(relation[1])-1][x])
-                final_pattern.append(graph_istances[int(relation[1])-1][x+1])
-                final_pattern.append(graph_istances[int(relation[1])-1][x+2])
-        for x in range(len(graph_istances[int(relation[0])-1])):
-            if graph_istances[int(relation[0])-1][x] == "instances.":
+            elif istances[1][x] == "v":
+                final_pattern.append(istances[1][x])
+                final_pattern.append(istances[1][x+1])
+                final_pattern.append(istances[1][x+2])
+        for x in range(len(istances[0])):
+            if istances[0][x] == "instances.":
                 break
-            elif graph_istances[int(relation[0])-1][x] == "d":
-                final_pattern.append(graph_istances[int(relation[0])-1][x])
-                final_pattern.append(graph_istances[int(relation[0])-1][x+1])
-                final_pattern.append(graph_istances[int(relation[0])-1][x+2])
-                final_pattern.append(graph_istances[int(relation[0])-1][x+3])
-        for x in range(len(graph_istances[int(relation[1])-1])):
-            if graph_istances[int(relation[1])-1][x] == "instances.":
+            elif istances[0][x] == "d":
+                final_pattern.append(istances[0][x])
+                final_pattern.append(istances[0][x+1])
+                final_pattern.append(istances[0][x+2])
+                final_pattern.append(istances[0][x+3])
+        for x in range(len(istances[1])):
+            if istances[1][x] == "instances.":
                 break
-            elif graph_istances[int(relation[1])-1][x] == "d":
-                final_pattern.append(graph_istances[int(relation[1])-1][x])
-                final_pattern.append(graph_istances[int(relation[1])-1][x+1])
-                final_pattern.append(graph_istances[int(relation[1])-1][x+2])
-                final_pattern.append(graph_istances[int(relation[1])-1][x+3])
+            elif istances[1][x] == "d":
+                final_pattern.append(istances[1][x])
+                final_pattern.append(istances[1][x+1])
+                final_pattern.append(istances[1][x+2])
+                final_pattern.append(istances[1][x+3])
         for y in chosen_graph_split:
             if y[0]=='e' and y[1] in end_map[int(relation[0])] and y[2] in start_map[int(relation[1])]:
                 #transitions = y[3].split('__')
@@ -200,8 +207,9 @@ for relation in subs_relations:
 
 
         if (relation[2]=='sequentially'):
-            start_prima, end_prima, sublable_prima = startend_node(graph_istances[0])
-            start_seconda, end_seconda, sublabel_seconda = startend_node(graph_istances[1])
+
+            start_prima, end_prima, sublable_prima = startend_node(istances[0])
+            start_seconda, end_seconda, sublabel_seconda = startend_node(istances[1])
 
             #Trying to apply Bellman-Ford algorithm to find the shortest path from end 1st sub to the start of the 2nd
             
@@ -336,7 +344,13 @@ for relation in subs_relations:
          
         visualizza_rete_performance(log,net,initial_marking,final_marking)
         text = search_alignment(path+path_cartella, dict_trace, chosen_graph) 
-        for graph_istance in graph_istances:
+
+        start_prima, end_prima, sub_label_prima = startend_node(istances[0])
+        start_seconda, end_seconda, sub_label_seconda = startend_node(istances[1])
+
+        marking_end = []
+
+        for graph_istance in istances:
             
             start, end, sub_label = startend_node(graph_istance)
             
@@ -346,7 +360,8 @@ for relation in subs_relations:
             start, end, sub_label = startend_node(final_graph_istance)
 
             reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)
+            marking_end.append(reached_marking_end)    
 
             """
             initial/final marking : marking iniziale e finale del modello della rete
@@ -356,9 +371,66 @@ for relation in subs_relations:
             start_end_name, net_repaired = repairing(final_graph_istance, net, initial_marking, final_marking, start, end,
                                                     reached_marking_start, reached_marking_end, path+path_cartella, sub)
 
-    elif relation[2] == 'interleaving':
+        if precision_mode:
+            im2 = []
+            im = net_repaired.places
+            for place in im:
+                if place.name in marking_end[0]:
+                    im2.append(place)
+            start_marking = Marking()
+            for place in im2:
+                start_marking[place] = 1
+            ts = reachability_graph.construct_reachability_graph(net_repaired,start_marking)
 
-        flag_parallelo = True
+            nodes = []
+            edges = []
+            for row in chosen_graph_split:
+                if row[0] == 'v':
+                    nodes.append(row[1])
+                if row[0] == 'e':
+                    edges.append([row[1],row[2]])
+
+            distances = {}
+            previouses = {}
+            
+            trees = {}
+
+            for bellman_start in end_prima:
+                
+                for node in nodes:
+                    distances[node] = 1000000 
+                    previouses[node] = None
+                distances[bellman_start] = 0
+
+
+                for node in nodes:
+                    n_edges = []
+                    for edge in edges:
+                        if edge[1]==node:
+                            n_edges.append(edge)
+                    for edge in n_edges:
+                        tempdist = distances[edge[0]] + 1
+                        if tempdist < distances[edge[1]]:
+                            distances[edge[1]] = tempdist
+                            previouses[edge[1]] = edge[0]
+
+                trees[bellman_start] = [distances,previouses]
+
+            flag_raggiungibile = False
+            
+            for tree in trees:
+                for arrivo in start_seconda:
+                    if arrivo in tree:
+                        flag_raggiungibile = True
+            
+            if not flag_raggiungibile:
+                start_trans, end_trans = create_sub_petrinet(subgraph, net, start, end, pattern, sub)
+
+                places = net.places
+                transitions = net.transitions
+
+
+    elif relation[2] == 'interleaving':
 
         #Starting from the bigger subinstance graph we want to insert all the transitions 
         #from the second sub which are not already in the first one
@@ -366,13 +438,16 @@ for relation in subs_relations:
         tiny_sub_instance = []
         
         #We add to the sub instance which has more stuff in it (less stuff to add)
-        if len(graph_istances[0]) > len(graph_istances[1]):
-            big_sub_instance = graph_istances[0]
-            tiny_sub_instance = graph_istances[1]
+        if len(istances[0]) > len(istances[1]):
+            big_sub_instance = istances[0]
+            tiny_sub_instance = istances[1]
         else :
-            big_sub_instance = graph_istances[1]
-            tiny_sub_instance = graph_istances[0]
-        
+            big_sub_instance = istances[1]
+            tiny_sub_instance = istances[0]
+
+            
+        big_sub_instance = big_sub_instance[2:]
+        big_sub_instance = big_sub_instance[:(len(big_sub_instance)-2)]
         for idx, element in enumerate(tiny_sub_instance):
 
             if element=='v':
@@ -383,8 +458,6 @@ for relation in subs_relations:
                             if(big_sub_instance[id[0]+1]=='d'):
                                     big_sub_instance = big_sub_instance[0:id[0]+1] + ['v',tiny_sub_instance[idx+1],tiny_sub_instance[idx+2]] + big_sub_instance[id[0]+1:]
                                     break
-                else:
-                    flag_parallelo = False
                 
             if element=='d':
                 for id2, element2 in enumerate(big_sub_instance):
@@ -397,56 +470,8 @@ for relation in subs_relations:
                                     big_sub_instance = big_sub_instance[0:id3[0]+1] + ['d',tiny_sub_instance[idx+1],tiny_sub_instance[idx+2],tiny_sub_instance[idx+3]] + big_sub_instance[id3[0]+1:]
                                     break
                         break
-
-        if True:
-            start, end, sublabel = startend_node(big_sub_instance)
-            start_trans, end_trans = create_sub_petrinet(big_sub_instance, net, start, end, path+path_cartella, sub)
-            places = net.places
-            transitions = net.transitions
-
-
-            start_marking = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            end_marking = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)
-
-            #START HIDDEN TRANSITION
-            n = transition_hidden_available(transitions)
-            t = PetriNet.Transition("h" + n, None)
-            net.transitions.add(t)
-            for v in start_marking:
-                for place in net.places:
-                    if place.name == v:
-
-                        utils.add_arc_from_to(place, t, net)
-
-            for x in start:
-                n = places_name_available(places, transitions)
-                place = PetriNet.Place("n" + n)
-                net.places.add(place)
-
-                utils.add_arc_from_to(t, place, net)
-                
-                utils.add_arc_from_to(place, start_trans[x], net)
-
-
-            #END HIDDEN TRANSITION
-            n = transition_hidden_available(transitions)
-            t = PetriNet.Transition("h" + n, None)
-            net.transitions.add(t)
-            for y in end_marking:
-                for place in net.places:
-                    if place.name == y:
-                        
-                        utils.add_arc_from_to(t, place, net)
-                        
-            for x in end:
-                n = places_name_available(places, transitions)
-                place = PetriNet.Place("n" + n)
-                net.places.add(place)
-                
-                utils.add_arc_from_to(place, t, net)
-                
-                utils.add_arc_from_to(end_trans[x], place, net)
             
+        big_sub_instance = ["Istance","1:"]+big_sub_instance+["1","istances."]
 
 
         final_pattern = big_sub_instance
