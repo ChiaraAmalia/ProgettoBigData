@@ -244,21 +244,23 @@ for relation in subs_relations:
             start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
             reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
             """
+            visualizza_rete_performance(log,net,initial_marking,final_marking)
             start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
                                                     reached_marking_start, reached_marking_end, path+path_cartella, sub)
-
-            marking_start = dirk_marking_start(dataset, end_prima, text, trace, path+path_cartella, sub)
-            marking_end = dirk_marking_end(dataset, start_seconda, text, trace, path+path_cartella, sub) 
+           
+            visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
+            marking_end_prima = dirk_marking_end(dataset, end_prima, text, trace, path+path_cartella, sub)
+            marking_start_seconda = dirk_marking_start(dataset, start_seconda, text, trace, path+path_cartella, sub) 
 
             transitions = net_repaired.transitions
             n = transition_hidden_available(transitions)
             t = PetriNet.Transition("h" + n, None)
             net_repaired.transitions.add(t)
-            for v in marking_start:
+            for v in marking_start_seconda:
                 for place in net_repaired.places:
                     if place.name == v:
                         utils.add_arc_from_to(t, place, net_repaired)
-            for v in marking_end:
+            for v in marking_end_prima:
                 for place in net_repaired.places:
                     if place.name == v:
                         utils.add_arc_from_to(place, t, net_repaired)
