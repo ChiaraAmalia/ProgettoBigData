@@ -15,10 +15,10 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 15
+pattern_num = 17
 
 #SE SI VUOLE RIPARARE IL MODELLO CON PRECISIONE SE TRUE ALTRIMENTI APPROSSIMATO
-precision_mode = True
+precision_mode = False
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
@@ -204,17 +204,37 @@ for relation in subs_relations:
         
 
 
+        if (relation[2]=='sequentially' and not precision_mode):
 
-
-        if (relation[2]=='sequentially'):
+            start_totali, end_totali, sublabel = startend_node(final_pattern)
+            
 
             start_prima, end_prima, sublable_prima = startend_node(istances[0])
             start_seconda, end_seconda, sublabel_seconda = startend_node(istances[1])
 
-            #Trying to apply Bellman-Ford algorithm to find the shortest path from end 1st sub to the start of the 2nd
+            start_filtered = start_seconda
+            end_filtered = end_prima
+
+            start_pattern = []
+            end_pattern = []                  
+            for iniziale in start_totali:
+                if iniziale not in start_seconda:
+                    start_pattern.append(iniziale)
             
-            #The starting node is the end node of the first sub which is connected to the 2nd sub
-            
+            for finale in end_totali:
+                if finale not in end_prima:
+                    end_pattern.append(finale)
+
+
+
+
+        if (relation[2]=='sequentially' and precision_mode):
+
+            start_prima, end_prima, sublable_prima = startend_node(istances[0])
+            start_seconda, end_seconda, sublabel_seconda = startend_node(istances[1])
+
+            #Trying to apply Bellman-Ford algorithm to find the shortest path from end 1st sub to the start of the 2nd           
+            #The starting node is the end node of the first sub which is connected to the 2nd sub        
             bellman_starts = []
             end_shortest_path = end_prima+start_seconda
             for id in enumerate(final_pattern):
@@ -308,37 +328,38 @@ for relation in subs_relations:
                                 else:
                                     final_pattern = final_pattern[0:id[0]+1] + ['d',previouses[nodo],nodo,previous_name+'__'+nodo_name] + final_pattern[id[0]+1:]
                                     break
-                    nodo = previouses[nodo]    
-                        
-        
-        final_pattern.append("Found")
-        final_pattern.append("1")
-        final_pattern.append("istances.")
-
-        #Visualizziamo rete pre riparazione
-        
-        visualizza_rete_performance(log,net,initial_marking,final_marking)
-
-        # Alignment
-        start, end, sub_label = startend_node(final_pattern)
-        text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
-        new_final_pattern = start_pre_process_repairing(start, text, final_pattern)
-        new_subgraph = end_pre_process_repairing(end, text, new_final_pattern)
-
-        start, end, sub_label = startend_node(new_subgraph)
-
-        reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-        reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
-
-        """
-        initial/final marking : marking iniziale e finale del modello della rete
-        start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
-        reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
-        """
-        start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
-                                                reached_marking_start, reached_marking_end, path+path_cartella, sub)
+                    nodo = previouses[nodo] 
 
         
+        if relation[2]=='strictlySeq' or (relation[2]=='sequentially' and precision_mode):
+            final_pattern.append("Found")
+            final_pattern.append("1")
+            final_pattern.append("istances.")
+
+            #Visualizziamo rete pre riparazione
+            
+            visualizza_rete_performance(log,net,initial_marking,final_marking)
+
+            # Alignment
+            start, end, sub_label = startend_node(final_pattern)
+            text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
+            new_final_pattern = start_pre_process_repairing(start, text, final_pattern)
+            new_subgraph = end_pre_process_repairing(end, text, new_final_pattern)
+
+            start, end, sub_label = startend_node(new_subgraph)
+
+            reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+
+            """
+            initial/final marking : marking iniziale e finale del modello della rete
+            start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
+            reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
+            """
+            start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
+                                                    reached_marking_start, reached_marking_end, path+path_cartella, sub)
+
+
 
     elif relation[2]=='eventually':
          
@@ -376,7 +397,7 @@ for relation in subs_relations:
         transitions = net_repaired.transitions
         n = transition_hidden_available(transitions)
         t = PetriNet.Transition("h" + n, None)
-        net.transitions.add(t)
+        net_repaired.transitions.add(t)
         for v in marking_start[1]:
             for place in net_repaired.places:
                 if place.name == v:
@@ -458,7 +479,7 @@ for relation in subs_relations:
 
            
                         
-    visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
+        visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
    
 
 
