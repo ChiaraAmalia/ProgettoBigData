@@ -226,6 +226,35 @@ for relation in subs_relations:
                     end_pattern.append(finale)
 
 
+            text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
+            new_final_pattern = start_pre_process_repairing(start_prima, text, final_pattern)
+            new_subgraph = end_pre_process_repairing(end_seconda, text, new_final_pattern)
+
+            start, end, sub_label = startend_node(new_subgraph)
+
+            reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+
+            """
+            initial/final marking : marking iniziale e finale del modello della rete
+            start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
+            reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
+            """
+            start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
+                                                    reached_marking_start, reached_marking_end, path+path_cartella, sub)
+
+            transitions = net_repaired.transitions
+            n = transition_hidden_available(transitions)
+            t = PetriNet.Transition("h" + n, None)
+            net_repaired.transitions.add(t)
+            for v in reached_marking_start:
+                for place in net_repaired.places:
+                    if place.name == v:
+                        utils.add_arc_from_to(t, place, net_repaired)
+            for v in reached_marking_end:
+                for place in net_repaired.places:
+                    if place.name == v:
+                        utils.add_arc_from_to(place, t, net_repaired)
 
 
         if (relation[2]=='sequentially' and precision_mode):
