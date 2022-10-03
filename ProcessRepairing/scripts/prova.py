@@ -202,6 +202,9 @@ for relation in subs_relations:
                 final_pattern.append(y[2])
                 final_pattern.append(y[3])
         
+        final_pattern.append("Found")
+        final_pattern.append("1")
+        final_pattern.append("istances.")
 
 
         if (relation[2]=='sequentially' and not precision_mode):
@@ -365,9 +368,6 @@ for relation in subs_relations:
 
         
         if relation[2]=='strictlySeq' or (relation[2]=='sequentially' and precision_mode):
-            final_pattern.append("Found")
-            final_pattern.append("1")
-            final_pattern.append("istances.")
 
             #Visualizziamo rete pre riparazione
             
@@ -512,7 +512,7 @@ for relation in subs_relations:
 
            
                         
-        visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
+    visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
    
 
 
