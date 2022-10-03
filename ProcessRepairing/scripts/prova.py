@@ -349,7 +349,7 @@ for relation in subs_relations:
         start_seconda, end_seconda, sub_label_seconda = startend_node(istances[1])
 
         marking_end = []
-
+        marking_start = []
         for graph_istance in istances:
             
             start, end, sub_label = startend_node(graph_istance)
@@ -360,6 +360,7 @@ for relation in subs_relations:
             start, end, sub_label = startend_node(final_graph_istance)
 
             reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+            marking_start.append(reached_marking_start) 
             reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)
             marking_end.append(reached_marking_end)    
 
@@ -371,64 +372,22 @@ for relation in subs_relations:
             start_end_name, net_repaired = repairing(final_graph_istance, net, initial_marking, final_marking, start, end,
                                                     reached_marking_start, reached_marking_end, path+path_cartella, sub)
 
-        if precision_mode:
-            im2 = []
-            im = net_repaired.places
-            for place in im:
-                if place.name in marking_end[0]:
-                    im2.append(place)
-            start_marking = Marking()
-            for place in im2:
-                start_marking[place] = 1
-            ts = reachability_graph.construct_reachability_graph(net_repaired,start_marking)
-
-            nodes = []
-            edges = []
-            for row in chosen_graph_split:
-                if row[0] == 'v':
-                    nodes.append(row[1])
-                if row[0] == 'e':
-                    edges.append([row[1],row[2]])
-
-            distances = {}
-            previouses = {}
-            
-            trees = {}
-
-            for bellman_start in end_prima:
-                
-                for node in nodes:
-                    distances[node] = 1000000 
-                    previouses[node] = None
-                distances[bellman_start] = 0
-
-
-                for node in nodes:
-                    n_edges = []
-                    for edge in edges:
-                        if edge[1]==node:
-                            n_edges.append(edge)
-                    for edge in n_edges:
-                        tempdist = distances[edge[0]] + 1
-                        if tempdist < distances[edge[1]]:
-                            distances[edge[1]] = tempdist
-                            previouses[edge[1]] = edge[0]
-
-                trees[bellman_start] = [distances,previouses]
-
-            flag_raggiungibile = False
-            
-            for tree in trees:
-                for arrivo in start_seconda:
-                    if arrivo in tree:
-                        flag_raggiungibile = True
-            
-            if not flag_raggiungibile:
-                start_trans, end_trans = create_sub_petrinet(subgraph, net, start, end, pattern, sub)
-
-                places = net.places
-                transitions = net.transitions
-
+        
+        transitions = net_repaired.transitions
+        n = transition_hidden_available(transitions)
+        t = PetriNet.Transition("h" + n, None)
+        net.transitions.add(t)
+        for v in marking_start[1]:
+            for place in net_repaired.places:
+                if place.name == v:
+                    utils.add_arc_from_to(t, place, net_repaired)
+        for v in marking_end[0]:
+            for place in net_repaired.places:
+                if place.name == v:
+                    utils.add_arc_from_to(place, t, net_repaired)
+     
+     
+        
 
     elif relation[2] == 'interleaving':
 
