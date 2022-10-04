@@ -10,6 +10,7 @@ from pm4py.objects.petri_net.obj import PetriNet, Marking
 from pm4py.objects.petri_net.utils import petri_utils
 import pm4py
 from Repairing import *
+from pm4py.algo.conformance.alignments.petri_net import algorithm as alignments
 from pm4py.objects.petri_net.utils import reachability_graph
 from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
@@ -119,6 +120,9 @@ for idx,graph in enumerate(graph_istances):
     sub_label_map[idx+1] = sub_label
 
 trace = search_trace(log, dict_trace, chosen_graph)
+
+parameters = {"pm4py:param:activity_key": "customClassifier"}
+alignmed_traces = alignments.apply_log(log,net,initial_marking,final_marking)
 
 
 #Leggiamo la relazione fra le sub
@@ -231,6 +235,37 @@ for relation in subs_relations:
 
 
             text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
+            #=============================
+
+            visualizza_rete_performance(log,net,initial_marking,final_marking)
+            """
+            start, end, sub_label = startend_node(istances[0])
+            
+            reached_marking_start1 = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+            reached_marking_end1 = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            start, end, sub_label = startend_node(istances[1])
+            start = ['20']
+            reached_marking_start2 = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+            reached_marking_end2 = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            
+            #repairing the 2 subs separetelly
+            start, end, sub_label = startend_node(istances[0])
+            new_sub1 = start_pre_process_repairing(start, text, istances[0])
+            new_sub1 = end_pre_process_repairing(end, text, new_sub1) 
+            start, end, sub_label = startend_node(new_sub1)
+            reached_marking_start1 = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+            reached_marking_end1 = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            
+
+            start, end, sub_label = startend_node(istances[1])
+            new_sub2 = start_pre_process_repairing(start, text, istances[1])
+            new_sub2 = end_pre_process_repairing(end, text, new_sub2)        
+            start, end, sub_label = startend_node(new_sub2)
+            reached_marking_start2 = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
+            reached_marking_end2 = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            
+            #=============================
+            """
             new_final_pattern = start_pre_process_repairing(start_prima, text, final_pattern)
             new_subgraph = end_pre_process_repairing(end_seconda, text, new_final_pattern)
 
@@ -244,13 +279,15 @@ for relation in subs_relations:
             start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
             reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
             """
-            visualizza_rete_performance(log,net,initial_marking,final_marking)
             start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
                                                     reached_marking_start, reached_marking_end, path+path_cartella, sub)
            
             visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
+            
+            #NOT CCORRECT - CANT USE THE SAME ALIGNMENT AFTER THE MODEL HAS BEEN REPAIRED+++++++++++
             marking_end_prima = dirk_marking_end(dataset, end_prima, text, trace, path+path_cartella, sub)
             marking_start_seconda = dirk_marking_start(dataset, start_seconda, text, trace, path+path_cartella, sub) 
+            #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ MAY WANT TO USE THE create_sub_petrinet
 
             transitions = net_repaired.transitions
             n = transition_hidden_available(transitions)
