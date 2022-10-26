@@ -1110,7 +1110,7 @@ def repairing(subgraph, net, initial_marking, final_marking, start, end, start_m
                         "Added: " + str(end_trans[end[0]]) + " " + str(end_trans[end[0]].name) + " -- > " + str(place),
                         pattern, sub, "a")
                     # print("Added: ", end_trans[end[0]], end_trans[end[0]].name, " -- > ", place)
-    start_end_trans = [start_trans['start'], end_trans['end']]
+    start_end_trans = [[start_trans['start']], [end_trans['end']]]
     return start_end_trans, net
 
 

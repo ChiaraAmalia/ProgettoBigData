@@ -16,7 +16,7 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 17
+pattern_num = 15
 
 #SE SI VUOLE RIPARARE IL MODELLO CON PRECISIONE SE TRUE ALTRIMENTI APPROSSIMATO
 precision_mode = False
@@ -452,9 +452,9 @@ for relation in subs_relations:
         start_prima, end_prima, sub_label_prima = startend_node(istances[0])
         start_seconda, end_seconda, sub_label_seconda = startend_node(istances[1])
 
-        marking_end = []
-        marking_start = []
-        for graph_istance in istances:
+        trans_end = []
+        trans_start = []
+        for idx,graph_istance in enumerate(istances):
             
             start, end, sub_label = startend_node(graph_istance)
             
@@ -463,10 +463,11 @@ for relation in subs_relations:
 
             start, end, sub_label = startend_node(final_graph_istance)
 
+         
+         
             reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            marking_start.append(reached_marking_start) 
             reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)
-            marking_end.append(reached_marking_end)    
+            #n8 n9 -> FRPP
 
             """
             initial/final marking : marking iniziale e finale del modello della rete
@@ -475,21 +476,33 @@ for relation in subs_relations:
             """
             start_end_name, net_repaired = repairing(final_graph_istance, net, initial_marking, final_marking, start, end,
                                                     reached_marking_start, reached_marking_end, path+path_cartella, sub)
+            if idx==0:
+                trans_end = start_end_name[1]
+            else:
+                trans_start = start_end_name[0]
+            #start_end_name sono i nomi delle transizioni di start e end delle sub nella rete di petri
 
+
+
+        #Adding the H 
         
         transitions = net_repaired.transitions
+        for t in transitions:
+            print("ciao")
         n = transition_hidden_available(transitions)
         t = PetriNet.Transition("h" + n, None)
         net_repaired.transitions.add(t)
-        for v in marking_start[1]:
+        
+        
+        for v in trans_start[1]:
             for place in net_repaired.places:
                 if place.name == v:
                     utils.add_arc_from_to(t, place, net_repaired)
-        for v in marking_end[0]:
+        for v in trans_end[0]:
             for place in net_repaired.places:
                 if place.name == v:
                     utils.add_arc_from_to(place, t, net_repaired)
-     
+        
      
         
 

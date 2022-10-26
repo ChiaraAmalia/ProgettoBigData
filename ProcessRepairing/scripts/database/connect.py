@@ -11,7 +11,7 @@ def connect(name_database):
         conn = mysql.connector.connect(host='localhost',
                                        database=name_database,
                                        user='root',
-                                       password='chiara')
+                                       port='3308')
 
 
         if not(conn.is_connected()):
