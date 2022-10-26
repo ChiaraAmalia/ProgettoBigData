@@ -121,9 +121,6 @@ for idx,graph in enumerate(graph_istances):
 
 trace = search_trace(log, dict_trace, chosen_graph)
 
-parameters = {"pm4py:param:activity_key": "customClassifier"}
-alignmed_traces = alignments.apply_log(log,net,initial_marking,final_marking)
-
 
 #Leggiamo la relazione fra le sub
 a = split_subgraph(path+"testBank2000NoRandomNoise_new_patterns_filtered_original.subs")
@@ -234,53 +231,64 @@ for relation in subs_relations:
                     end_pattern.append(finale)"""
 
 
-            text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
             #=============================
 
             visualizza_rete_performance(log,net,initial_marking,final_marking)
-            """
-            start, end, sub_label = startend_node(istances[0])
             
-            reached_marking_start1 = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            reached_marking_end1 = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
-            start, end, sub_label = startend_node(istances[1])
-            start = ['20']
-            reached_marking_start2 = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            reached_marking_end2 = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            start_1, end_1, sub_label = startend_node(istances[0])
+
+            text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
+            
+            reached_marking_start1_pre = dirk_marking_start(dataset, start_1, text, trace, path+path_cartella, sub)
+            reached_marking_end1_pre = dirk_marking_end(dataset, end_1, text, trace, path+path_cartella, sub)    
+            start_2, end_2, sub_label = startend_node(istances[1])
+            #start = ['20']
+            reached_marking_start2_pre = dirk_marking_start(dataset, start_2, text, trace, path+path_cartella, sub)
+            reached_marking_end2_pre = dirk_marking_end(dataset, end_2, text, trace, path+path_cartella, sub)   
             
             #repairing the 2 subs separetelly
-            start, end, sub_label = startend_node(istances[0])
-            new_sub1 = start_pre_process_repairing(start, text, istances[0])
-            new_sub1 = end_pre_process_repairing(end, text, new_sub1) 
-            start, end, sub_label = startend_node(new_sub1)
-            reached_marking_start1 = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            reached_marking_end1 = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            start_pre1, end_pre1, sub_label = startend_node(istances[0])
+            sub1 = start_pre_process_repairing(start_pre1, text, istances[0])
+            new_sub1 = end_pre_process_repairing(end_pre1, text, sub1) 
+            start1, end1, sub_label = startend_node(new_sub1)
+            reached_marking_start1 = dirk_marking_start(dataset, start1, text, trace, path+path_cartella, sub)
+            reached_marking_end1 = dirk_marking_end(dataset, end1, text, trace, path+path_cartella, sub)
+
+            start_end_name, net_repaired = repairing(new_sub1, net, initial_marking, final_marking, start1, end1,
+                                        reached_marking_start1, reached_marking_end1, path+path_cartella, sub)    
             
 
-            start, end, sub_label = startend_node(istances[1])
-            new_sub2 = start_pre_process_repairing(start, text, istances[1])
-            new_sub2 = end_pre_process_repairing(end, text, new_sub2)        
-            start, end, sub_label = startend_node(new_sub2)
-            reached_marking_start2 = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            reached_marking_end2 = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            start_pre2, end_pre2, sub_label = startend_node(istances[1])
+            sub2 = start_pre_process_repairing(start_pre2, text, istances[1])
+            new_sub2 = end_pre_process_repairing(end_pre2, text, sub2)        
+            start2, end2, sub_label = startend_node(new_sub2)
+            reached_marking_start2 = dirk_marking_start(dataset, start2, text, trace, path+path_cartella, sub)
+            reached_marking_end2 = dirk_marking_end(dataset, end2, text, trace, path+path_cartella, sub)   
+
+            start_end_name, net_repaired = repairing(new_sub2, net_repaired, initial_marking, final_marking, start2, end2,
+                            reached_marking_start2, reached_marking_end2, path+path_cartella, sub)  
             
-            #=============================
-            """
+            #=============================                
+
+            
+            """            
             new_final_pattern = start_pre_process_repairing(start_prima, text, final_pattern)
             new_subgraph = end_pre_process_repairing(end_seconda, text, new_final_pattern)
 
             start, end, sub_label = startend_node(new_subgraph)
 
             reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)"""    
 
             """
             initial/final marking : marking iniziale e finale del modello della rete
             start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
             reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
             """
+            """
             start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
                                                     reached_marking_start, reached_marking_end, path+path_cartella, sub)
+            """
            
             visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
             
@@ -289,18 +297,21 @@ for relation in subs_relations:
             marking_start_seconda = dirk_marking_start(dataset, start_seconda, text, trace, path+path_cartella, sub) 
             #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ MAY WANT TO USE THE create_sub_petrinet
 
-            transitions = net_repaired.transitions
-            n = transition_hidden_available(transitions)
-            t = PetriNet.Transition("h" + n, None)
-            net_repaired.transitions.add(t)
-            for v in marking_start_seconda:
-                for place in net_repaired.places:
-                    if place.name == v:
-                        utils.add_arc_from_to(t, place, net_repaired)
-            for v in marking_end_prima:
-                for place in net_repaired.places:
-                    if place.name == v:
-                        utils.add_arc_from_to(place, t, net_repaired)
+            if(reached_marking_end1_pre != reached_marking_end1 or reached_marking_start2_pre != reached_marking_start2):
+                transitions = net_repaired.transitions
+                n = transition_hidden_available(transitions)
+                t = PetriNet.Transition("h" + n, None)
+                net_repaired.transitions.add(t)
+                for v in reached_marking_start2:
+                    for place in net_repaired.places:
+                        if place.name == v:
+                            utils.add_arc_from_to(t, place, net_repaired)
+                for v in reached_marking_end1:
+                    for place in net_repaired.places:
+                        if place.name == v:
+                            utils.add_arc_from_to(place, t, net_repaired)
+            
+            visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)                
 
 
         if (relation[2]=='sequentially' and precision_mode):
