@@ -16,7 +16,7 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 15
+pattern_num = 17
 
 #SE SI VUOLE RIPARARE IL MODELLO CON PRECISIONE SE TRUE ALTRIMENTI APPROSSIMATO
 precision_mode = False
@@ -53,15 +53,11 @@ log = xes_importer.apply(path+path_cartella + dataset + '.xes')
 # Modello Rete
 net, initial_marking, final_marking = pnml_importer.apply(path+path_cartella + dataset + '_petriNet.pnml')
 
-
-
-
 #dict_trace = create_dict_trace("testbank2000sccupdated")
 dict_trace = create_dict_trace("testbanklaura_new")
 #create_subelements_file("testbank2000sccupdated",path+path_cartella)
 
 """
-
 graph_lists = []
 for idx in selected_subgraphs:
     occs = list_graph_occurence(path + path_cartella+ dataset + "_table2_on_file.csv", idx)
@@ -75,7 +71,6 @@ selected_graphs = []
 for graph in occs:
     if occs[graph] == len(selected_subgraphs):
         selected_graphs.append(graph)
-
 """
 
 # BISOGNA AGGIUNGERE +1 AL PATTERN PERCHE SOPRA LO PRENDEVAMO DALL'ARRAY
@@ -149,7 +144,7 @@ for i in a:
 
 # Note : FOR THE STRTLYSEQ AND SEQ RELATION CASE WE ARE REFERRING TO GRAPH_ISTANCES USING THE IDS GIVEN
 # BY THE RELATIONS ARRAY (TELLING US THE RELATIONS BETWEEN THE DIFFERENT SUBS (POSSIBLY MORE THAN 2))
-#IN ALL OTHER CASES ( EVENT & INTER ) WE ARE JUST USING 0 AND 1 INDICES (IN CASE OF FUTURE IMPLEMENTATIONS 
+#IN ALL OTHER CASES ( EVENTUALLY & INTERLEAVING ) WE ARE JUST USING 0 AND 1 INDICES (IN CASE OF FUTURE IMPLEMENTATIONS 
 # FEATURING MORE THAN 2 SUBS THIS THING WILL REQUIRE PARTICULAR ATTENTION)
 
 final_pattern = []
@@ -215,34 +210,16 @@ for relation in subs_relations:
 
             start_prima, end_prima, sublable_prima = startend_node(istances[0])
             start_seconda, end_seconda, sublabel_seconda = startend_node(istances[1])
-
-            """            
-            start_filtered = start_seconda
-            end_filtered = end_prima
-
-            start_pattern = []
-            end_pattern = []                  
-            for iniziale in start_totali:
-                if iniziale not in start_seconda:
-                    start_pattern.append(iniziale)
-            
-            for finale in end_totali:
-                if finale not in end_prima:
-                    end_pattern.append(finale)"""
-
-
             #=============================
 
             visualizza_rete_performance(log,net,initial_marking,final_marking)
-            
-            start_1, end_1, sub_label = startend_node(istances[0])
 
             text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
             
+            start_1, end_1, sub_label = startend_node(istances[0])
             reached_marking_start1_pre = dirk_marking_start(dataset, start_1, text, trace, path+path_cartella, sub)
             reached_marking_end1_pre = dirk_marking_end(dataset, end_1, text, trace, path+path_cartella, sub)    
             start_2, end_2, sub_label = startend_node(istances[1])
-            #start = ['20']
             reached_marking_start2_pre = dirk_marking_start(dataset, start_2, text, trace, path+path_cartella, sub)
             reached_marking_end2_pre = dirk_marking_end(dataset, end_2, text, trace, path+path_cartella, sub)   
             
@@ -254,6 +231,8 @@ for relation in subs_relations:
             reached_marking_start1 = dirk_marking_start(dataset, start1, text, trace, path+path_cartella, sub)
             reached_marking_end1 = dirk_marking_end(dataset, end1, text, trace, path+path_cartella, sub)
 
+ 
+            #first repair
             start_end_name, net_repaired = repairing(new_sub1, net, initial_marking, final_marking, start1, end1,
                                         reached_marking_start1, reached_marking_end1, path+path_cartella, sub)    
             
@@ -265,38 +244,13 @@ for relation in subs_relations:
             reached_marking_start2 = dirk_marking_start(dataset, start2, text, trace, path+path_cartella, sub)
             reached_marking_end2 = dirk_marking_end(dataset, end2, text, trace, path+path_cartella, sub)   
 
+            #second repair
             start_end_name, net_repaired = repairing(new_sub2, net_repaired, initial_marking, final_marking, start2, end2,
                             reached_marking_start2, reached_marking_end2, path+path_cartella, sub)  
             
-            #=============================                
-
-            
-            """            
-            new_final_pattern = start_pre_process_repairing(start_prima, text, final_pattern)
-            new_subgraph = end_pre_process_repairing(end_seconda, text, new_final_pattern)
-
-            start, end, sub_label = startend_node(new_subgraph)
-
-            reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)"""    
-
-            """
-            initial/final marking : marking iniziale e finale del modello della rete
-            start/end : transizioni di start e end dell'istanza della sub nel grafo (trace) scelto
-            reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
-            """
-            """
-            start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
-                                                    reached_marking_start, reached_marking_end, path+path_cartella, sub)
-            """
-           
             visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
             
-            #NOT CCORRECT - CANT USE THE SAME ALIGNMENT AFTER THE MODEL HAS BEEN REPAIRED+++++++++++
-            marking_end_prima = dirk_marking_end(dataset, end_prima, text, trace, path+path_cartella, sub)
-            marking_start_seconda = dirk_marking_start(dataset, start_seconda, text, trace, path+path_cartella, sub) 
-            #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ MAY WANT TO USE THE create_sub_petrinet
-
+        
             if(reached_marking_end1_pre != reached_marking_end1 or reached_marking_start2_pre != reached_marking_start2):
                 transitions = net_repaired.transitions
                 n = transition_hidden_available(transitions)
@@ -311,8 +265,6 @@ for relation in subs_relations:
                         if place.name == v:
                             utils.add_arc_from_to(place, t, net_repaired)
             
-            visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)                
-
 
         if (relation[2]=='sequentially' and precision_mode):
 
@@ -477,32 +429,47 @@ for relation in subs_relations:
             start_end_name, net_repaired = repairing(final_graph_istance, net, initial_marking, final_marking, start, end,
                                                     reached_marking_start, reached_marking_end, path+path_cartella, sub)
             if idx==0:
-                trans_end = start_end_name[1]
+                string_trans_end = start_end_name[1]
             else:
-                trans_start = start_end_name[0]
+                string_trans_start = start_end_name[0]
             #start_end_name sono i nomi delle transizioni di start e end delle sub nella rete di petri
 
 
 
         #Adding the H 
         
+
         transitions = net_repaired.transitions
-        for t in transitions:
-            print("ciao")
+        places = net_repaired.places
+
+        trans_end = []
+        trans_start = []
+        for v in transitions:
+            if v.name in string_trans_end:
+                trans_end.append(v)
+
+        for v in transitions:
+            if v.name in string_trans_start:
+                trans_start.append(v)
+
         n = transition_hidden_available(transitions)
         t = PetriNet.Transition("h" + n, None)
         net_repaired.transitions.add(t)
         
+        n = places_name_available(places,transitions)
+        place1 = PetriNet.Place("n"+n)
+        net_repaired.places.add(place1)
+        n = places_name_available(places,transitions)
+        place2 = PetriNet.Place("n"+n)
+        net_repaired.places.add(place2)
         
-        for v in trans_start[1]:
-            for place in net_repaired.places:
-                if place.name == v:
-                    utils.add_arc_from_to(t, place, net_repaired)
-        for v in trans_end[0]:
-            for place in net_repaired.places:
-                if place.name == v:
-                    utils.add_arc_from_to(place, t, net_repaired)
-        
+        for v in trans_end:
+            utils.add_arc_from_to(v, place1, net_repaired)
+        utils.add_arc_from_to(place1, t, net_repaired)
+
+        for v in trans_start:
+            utils.add_arc_from_to(place2, v, net_repaired)
+        utils.add_arc_from_to(t, place2, net_repaired)        
      
         
 
