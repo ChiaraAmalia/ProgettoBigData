@@ -16,7 +16,7 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 17
+pattern_num = 15
 
 #SE SI VUOLE RIPARARE IL MODELLO CON PRECISIONE SE TRUE ALTRIMENTI APPROSSIMATO
 precision_mode = False
@@ -248,7 +248,6 @@ for relation in subs_relations:
             start_end_name, net_repaired = repairing(new_sub2, net_repaired, initial_marking, final_marking, start2, end2,
                             reached_marking_start2, reached_marking_end2, path+path_cartella, sub)  
             
-            visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
             
         
             if(reached_marking_end1_pre != reached_marking_end1 or reached_marking_start2_pre != reached_marking_start2):
