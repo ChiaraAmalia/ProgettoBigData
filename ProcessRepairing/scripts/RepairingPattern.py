@@ -16,10 +16,10 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 11
+pattern_num = 17
 
 #SE SI VUOLE RIPARARE IL MODELLO CON PRECISIONE SE TRUE ALTRIMENTI APPROSSIMATO
-precision_mode = False
+precision_mode = True
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
@@ -357,7 +357,7 @@ for relation in subs_relations:
                             else:
                                 tempFlag = True
                         #Both nodes and arc already exist
-                        if (final_pattern[id[0]]==previouses[nodo] and final_pattern[id[0]+1]==nodo) or (final_pattern[id[0]+1]==previouses[nodo] and final_pattern[id[0]]==nodo):
+                        if (final_pattern[id[0]]==previouses[nodo] and final_pattern[id[0]+1]==nodo) :
                             flag = True
 
                     if not flag:
