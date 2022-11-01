@@ -16,7 +16,7 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 15
+pattern_num = 11
 
 #SE SI VUOLE RIPARARE IL MODELLO CON PRECISIONE SE TRUE ALTRIMENTI APPROSSIMATO
 precision_mode = False
@@ -333,6 +333,10 @@ for relation in subs_relations:
                         current_bellman_start = key
 
                 while(nodo != current_bellman_start):
+                    #flag = both nodes and arc between them already in the final pattern
+                    #flag2 = both nodes in the final pattern but if flag=false there is no arc bonding em
+                    #tempFlag = Found one of the 2 nodes 
+
                     flag = False
                     flag2 = False
                     tempFlag = False
@@ -352,7 +356,8 @@ for relation in subs_relations:
                                 flag2 = True
                             else:
                                 tempFlag = True
-                        if final_pattern[id[0]]==previouses[nodo] and final_pattern[id[0]+1]==nodo:
+                        #Both nodes and arc already exist
+                        if (final_pattern[id[0]]==previouses[nodo] and final_pattern[id[0]+1]==nodo) or (final_pattern[id[0]+1]==previouses[nodo] and final_pattern[id[0]]==nodo):
                             flag = True
 
                     if not flag:
