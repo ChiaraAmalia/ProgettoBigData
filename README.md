@@ -14,21 +14,21 @@ Per risolvere il problema, considerate già delle sub anomale (parti delle tracc
 Questo progetto come dicevamo non è altro che un'estensione del lavoro precedente, che permette di riparare il modello solamente con una sub. Il nostro approccio è stato quello di effettuare la riparazione del modello con il pattern selezionato, dopo aver considerato ed analizzato la relazione d'ordine che incorre tra le sub del pattern scelto ed estratto dal seguente [file](https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/testBank2000NoRandomNoise_new_patterns_filtered_original.subs).
 
 ### Input e fase preparatoria
-<li>
-  <ul>Selezione pattern con il quale si sceglie di riparare il modello</ul>
-  <ul>Importazione log, rete e tracce</ul>
-  <ul>Stesura elenco trace contenenti il pattern ed individuazione del grafo con matching cost più basso</ul>
-  <ul>Individuazione delle istanze di sub e delle relazioni nel pattern</ul>
-</li>
+<ul>
+  <li>Selezione pattern con il quale si sceglie di riparare il modello</li>
+  <li>Importazione log, rete e tracce</li>
+  <li>Stesura elenco trace contenenti il pattern ed individuazione del grafo con matching cost più basso</li>
+  li>Individuazione delle istanze di sub e delle relazioni nel pattern</li>
+</ul>
 
 ## Implementazione relazioni d'ordine
 Le relazioni d'ordine rappresentano il modo in cui le due sub sono correlate. Possiamo distinguere quattro tipologie di relazioni d'ordine:
-<li>
-  <ul>Strictly sequential: Le due sub sono collegate una di seguito all'altra, i place di uscita della prima sono quelli in entrata alla seconda.</ul>
-  <ul>Sequential: Le sub condividono dei place di uscita e ingresso (sono consecutive) ma alla fine della prima sub è presente un percorso alternativo che torna al modello.</ul>
-  <ul>Eventually: Le due sub non sono collegate direttamente ma sappiamo che esiste un percorso nel modello che ci permette di raggiungere la seconda al termine della prima.</ul>
-  <ul>Interleaving: Ci sono trasformazioni della seconda sub che possono avvenire in maniera parallela a eventi della prima sub.</ul>
-</li>
+<ul>
+  <li>Strictly sequential: Le due sub sono collegate una di seguito all'altra, i place di uscita della prima sono quelli in entrata alla seconda.</li>
+  <li>Sequential: Le sub condividono dei place di uscita e ingresso (sono consecutive) ma alla fine della prima sub è presente un percorso alternativo che torna al modello.</li>
+  <li>Eventually: Le due sub non sono collegate direttamente ma sappiamo che esiste un percorso nel modello che ci permette di raggiungere la seconda al termine della prima.</li>
+  <li>Interleaving: Ci sono trasformazioni della seconda sub che possono avvenire in maniera parallela a eventi della prima sub.</li>
+</ul>
 
 ### Stryctly sequential
 
