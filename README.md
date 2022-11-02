@@ -24,10 +24,10 @@ Questo progetto come dicevamo non è altro che un'estensione del lavoro preceden
 ## Implementazione relazioni d'ordine
 Le relazioni d'ordine rappresentano il modo in cui le due sub sono correlate. Possiamo distinguere quattro tipologie di relazioni d'ordine:
 <ul>
-  <li>**Strictly sequential**: Le due sub sono collegate una di seguito all'altra, i place di uscita della prima sono quelli in entrata alla seconda.</li>
-  <li>**Sequential**: Le sub condividono dei place di uscita e ingresso (sono consecutive) ma alla fine della prima sub è presente un percorso alternativo che torna al modello.</li>
-  <li>**Eventually**: Le due sub non sono collegate direttamente ma sappiamo che esiste un percorso nel modello che ci permette di raggiungere la seconda al termine della prima.</li>
-  <li>**Interleaving**: Ci sono trasformazioni della seconda sub che possono avvenire in maniera parallela a eventi della prima sub.</li>
+  <li>Strictly sequential: Le due sub sono collegate una di seguito all'altra, i place di uscita della prima sono quelli in entrata alla seconda.</li>
+  <li>Sequential: Le sub condividono dei place di uscita e ingresso (sono consecutive) ma alla fine della prima sub è presente un percorso alternativo che torna al modello.</li>
+  <li>Eventually: Le due sub non sono collegate direttamente ma sappiamo che esiste un percorso nel modello che ci permette di raggiungere la seconda al termine della prima.</li>
+  <li>Interleaving: Ci sono trasformazioni della seconda sub che possono avvenire in maniera parallela a eventi della prima sub.</li>
 </ul>
 
 ### Stryctly sequential
