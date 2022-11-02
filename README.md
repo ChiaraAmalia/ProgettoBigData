@@ -4,7 +4,7 @@
 Il Process Mining può essere utilizzato per apprendere automaticamente modelli comportamentali che mostrano ciò che le persone e le organizzazioni fanno realmente.
 Le tecniche di Process Mining mettono quindi in relazione il comportamento osservato con il comportamento modellato.
 
-Tale progetto è un estensione dell'algoritmo Model Repair Supported by Frequent Anomalous Local Instance Graphs disponibile al seguente link[https://github.com/KDMG/process-mining/tree/master/ProcessRepairing]
+Tale progetto è un estensione dell'algoritmo Model Repair Supported by Frequent Anomalous Local Instance Graphs disponibile al seguente link [https://github.com/KDMG/process-mining/tree/master/ProcessRepairing]
 
 ## Obiettivo del Progetto
 L'obiettivo del progetto è riparare un modello di processo secondo un event log, in modo tale che il modello risultante possa riprodurre il log e sia il più simile possibile al modello originale.
