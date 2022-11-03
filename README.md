@@ -35,7 +35,7 @@ Le relazioni d'ordine rappresentano il modo in cui le due sub sono correlate. Po
 L'immagine sottoriportata contiene il modello di partenza sottoforma di rete di petri, da riparare con i pattern anomali più frequenti:
 
 <p align="center">
-  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/immagini/Modello_pre_repairing.jpg">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/immagini/Modello_pre_repairing.png">
 </p>
 
 ### Strictly sequential
