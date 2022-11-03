@@ -31,6 +31,11 @@ Le relazioni d'ordine rappresentano il modo in cui le due sub sono correlate. Po
 </ul>
 
 ### Stryctly sequential
+<ul>
+  <li>Creazione di un'unica sub a partire dalle sub di partenza</li>
+  <li>Individuazione della transizione che congiunge i marking raggiungibili finali della prima sub con i marking raggiungibili iniziali della seconda sub e collegamento dei place</li>
+  <li>inserimento nel modello delle due sub collegate mediante l'algoritmo di Repairing</li>
+</ul>
 
 ### Sequential
 
@@ -38,3 +43,7 @@ Le relazioni d'ordine rappresentano il modo in cui le due sub sono correlate. Po
 
 ### Interleaving
 
+
+## Manuale utente
+
+##Tecnologie utilizzate
