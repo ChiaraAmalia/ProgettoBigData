@@ -249,7 +249,7 @@ for relation in subs_relations:
                             reached_marking_start2, reached_marking_end2, path+path_cartella, sub)  
             
             
-        
+          
             if(reached_marking_end1_pre != reached_marking_end1 or reached_marking_start2_pre != reached_marking_start2):
                 transitions = net_repaired.transitions
                 n = transition_hidden_available(transitions)
@@ -273,17 +273,20 @@ for relation in subs_relations:
             #Trying to apply Bellman-Ford algorithm to find the shortest path from end 1st sub to the start of the 2nd           
             #The starting node is the end node of the first sub which is connected to the 2nd sub        
             bellman_starts = []
+            #END_PRIMA NON SERVE A NULLA PERCHE NON SARA MAI RAGGIUNGIBILE DALL'ALBERO
             end_shortest_path = end_prima+start_seconda
             for id in enumerate(final_pattern):
                 if final_pattern[id[0]]=='d':
                     if (final_pattern[id[0]+1] in end_prima) and (final_pattern[id[0]+2] in start_seconda):
+                        #CI METTIAMO I NODI DI END DIRETTAMENTE COLLEGATI
                         bellman_starts.append(final_pattern[id[0]+1])
                         end_shortest_path.remove(final_pattern[id[0]+1])
                         end_shortest_path.remove(final_pattern[id[0]+2])
 
-            #======================    
-            bellman_start = minimo_lista(bellman_starts)
-            #======================
+            #CAMBIO NODI DI START PER PROVARE CON TUTTI I NODI DI END DELLA PRIMA SUB, ANCHE QUELLI NON COLLEGATI            
+            #---------------------------
+            bellman_starts = end_prima
+            #---------------------------
 
             nodes = []
             edges = []
