@@ -30,7 +30,15 @@ Le relazioni d'ordine rappresentano il modo in cui le due sub sono correlate. Po
   <li>Interleaving: Ci sono trasformazioni della seconda sub che possono avvenire in maniera parallela a eventi della prima sub.</li>
 </ul>
 
-### Stryctly sequential
+### Modello Pre-Repairing
+
+L'immagine sottoriportata contiene il modello di partenza sottoforma di rete di petri, da riparare con i pattern anomali più frequenti:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/immagini/Modello_pre_repairing.jpg">
+</p>
+
+### Strictly sequential
 <ul>
   <li>Creazione di un'unica sub a partire dalle sub di partenza</li>
   <li>Individuazione della transizione che congiunge i marking raggiungibili finali della prima sub con i marking raggiungibili iniziali della seconda sub e collegamento dei place</li>
