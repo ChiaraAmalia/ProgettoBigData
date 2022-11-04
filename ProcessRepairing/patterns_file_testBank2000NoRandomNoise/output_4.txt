@@ -1638,3 +1638,57 @@ Added:  SRPP s5 --> n63
 Added:  n63 --> EPP s6
 Added: n19 -- > (s1, 'FRPP') s1
 Added: (s11, 'LRRR') s11 -- > n16
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.9444444444444444, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP')], 'reached_marking': ['n19:1'], 'enabled_transitions_in_marking': {(n43, 'SRPP')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 18, 'remaining_tokens': 1, 'produced_tokens': 18}]
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.96875, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (n49, 'EPP'), (n35, 'SLRRP'), (n32, 'LRERV'), (n33, 'LRIRV'), (n34, 'LRRR'), (n40, 'FLRRP')], 'reached_marking': ['n16:1'], 'enabled_transitions_in_marking': {(n39, 'FRP')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 32, 'remaining_tokens': 1, 'produced_tokens': 32}]
+Added:  SLRRP s7 --> n51
+Added:  n51 --> LRIRV s9
+Added:  FRPP s1 --> n52
+Added:  n52 --> RBPC s2
+Added:  FRPP s1 --> n53
+Added:  n53 --> RIBPC s3
+Added:  FRPP s1 --> n54
+Added:  n54 --> REPC s4
+Added:  REPC s4 --> n55
+Added:  n55 --> SRPP s5
+Added:  RIBPC s3 --> n56
+Added:  n56 --> SRPP s5
+Added:  RBPC s2 --> n57
+Added:  n57 --> SRPP s5
+Added:  EPP s6 --> n58
+Added:  n58 --> SLRRP s7
+Added:  SLRRP s7 --> n59
+Added:  n59 --> LRERV s8
+Added:  LRIRV s9 --> n60
+Added:  n60 --> FLRRP s10
+Added:  LRERV s8 --> n61
+Added:  n61 --> FLRRP s10
+Added:  FLRRP s10 --> n62
+Added:  n62 --> LRRR s11
+Added:  SRPP s5 --> n63
+Added:  n63 --> EPP s6
+Added: n19 -- > (s1, 'FRPP') s1
+Added: (s11, 'LRRR') s11 -- > n16
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.96, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP')], 'reached_marking': ['n26:1'], 'enabled_transitions_in_marking': {(n49, 'EPP'), (t1, 'REPP')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 25, 'remaining_tokens': 1, 'produced_tokens': 25}]
+Token-based Replay:  [{'trace_is_fit': True, 'trace_fitness': 1.0, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (n49, 'EPP'), (n35, 'SLRRP'), (n32, 'LRERV'), (n33, 'LRIRV'), (n34, 'LRRR'), (n40, 'FLRRP'), (n39, 'FRP')], 'reached_marking': ['n15:1'], 'enabled_transitions_in_marking': set(), 'transitions_with_problems': [], 'missing_tokens': 0, 'consumed_tokens': 33, 'remaining_tokens': 0, 'produced_tokens': 33}]
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.9494252873563218, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (n49, 'EPP'), (n35, 'SLRRP'), (n32, 'LRERV'), (n33, 'LRIRV')], 'reached_marking': ['n8:1', 'n9:1'], 'enabled_transitions_in_marking': {(n34, 'LRRR')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 29, 'remaining_tokens': 2, 'produced_tokens': 30}]
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.96875, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (n49, 'EPP'), (n35, 'SLRRP'), (n32, 'LRERV'), (n33, 'LRIRV'), (n34, 'LRRR'), (n40, 'FLRRP')], 'reached_marking': ['n16:1'], 'enabled_transitions_in_marking': {(n39, 'FRP')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 32, 'remaining_tokens': 1, 'produced_tokens': 32}]
+Added:  FLRRP s6 --> n57
+Added:  n57 --> LRRR s7
+Added: n8 -- > (s6, 'FLRRP') s6
+Added: n9 -- > (s6, 'FLRRP') s6
+Added: (s7, 'LRRR') s7 -- > n16
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.96, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP')], 'reached_marking': ['n26:1'], 'enabled_transitions_in_marking': {(n49, 'EPP'), (t1, 'REPP')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 25, 'remaining_tokens': 1, 'produced_tokens': 25}]
+Token-based Replay:  [{'trace_is_fit': True, 'trace_fitness': 1.0, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (n49, 'EPP'), (n35, 'SLRRP'), (n32, 'LRERV'), (n33, 'LRIRV'), (n34, 'LRRR'), (n40, 'FLRRP'), (n39, 'FRP')], 'reached_marking': ['n15:1'], 'enabled_transitions_in_marking': set(), 'transitions_with_problems': [], 'missing_tokens': 0, 'consumed_tokens': 33, 'remaining_tokens': 0, 'produced_tokens': 33}]
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.9494252873563218, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (n49, 'EPP'), (n35, 'SLRRP'), (n32, 'LRERV'), (n33, 'LRIRV')], 'reached_marking': ['n8:1', 'n9:1'], 'enabled_transitions_in_marking': {(n34, 'LRRR')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 29, 'remaining_tokens': 2, 'produced_tokens': 30}]
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.96875, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n45, 'RIBPC'), (n46, 'REPC'), (n44, 'RBPC'), (n47, 'FRPP'), (t1, 'REPP'), (n43, 'SRPP'), (n44, 'RBPC'), (n45, 'RIBPC'), (n46, 'REPC'), (n47, 'FRPP'), (n49, 'EPP'), (n35, 'SLRRP'), (n32, 'LRERV'), (n33, 'LRIRV'), (n34, 'LRRR'), (n40, 'FLRRP')], 'reached_marking': ['n16:1'], 'enabled_transitions_in_marking': {(n39, 'FRP')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 32, 'remaining_tokens': 1, 'produced_tokens': 32}]
+Added:  FLRRP s6 --> n57
+Added:  n57 --> LRRR s7
+Added: n8 -- > (s6, 'FLRRP') s6
+Added: n9 -- > (s6, 'FLRRP') s6
+Added: (s7, 'LRRR') s7 -- > n16
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.5, 'activated_transitions': [(n42, 'SRP')], 'reached_marking': ['n19:1'], 'enabled_transitions_in_marking': {(n43, 'SRPP')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 2, 'remaining_tokens': 1, 'produced_tokens': 2}]
+Token-based Replay:  [{'trace_is_fit': False, 'trace_fitness': 0.5333333333333334, 'activated_transitions': [(n42, 'SRP'), (n43, 'SRPP')], 'reached_marking': ['n20:1', 'n21:1', 'n22:1'], 'enabled_transitions_in_marking': {(n44, 'RBPC'), (n46, 'REPC'), (n45, 'RIBPC')}, 'transitions_with_problems': [], 'missing_tokens': 1, 'consumed_tokens': 3, 'remaining_tokens': 3, 'produced_tokens': 5}]
+Added: n19 -- > (s1, 'FRPP') s1
+Added: (s1, 'FRPP') s1 -- > n22
+Added: (s1, 'FRPP') s1 -- > n20
+Added: (s1, 'FRPP') s1 -- > n21

@@ -16,10 +16,10 @@ from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
 # PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
-pattern_num = 17
+pattern_num = 21
 
 #SE SI VUOLE RIPARARE IL MODELLO CON PRECISIONE SE TRUE ALTRIMENTI APPROSSIMATO
-precision_mode = True
+precision_mode = False
 
 path = os.path.abspath(os.path.dirname(__file__))
 path = path.replace("scripts","")
@@ -57,21 +57,6 @@ net, initial_marking, final_marking = pnml_importer.apply(path+path_cartella + d
 dict_trace = create_dict_trace("testbanklaura_new")
 #create_subelements_file("testbank2000sccupdated",path+path_cartella)
 
-"""
-graph_lists = []
-for idx in selected_subgraphs:
-    occs = list_graph_occurence(path + path_cartella+ dataset + "_table2_on_file.csv", idx)
-    for graph_id in occs:
-        graph_lists.append(graph_id)
-
-occs = Counter(graph_lists)
- 
-#Troviamo i grafi con 3(n) occorrezze
-selected_graphs = []
-for graph in occs:
-    if occs[graph] == len(selected_subgraphs):
-        selected_graphs.append(graph)
-"""
 
 # BISOGNA AGGIUNGERE +1 AL PATTERN PERCHE SOPRA LO PRENDEVAMO DALL'ARRAY
 selected_graphs = list_pattern_occurence(path + path_cartella+ dataset + "_pattern_occurrence_matrix.csv", str(pattern_num+1))
@@ -217,36 +202,36 @@ for relation in subs_relations:
             text = search_alignment(path+path_cartella, dict_trace, chosen_graph)
             
             start_1, end_1, sub_label = startend_node(istances[0])
-            reached_marking_start1_pre = dirk_marking_start(dataset, start_1, text, trace, path+path_cartella, sub)
-            reached_marking_end1_pre = dirk_marking_end(dataset, end_1, text, trace, path+path_cartella, sub)    
+            reached_marking_start1_pre = dirk_marking_start(dataset, start_1, text, trace, path+path_cartella, selected_subgraphs[0])
+            reached_marking_end1_pre = dirk_marking_end(dataset, end_1, text, trace, path+path_cartella, selected_subgraphs[0])    
             start_2, end_2, sub_label = startend_node(istances[1])
-            reached_marking_start2_pre = dirk_marking_start(dataset, start_2, text, trace, path+path_cartella, sub)
-            reached_marking_end2_pre = dirk_marking_end(dataset, end_2, text, trace, path+path_cartella, sub)   
+            reached_marking_start2_pre = dirk_marking_start(dataset, start_2, text, trace, path+path_cartella, selected_subgraphs[1])
+            reached_marking_end2_pre = dirk_marking_end(dataset, end_2, text, trace, path+path_cartella, selected_subgraphs[1])   
             
             #repairing the 2 subs separetelly
             start_pre1, end_pre1, sub_label = startend_node(istances[0])
             sub1 = start_pre_process_repairing(start_pre1, text, istances[0])
             new_sub1 = end_pre_process_repairing(end_pre1, text, sub1) 
             start1, end1, sub_label = startend_node(new_sub1)
-            reached_marking_start1 = dirk_marking_start(dataset, start1, text, trace, path+path_cartella, sub)
-            reached_marking_end1 = dirk_marking_end(dataset, end1, text, trace, path+path_cartella, sub)
+            reached_marking_start1 = dirk_marking_start(dataset, start1, text, trace, path+path_cartella, selected_subgraphs[0])
+            reached_marking_end1 = dirk_marking_end(dataset, end1, text, trace, path+path_cartella, selected_subgraphs[0])
 
  
             #first repair
             start_end_name, net_repaired = repairing(new_sub1, net, initial_marking, final_marking, start1, end1,
-                                        reached_marking_start1, reached_marking_end1, path+path_cartella, sub)    
+                                        reached_marking_start1, reached_marking_end1, path+path_cartella, selected_subgraphs[0])    
             
 
             start_pre2, end_pre2, sub_label = startend_node(istances[1])
             sub2 = start_pre_process_repairing(start_pre2, text, istances[1])
             new_sub2 = end_pre_process_repairing(end_pre2, text, sub2)        
             start2, end2, sub_label = startend_node(new_sub2)
-            reached_marking_start2 = dirk_marking_start(dataset, start2, text, trace, path+path_cartella, sub)
-            reached_marking_end2 = dirk_marking_end(dataset, end2, text, trace, path+path_cartella, sub)   
+            reached_marking_start2 = dirk_marking_start(dataset, start2, text, trace, path+path_cartella, selected_subgraphs[1])
+            reached_marking_end2 = dirk_marking_end(dataset, end2, text, trace, path+path_cartella, selected_subgraphs[1])   
 
             #second repair
             start_end_name, net_repaired = repairing(new_sub2, net_repaired, initial_marking, final_marking, start2, end2,
-                            reached_marking_start2, reached_marking_end2, path+path_cartella, sub)  
+                            reached_marking_start2, reached_marking_end2, path+path_cartella, selected_subgraphs[1])  
             
             
           
@@ -390,8 +375,8 @@ for relation in subs_relations:
 
             start, end, sub_label = startend_node(new_subgraph)
 
-            reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+            reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, selected_subgraphs[0]+"_"+selected_subgraphs[1])
+            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, selected_subgraphs[0]+"_"+selected_subgraphs[1])    
 
             """
             initial/final marking : marking iniziale e finale del modello della rete
@@ -399,7 +384,7 @@ for relation in subs_relations:
             reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
             """
             start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
-                                                    reached_marking_start, reached_marking_end, path+path_cartella, sub)
+                                                    reached_marking_start, reached_marking_end, path+path_cartella, selected_subgraphs[0]+"_"+selected_subgraphs[1])
 
 
 
@@ -424,8 +409,8 @@ for relation in subs_relations:
 
          
          
-            reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)
+            reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, selected_subgraphs[idx])
+            reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, selected_subgraphs[idx])
             #n8 n9 -> FRPP
 
             """
@@ -434,7 +419,7 @@ for relation in subs_relations:
             reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
             """
             start_end_name, net_repaired = repairing(final_graph_istance, net, initial_marking, final_marking, start, end,
-                                                    reached_marking_start, reached_marking_end, path+path_cartella, sub)
+                                                    reached_marking_start, reached_marking_end, path+path_cartella, selected_subgraphs[idx])
             if idx==0:
                 string_trans_end = start_end_name[1]
             else:
@@ -536,8 +521,8 @@ for relation in subs_relations:
 
         start, end, sub_label = startend_node(new_subgraph)
 
-        reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, sub)
-        reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, sub)    
+        reached_marking_start = dirk_marking_start(dataset, start, text, trace, path+path_cartella, selected_subgraphs[0]+"_"+selected_subgraphs[1])
+        reached_marking_end = dirk_marking_end(dataset, end, text, trace, path+path_cartella, selected_subgraphs[0]+"_"+selected_subgraphs[1])    
 
         """
         initial/final marking : marking iniziale e finale del modello della rete
@@ -545,7 +530,7 @@ for relation in subs_relations:
         reached_marking_start/end : nomi dei place a cui agganciare start e end dell'instanza della sub
         """
         start_end_name, net_repaired = repairing(new_subgraph, net, initial_marking, final_marking, start, end,
-                                                reached_marking_start, reached_marking_end, path+path_cartella, sub)
+                                                reached_marking_start, reached_marking_end, path+path_cartella, selected_subgraphs[0]+"_"+selected_subgraphs[1])
 
            
                         
