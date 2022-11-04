@@ -131,7 +131,31 @@ Per quanto riguarda questa relazione d'ordine, è necessario distinguere il caso
 
 #### Interleaving: sub in overlapping
 
+Il pattern scelto per riparare il modello è il 21 in cui la sub63 e la sub2 sono collegate mediante la relazione d'ordine interleaving, come riportato nella seguente immagine:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/interleaving/pattern_interleaving_overlapping.png">
+</p>
+
+Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pattern nel modello è la seguente:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/interleaving/post_repairing_interleaving_overlapping.png">
+</p>
+
 #### Interleaving: sub in parallelo
+
+Il pattern scelto per riparare il modello è l'11 in cui la sub2 e la sub17 sono collegate mediante la relazione d'ordine Interleaving, come riportato nella seguente immagine:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/interleaving/pattern_interleaving_parallelo.png">
+</p>
+
+Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pattern nel modello è la seguente:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/interleaving/post_repairing_interleaving_parallelo.png">
+</p>
 
 ## Manuale utente
 
