@@ -161,8 +161,17 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 Questa repository contiene materiale aggiuntivo per gli articoli "Model Repair Supported by Frequent Anomalous Local Instance Graphs" e "Discovering Anomalous Frequent Patterns from Partially Ordered Event Logs".
 Nella cartella [ProcessRepairing](https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing) è possibile trovare le cartelle:
 <ul>
-  <li><a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/scripts">scripts</a>: contiene gli script Python che implementano l'algoritmo sopra discusso. In <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/Repairing.py">Repairing.py</a> viene gestito il repairing del modello ad una sola sub mentre, in <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/RepairingPattern.py">Repairing.py</a> viene gestito il repairing del modello mediante l'utilizzo di pattern di sub. In questa cartella sono presenti anche ulteriori script utili per generare la matrice delle occorrenze. È possibile inoltre trovare anche la cartella <a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/scripts/database">database</a> la quale contiene tutti i file utili per la connessione al database locale.</li>
+  <li><a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/scripts">scripts</a>: contiene gli script Python che implementano l'algoritmo sopra discusso. In <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/Repairing.py">Repairing.py</a> viene gestito il repairing del modello ad una sola sub mentre, in <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/RepairingPattern.py">RepairingPattern.py</a> viene gestito il repairing del modello mediante l'utilizzo di pattern di sub. In questa cartella sono presenti anche ulteriori script utili per generare la matrice delle occorrenze. È possibile inoltre trovare anche la cartella <a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/scripts/database">database</a> la quale contiene tutti i file utili per la connessione al database locale.</li>
+  <li>'patterns_file_': in queste cartelle sono contenuti tutti i file facenti riferimento ai relativi dataset. Per lo sviluppo di questo progetto si è utilizzato in particolare il dataset <a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/patterns_file_testBank2000NoRandomNoise">patterns_file_testBank2000NoRandomNoise</a></li>
+</ul>
+
+Prima di mandare in esecuzione gli scripts prima citati, è necessario installare i seguenti tool:
+<ul>
+  <li>Installare la versione C di SUBDUE disponibile al seguente <a href="http://ailab.wsu.edu/subdue/">link</a>. Posizionare gli eseguibili sgiso e gm generati nella cartella di dataset che si vuole testare</li>
+  <li>Installare la libreria Python <a href="https://pm4py.fit.fraunhofer.de/install">PM4PY</a></li>
+  <li>Installare il tool <a href="https://www.apachefriends.org/download.html">XAMPP</a>, verificare che il server mysql sia in run ed importare il database presente nella cartella<a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/patterns_file_testBank2000NoRandomNoise">patterns_file_testBank2000NoRandomNoise</a> e sostituire il contenuto della tabella traceId con il contenuto del file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/testbanklaura_new/traceIdMapping.txt">traceIdMapping</a></li>
   <li></li>
+  
 </ul>
 
 ## Tecnologie utilizzate
