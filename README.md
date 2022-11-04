@@ -102,9 +102,36 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 </p>
 
 ### Eventually
+<ul>
+  <li>Repairing della rete fatto separatamente per entrambe le sub appartenenti al pattern scelto, in quanto non esiste alcuna transizione che le collega, sappiamo solo che una viene dopo l'altra</li>
+  <li>Aggiunta di nuovi place per collegare le transizioni di end della prima sub con le transizioni di start della seconda sub, mediante una transizione invisibile</li>
+  <li>I nuovi place, e quindi la transizione invisibile, vengono aggiunti come condizione necessaria ma non sufficiente per garantire l'esecuzione della prima sub antecedentemente all'esecuzione della seconda sub</li>
+</ul>
+
+Il pattern scelto per riparare il modello è il 15 in cui la sub105 e la sub4 sono collegate mediante la relazione d'ordine Eventually, come riportato nella seguente immagine:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/eventually/pattern_eventually.png">
+</p>
+
+Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pattern nel modello è la seguente:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/eventually/post_repairing_eventually.png">
+</p>
 
 ### Interleaving
+<ul>
+  <li>Individuazione della sub "più grande": viene presa per prima la sub contenente il maggior numero di elementi</li>
+  <li>Integrazione della sub "più grande" con la sub "più piccola" non contando eventuali trasformazioni in overlapping</li>
+  <li>Viene aggiunta una transizione invisibile nel caso in cui le due sub sono in parallelo, altrimenti viene individuata la transizione in comune, per poi andare ad integrare una sub nell'altra</li>
+</ul>
 
+Per quanto riguarda questa relazione d'ordine, è necessario distinguere il caso in cui le due sub sono in overlapping e il caso in cui sono in parallelo.
+
+#### Interleaving: sub in overlapping
+
+#### Interleaving: sub in parallelo
 
 ## Manuale utente
 
