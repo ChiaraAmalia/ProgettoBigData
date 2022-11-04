@@ -158,6 +158,12 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 </p>
 
 ## Manuale utente
+Questa repository contiene materiale aggiuntivo per gli articoli "Model Repair Supported by Frequent Anomalous Local Instance Graphs" e "Discovering Anomalous Frequent Patterns from Partially Ordered Event Logs".
+Nella cartella [ProcessRepairing](https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing) è possibile trovare le cartelle:
+<ul>
+  <li><a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/scripts">scripts</a>: contiene gli script Python che implementano l'algoritmo sopra discusso. In <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/Repairing.py">Repairing.py</a> viene gestito il repairing del modello ad una sola sub mentre, in <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/RepairingPattern.py">Repairing.py</a> viene gestito il repairing del modello mediante l'utilizzo di pattern di sub. In questa cartella sono presenti anche ulteriori script utili per generare la matrice delle occorrenze. È possibile inoltre trovare anche la cartella <a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/scripts/database">database</a> la quale contiene tutti i file utili per la connessione al database locale.</li>
+  <li></li>
+</ul>
 
 ## Tecnologie utilizzate
 
