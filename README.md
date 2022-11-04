@@ -86,6 +86,21 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
   <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/sequentially/post_repairing_sequentially_BellmanFord.png">
 </p>
 
+#### Repairing approssimato
+<ul>
+  <li>Individuazione dei nodi di start e di end e i marking di start e di end raggiungibili per la prima e la seconda sub</li>
+  <li>Riparazione della rete con la prima sub e, successivamente, con la seconda</li>
+  <li>Individuazione dei marking di start e di end raggiungibili per la prima e la seconda sub</li>
+  <li>Confronto tra i marking di start/end pre-repairing e post-repairing</li>
+  <li>Inserimento di un'eventuale transizione invisibile nel caso in cui i marking di start/end pre-repairing e post-repairing non coincidessero</li>
+</ul>
+
+Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pattern nel modello è la seguente:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/sequentially/post_repairing_sequentially_approssimazione.png">
+</p>
+
 ### Eventually
 
 ### Interleaving
@@ -94,3 +109,9 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 ## Manuale utente
 
 ## Tecnologie utilizzate
+
+## Autori
+<ul>
+  <li>[Alessandro Bedetta](https://github.com/Alessandrob99)</li>
+  <li>[Chiara Amalia Caporusso](https://github.com/ChiaraAmalia)</li>
+</ul>
