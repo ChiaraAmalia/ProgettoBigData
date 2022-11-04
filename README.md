@@ -58,6 +58,33 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 </p>
 
 ### Sequentially
+Per quanto riguarda questa relazione d'ordine, si è optato per due strategie differenti:
+<ul>
+  <li>Repairing preciso: il modello viene riparato mediante l'utilizzo dell'algoritmo di Bellman-Ford per l'individuazione del cammino minimo all'interno del grafo</li>
+  <li>Repairing approssimato: il modello viene riparato non andando a considerare il pattern come una sub unica bensì andiamo a fare un repairing separato per ogni sub</li>
+</ul>
+
+
+Il pattern scelto per riparare il modello è il 17 in cui la sub2 e la sub14 sono collegate mediante la relazione d'ordine Sequentially, come riportato nella seguente immagine:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/sequentially/pattern_sequentially.png">
+</p>
+
+#### Repairing preciso: Bellman-Ford
+<ul>
+  <li>Individuazione dei nodi di start/end della prima e seconda sub</li>
+  <li>Individuazione dei nodi di start della seconda sub non agganciati direttamente ai nodi di end della prima sub</li>
+  <li>Per ogni nodo di end della prima sub, si costruisce l'albero dei costi</li>
+  <li>Per ogni nodo di start della seconda sub non agganciato direttamente ai nodi di end della prima sub, si individua l'albero di costo minimo</li>
+  <li>L'albero di costo minimo viene quindi utilizzato per l'aggiunta degli archi che definiscono il percorso minimo</li>
+</ul>
+
+Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pattern nel modello è la seguente:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/sequentially/post_repairing_sequentially_BellmanFord.png">
+</p>
 
 ### Eventually
 
