@@ -51,6 +51,12 @@ Il pattern scelto per riparare il modello è l'11 in cui la sub2 e la sub17 sono
   <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/strictlyseq/pattern_strictlyseq.png">
 </p>
 
+Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pattern nel modello è la seguente:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/strictlyseq/risultato_post_rep_Strictlyseq.png">
+</p>
+
 ### Sequentially
 
 ### Eventually
