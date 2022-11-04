@@ -111,7 +111,7 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 ## Tecnologie utilizzate
 
 ## Autori
-<ul>
-  <li>[Alessandro Bedetta](https://github.com/Alessandrob99)</li>
-  <li>[Chiara Amalia Caporusso](https://github.com/ChiaraAmalia)</li>
-</ul>
+
+  :man_technologist: [Alessandro Bedetta](https://github.com/Alessandrob99) 
+  :woman_technologist: [Chiara Amalia Caporusso](https://github.com/ChiaraAmalia)
+
