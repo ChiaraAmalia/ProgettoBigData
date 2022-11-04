@@ -45,7 +45,13 @@ L'immagine sottoriportata contiene il modello di partenza sottoforma di rete di 
   <li>inserimento nel modello delle due sub collegate mediante l'algoritmo di Repairing</li>
 </ul>
 
-### Sequential
+Il pattern scelto per riparare il modello è l'11 in cui la sub2 e la sub17 sono collegate mediante la relazione d'ordine Strictly Sequential, come riportato nella seguente immagine:
+
+<p align="center">
+  <img width="1020" src="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/immagini/strictlyseq/pattern_strictlyseq.png">
+</p>
+
+### Sequentially
 
 ### Eventually
 
