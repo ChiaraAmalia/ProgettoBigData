@@ -169,12 +169,18 @@ Prima di mandare in esecuzione gli scripts prima citati, è necessario installar
 <ul>
   <li>Installare la versione C di SUBDUE disponibile al seguente <a href="http://ailab.wsu.edu/subdue/">link</a>. Posizionare gli eseguibili sgiso e gm generati nella cartella di dataset che si vuole testare</li>
   <li>Installare la libreria Python <a href="https://pm4py.fit.fraunhofer.de/install">PM4PY</a></li>
-  <li>Installare il tool <a href="https://www.apachefriends.org/download.html">XAMPP</a>, verificare che il server mysql sia in run ed importare il database presente nella cartella<a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/patterns_file_testBank2000NoRandomNoise">patterns_file_testBank2000NoRandomNoise</a> e sostituire il contenuto della tabella traceId con il contenuto del file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/testbanklaura_new/traceIdMapping.txt">traceIdMapping</a></li>
-  <li></li>
-  
+  <li>Installare il tool <a href="https://www.apachefriends.org/download.html">XAMPP</a>, verificare che il server mysql sia in run, importare il database presente nella cartella<a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/patterns_file_testBank2000NoRandomNoise">patterns_file_testBank2000NoRandomNoise</a> e sostituire il contenuto della tabella traceId con il contenuto del file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/testbanklaura_new/traceIdMapping.txt">traceIdMapping</a>. Controllare che il file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/database/connect.py">connect.py</a> sia conforme rispetto alle credenziali e alla porta in uso</li>
+  <li>Installare il software <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>: è necessario predisporre una macchina virtuale per tutti coloro che non possiedono un sistema operativo macOS o qualsiasi altro sistema Unix-like per mandare in esecuzione il programma. Gli sviluppatori consigliano una macchina virtuale con sistema operativo <a href="https://get.opensuse.org/tumbleweed/">openSUSE</a> oppure <a href="https://www.ubuntu-it.org/download">Ubuntu</a>.</li>  
 </ul>
+Dopo aver seguito i passaggi antecedenti è necessario apporre eventuali modifiche al file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/RepairingPattern.py">RepairingPattern.py</a> in relazione al dataset e al pattern che si vuole analizzare. Ulteriori passaggi sono riportati sottoforma di commento all'interno dello stesso file.
 
 ## Tecnologie utilizzate
+<ul>
+  <li><a href="https://www.python.org/">Python</a></li>
+  <li><a href="http://ailab.wsu.edu/subdue/">SUBDUE</a></li>
+  <li><a href="https://www.apachefriends.org/it/index.html">XAMPP</a></li>
+  <li><a href="https://www.virtualbox.org/">VirtualBox</a></li>
+</ul>
 
 ## Autori
 
