@@ -112,6 +112,7 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 
 ## Autori
 
-  :man_technologist: [Alessandro Bedetta](https://github.com/Alessandrob99) 
-  :woman_technologist: [Chiara Amalia Caporusso](https://github.com/ChiaraAmalia)
+:man_technologist: [Alessandro Bedetta](https://github.com/Alessandrob99)
+
+:woman_technologist: [Chiara Amalia Caporusso](https://github.com/ChiaraAmalia)
 
