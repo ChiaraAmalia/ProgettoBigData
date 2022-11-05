@@ -15,18 +15,18 @@ Questo progetto come dicevamo non è altro che un'estensione del lavoro preceden
 
 ### Input e fase preparatoria
 <ul>
-  <li>Selezione pattern con il quale si sceglie di riparare il modello</li>
-  <li>Importazione log, rete e tracce</li>
-  <li>Stesura elenco trace contenenti il pattern ed individuazione del grafo con matching cost più basso</li>
-  <li>Individuazione delle istanze di sub e delle relazioni nel pattern</li>
+  <li>Selezione pattern con il quale si sceglie di riparare il modello;</li>
+  <li>Importazione log, rete e tracce;</li>
+  <li>Stesura elenco trace contenenti il pattern ed individuazione del grafo con matching cost più basso;</li>
+  <li>Individuazione delle istanze di sub e delle relazioni nel pattern.</li>
 </ul>
 
 ## Implementazione relazioni d'ordine
 Le relazioni d'ordine rappresentano il modo in cui le due sub sono correlate. Possiamo distinguere quattro tipologie di relazioni d'ordine:
 <ul>
-  <li>Strictly sequential: Le due sub sono collegate una di seguito all'altra, i place di uscita della prima sono quelli in entrata alla seconda.</li>
-  <li>Sequential: Le sub condividono dei place di uscita e ingresso (sono consecutive) ma alla fine della prima sub è presente un percorso alternativo che torna al modello.</li>
-  <li>Eventually: Le due sub non sono collegate direttamente ma sappiamo che esiste un percorso nel modello che ci permette di raggiungere la seconda al termine della prima.</li>
+  <li>Strictly sequential: Le due sub sono collegate una di seguito all'altra, i place di uscita della prima sono quelli in entrata alla seconda;</li>
+  <li>Sequential: Le sub condividono dei place di uscita e ingresso (sono consecutive) ma alla fine della prima sub è presente un percorso alternativo che torna al modello;</li>
+  <li>Eventually: Le due sub non sono collegate direttamente ma sappiamo che esiste un percorso nel modello che ci permette di raggiungere la seconda al termine della prima;</li>
   <li>Interleaving: Ci sono trasformazioni della seconda sub che possono avvenire in maniera parallela a eventi della prima sub.</li>
 </ul>
 
@@ -40,9 +40,9 @@ L'immagine sottoriportata contiene il modello di partenza sottoforma di rete di 
 
 ### Strictly sequential
 <ul>
-  <li>Creazione di un'unica sub a partire dalle sub di partenza</li>
-  <li>Individuazione della transizione che congiunge i marking raggiungibili finali della prima sub con i marking raggiungibili iniziali della seconda sub e collegamento dei place</li>
-  <li>inserimento nel modello delle due sub collegate mediante l'algoritmo di Repairing</li>
+  <li>Creazione di un'unica sub a partire dalle sub di partenza;</li>
+  <li>Individuazione della transizione che congiunge i marking raggiungibili finali della prima sub con i marking raggiungibili iniziali della seconda sub e collegamento dei place;</li>
+  <li>inserimento nel modello delle due sub collegate mediante l'algoritmo di Repairing.</li>
 </ul>
 
 Il pattern scelto per riparare il modello è l'11 in cui la sub2 e la sub17 sono collegate mediante la relazione d'ordine Strictly Sequential, come riportato nella seguente immagine:
@@ -60,8 +60,8 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 ### Sequentially
 Per quanto riguarda questa relazione d'ordine, si è optato per due strategie differenti:
 <ul>
-  <li>Repairing preciso: il modello viene riparato mediante l'utilizzo dell'algoritmo di Bellman-Ford per l'individuazione del cammino minimo all'interno del grafo</li>
-  <li>Repairing approssimato: il modello viene riparato non andando a considerare il pattern come una sub unica bensì andiamo a fare un repairing separato per ogni sub</li>
+  <li>Repairing preciso: il modello viene riparato mediante l'utilizzo dell'algoritmo di Bellman-Ford per l'individuazione del cammino minimo all'interno del grafo;</li>
+  <li>Repairing approssimato: il modello viene riparato non andando a considerare il pattern come una sub unica bensì andiamo a fare un repairing separato per ogni sub.</li>
 </ul>
 
 
@@ -73,11 +73,11 @@ Il pattern scelto per riparare il modello è il 17 in cui la sub2 e la sub14 son
 
 #### Repairing preciso: Bellman-Ford
 <ul>
-  <li>Individuazione dei nodi di start/end della prima e seconda sub</li>
-  <li>Individuazione dei nodi di start della seconda sub non agganciati direttamente ai nodi di end della prima sub</li>
-  <li>Per ogni nodo di end della prima sub, si costruisce l'albero dei costi</li>
-  <li>Per ogni nodo di start della seconda sub non agganciato direttamente ai nodi di end della prima sub, si individua l'albero di costo minimo</li>
-  <li>L'albero di costo minimo viene quindi utilizzato per l'aggiunta degli archi che definiscono il percorso minimo</li>
+  <li>Individuazione dei nodi di start/end della prima e seconda sub;</li>
+  <li>Individuazione dei nodi di start della seconda sub non agganciati direttamente ai nodi di end della prima sub;</li>
+  <li>Per ogni nodo di end della prima sub, si costruisce l'albero dei costi;</li>
+  <li>Per ogni nodo di start della seconda sub non agganciato direttamente ai nodi di end della prima sub, si individua l'albero di costo minimo;</li>
+  <li>L'albero di costo minimo viene quindi utilizzato per l'aggiunta degli archi che definiscono il percorso minimo.</li>
 </ul>
 
 Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pattern nel modello è la seguente:
@@ -88,11 +88,11 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 
 #### Repairing approssimato
 <ul>
-  <li>Individuazione dei nodi di start e di end e i marking di start e di end raggiungibili per la prima e la seconda sub</li>
+  <li>Individuazione dei nodi di start e di end e i marking di start e di end raggiungibili per la prima e la seconda sub;</li>
   <li>Riparazione della rete con la prima sub e, successivamente, con la seconda</li>
-  <li>Individuazione dei marking di start e di end raggiungibili per la prima e la seconda sub</li>
-  <li>Confronto tra i marking di start/end pre-repairing e post-repairing</li>
-  <li>Inserimento di un'eventuale transizione invisibile nel caso in cui i marking di start/end pre-repairing e post-repairing non coincidessero</li>
+  <li>Individuazione dei marking di start e di end raggiungibili per la prima e la seconda sub;</li>
+  <li>Confronto tra i marking di start/end pre-repairing e post-repairing;</li>
+  <li>Inserimento di un'eventuale transizione invisibile nel caso in cui i marking di start/end pre-repairing e post-repairing non coincidessero;</li>
 </ul>
 
 Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pattern nel modello è la seguente:
@@ -103,9 +103,9 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 
 ### Eventually
 <ul>
-  <li>Repairing della rete fatto separatamente per entrambe le sub appartenenti al pattern scelto, in quanto non esiste alcuna transizione che le collega, sappiamo solo che una viene dopo l'altra</li>
-  <li>Aggiunta di nuovi place per collegare le transizioni di end della prima sub con le transizioni di start della seconda sub, mediante una transizione invisibile</li>
-  <li>I nuovi place, e quindi la transizione invisibile, vengono aggiunti come condizione necessaria ma non sufficiente per garantire l'esecuzione della prima sub antecedentemente all'esecuzione della seconda sub</li>
+  <li>Repairing della rete fatto separatamente per entrambe le sub appartenenti al pattern scelto, in quanto non esiste alcuna transizione che le collega, sappiamo solo che una viene dopo l'altra;</li>
+  <li>Aggiunta di nuovi place per collegare le transizioni di end della prima sub con le transizioni di start della seconda sub, mediante una transizione invisibile;</li>
+  <li>I nuovi place, e quindi la transizione invisibile, vengono aggiunti come condizione necessaria ma non sufficiente per garantire l'esecuzione della prima sub antecedentemente all'esecuzione della seconda sub.</li>
 </ul>
 
 Il pattern scelto per riparare il modello è il 15 in cui la sub105 e la sub4 sono collegate mediante la relazione d'ordine Eventually, come riportato nella seguente immagine:
@@ -122,9 +122,9 @@ Il risultato che si ottiene dopo la fase di repairing, con l'introduzione del pa
 
 ### Interleaving
 <ul>
-  <li>Individuazione della sub "più grande": viene presa per prima la sub contenente il maggior numero di elementi</li>
-  <li>Integrazione della sub "più grande" con la sub "più piccola" non contando eventuali trasformazioni in overlapping</li>
-  <li>Viene aggiunta una transizione invisibile nel caso in cui le due sub sono in parallelo, altrimenti viene individuata la transizione in comune, per poi andare ad integrare una sub nell'altra</li>
+  <li>Individuazione della sub "più grande": viene presa per prima la sub contenente il maggior numero di elementi;</li>
+  <li>Integrazione della sub "più grande" con la sub "più piccola" non contando eventuali trasformazioni in overlapping;</li>
+  <li>Viene aggiunta una transizione invisibile nel caso in cui le due sub sono in parallelo, altrimenti viene individuata la transizione in comune, per poi andare ad integrare una sub nell'altra.</li>
 </ul>
 
 Per quanto riguarda questa relazione d'ordine, è necessario distinguere il caso in cui le due sub sono in overlapping e il caso in cui sono in parallelo.
@@ -167,9 +167,9 @@ Nella cartella [ProcessRepairing](https://github.com/ChiaraAmalia/ProgettoBigDat
 
 Prima di mandare in esecuzione gli scripts prima citati, è necessario installare i seguenti tool:
 <ul>
-  <li>Installare la versione C di SUBDUE disponibile al seguente <a href="http://ailab.wsu.edu/subdue/">link</a>. Posizionare gli eseguibili sgiso e gm generati nella cartella di dataset che si vuole testare</li>
-  <li>Installare la libreria Python <a href="https://pm4py.fit.fraunhofer.de/install">PM4PY</a></li>
-  <li>Installare il tool <a href="https://www.apachefriends.org/download.html">XAMPP</a>, verificare che il server mysql sia in run, importare il database presente nella cartella<a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/patterns_file_testBank2000NoRandomNoise">patterns_file_testBank2000NoRandomNoise</a> e sostituire il contenuto della tabella traceId con il contenuto del file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/testbanklaura_new/traceIdMapping.txt">traceIdMapping</a>. Controllare che il file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/database/connect.py">connect.py</a> sia conforme rispetto alle credenziali e alla porta in uso</li>
+  <li>Installare la versione C di SUBDUE disponibile al seguente <a href="http://ailab.wsu.edu/subdue/">link</a>. Posizionare gli eseguibili sgiso e gm generati nella cartella di dataset che si vuole testare;</li>
+  <li>Installare la libreria Python <a href="https://pm4py.fit.fraunhofer.de/install">PM4PY</a>;</li>
+  <li>Installare il tool <a href="https://www.apachefriends.org/download.html">XAMPP</a>, verificare che il server mysql sia in run, importare il database presente nella cartella <a href="https://github.com/ChiaraAmalia/ProgettoBigData/tree/main/ProcessRepairing/patterns_file_testBank2000NoRandomNoise">patterns_file_testBank2000NoRandomNoise</a> e sostituire il contenuto della tabella traceId con il contenuto del file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/testbanklaura_new/traceIdMapping.txt">traceIdMapping</a>. Controllare che il file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/database/connect.py">connect.py</a> sia conforme rispetto alle credenziali e alla porta in uso;</li>
   <li>Installare il software <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>: è necessario predisporre una macchina virtuale per tutti coloro che non possiedono un sistema operativo macOS o qualsiasi altro sistema Unix-like per mandare in esecuzione il programma. Gli sviluppatori consigliano una macchina virtuale con sistema operativo <a href="https://get.opensuse.org/tumbleweed/">openSUSE</a> oppure <a href="https://www.ubuntu-it.org/download">Ubuntu</a>.</li>  
 </ul>
 Dopo aver seguito i passaggi antecedenti è necessario apporre eventuali modifiche al file <a href="https://github.com/ChiaraAmalia/ProgettoBigData/blob/main/ProcessRepairing/scripts/RepairingPattern.py">RepairingPattern.py</a> in relazione al dataset e al pattern che si vuole analizzare. Ulteriori passaggi sono riportati sottoforma di commento all'interno dello stesso file.
