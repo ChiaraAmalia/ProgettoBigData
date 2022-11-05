@@ -87,7 +87,7 @@ for sub in selected_subgraphs:
 for sub in selected_subgraphs:
     export_eventlog_test(selected_graphs, log, dict_trace, sub)
 
-
+#------------------- DA VEDERE CON ALE, QUESTO NON SERVE A NIENTE
 start_map = {}
 end_map = {}
 sub_label_map = {}
@@ -99,12 +99,15 @@ for idx,graph in enumerate(graph_istances):
     end_map[idx+1] = end
     sub_label_map[idx+1] = sub_label
 
+#-------------------
+
 trace = search_trace(log, dict_trace, chosen_graph)
 
 
 #Leggiamo la relazione fra le sub
 a = split_subgraph(path+"testBank2000NoRandomNoise_new_patterns_filtered_original.subs")
 
+#split del grafo scelto con matching cost piu basso
 chosen_graph_split = split_subgraph(path+path_cartella+"graphs/"+chosen_graph+".g")
 
 pattern_counter = -1
