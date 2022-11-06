@@ -191,12 +191,10 @@ def transition_name_available(transitions):
 
 
 """
-INPUT: -percorso_file: bpmdemo2_new_patterns_filtered.subs lista pattern con rispettivi sub 
+INPUT: -percorso_file: *_new_patterns_filtered_filtered.subs lista pattern con rispettivi sub 
 RETURN: lista di pattern come lista di liste di sub
 """
 
-
-# "*_new_patterns_filtered.subs"
 def create_patterns_list(percorso_file):
     patterns = []
     sub = []
@@ -1805,7 +1803,7 @@ INPUT: -log: EventLog
 
 def visualizza_rete_performance(log, net, im, fm):
     agg_statistics = token_decoration_frequency.get_decorations(log, net, im, fm)
-    parameters = {petrinet_visualizer.Variants.FREQUENCY.value.Parameters.FORMAT: "jpg", "debug": True}
+    parameters = {petrinet_visualizer.Variants.FREQUENCY.value.Parameters.FORMAT: "pdf", "debug": True}
     gvz = token_decoration_frequency.apply(net, im, fm, aggregated_statistics=agg_statistics, parameters=parameters)
     # gvz = petrinet_visualizer.apply(net, initial_marking, final_marking, parameters=parameters)
     petrinet_visualizer.view(gvz)
