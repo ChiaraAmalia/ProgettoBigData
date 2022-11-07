@@ -15,7 +15,8 @@ from pm4py.objects.petri_net.utils import reachability_graph
 from pm4py.visualization.transition_system import visualizer as ts_visualizer
 
 
-# PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 25
+
+# PRENDERE IL PATTERN E TOGLIERE -1 PERCHE VIENE ESTRATTO DALL'ARRAY ALLA RIGA 40
 # selezione del pattern con cui si vuole riparare il modello
 pattern_num = 11
 
@@ -28,32 +29,16 @@ path = path.replace("scripts","")
 print(path)
 os.chdir(path)  
 
-# selezione della cartella del dataset in analisi
+# selezione della cartella e del dataset in analisi
 path_cartella = "patterns_file_testBank2000NoRandomNoise/"
 dataset = "testBank2000NoRandomNoise"
 
-#estrazione della lista dei pattern dal file .subs
+#estrazione della lista di tutti i pattern dal file .subs
 b = create_patterns_list(path+"testBank2000NoRandomNoise_new_patterns_filtered_original.subs")
 
 #estrazione del pattern selezionato dall'array
 selected_subgraphs = b[pattern_num]
 
-#-------------- 
-# Questo al momento non serve, viene utilizzato per estrarre le istanze di sub dal database
-in_list = ""
-for idx, x in enumerate(selected_subgraphs):
-    in_list += selected_subgraphs[idx]
-    if(idx<len(selected_subgraphs)-1):
-        in_list += ","
-
-conn = None
-conn = connect("testbank2000sccupdated")
-sql_select_query = "SELECT subcontent FROM submeasures WHERE idsub IN ("+in_list+")"
-cursor = conn.cursor()
-cursor.execute(sql_select_query)
-record = cursor.fetchall()
-#record[0] = 'v 7 FRPP\nv 8 REPC\nv 9 RIBPC\nv 10 RBPC\nv 11 SRPP\nd 7 8 FRPP__REPC\nd 7 9 FRPP__RIBPC\nd 7 10 FRPP__RBPC\nd 10 11 RBPC__SRPP\nd 9 11 RIBPC__SRPP\nd 8 11 REPC__SRPP\n'
-#-------------
 
 # import del file di log
 log = xes_importer.apply(path+path_cartella + dataset + '.xes')
@@ -64,18 +49,18 @@ net, initial_marking, final_marking = pnml_importer.apply(path+path_cartella + d
 #estrazione delle tracce dal database
 dict_trace = create_dict_trace("testbanklaura_new")
 
-# da decommentare se il file subelements.txt deve essere generato
+# da decommentare se il file subelements.txt (contenente le sub che formano ogni pattern) deve essere generato 
 #create_subelements_file("testbank2000sccupdated",path+path_cartella)
 
-# BISOGNA AGGIUNGERE +1 AL PATTERN PERCHE SOPRA LO PRENDEVAMO DALL'ARRAY
-# estrazione dei grafi in cui occorre il pattern (si utilizza il file .csv generato tramite il file OccurencePatterns.py)
+# BISOGNA AGGIUNGERE +1 ALL'ID PATTERN PERCHE SOPRA LO PRENDEVAMO DALL'ARRAY
+# estrazione dei grafi in cui occorre il pattern (si utilizza il file .csv generato tramite il file OccurencePatterns.py contenente la matrice delle occorrenze)
 selected_graphs = list_pattern_occurence(path + path_cartella+ dataset + "_pattern_occurrence_matrix.csv", str(pattern_num+1))
 
 # controllo se la lista dei grafi è corretta
 for sub in selected_subgraphs:
     selected_graphs = check_graphlist(selected_graphs, sub, path+path_cartella)
 
-# vengono memorizzati i costi totali di ciascun grafo, considerando entrambe le sub
+# vengono calcolati i costi totali associati a ciascun grafo, considerando entrambe le sub
 costs = {}
 for graph in selected_graphs:
     costs[graph] = 0
@@ -93,6 +78,7 @@ chosen_graph = next(iter(ordered_costs))
 #salvataggio delle istanze delle sub appartenenti al pattern
 graph_istances = []
 for sub in selected_subgraphs:
+    #Esecuzione sgiso all'interno del motodo find istances
     graph_istances.append(find_instances(sub,chosen_graph,path+path_cartella))
 
 
@@ -116,7 +102,7 @@ for idx,graph in enumerate(graph_istances):
 trace = search_trace(log, dict_trace, chosen_graph)
 
 
-#split del pattern
+#split del pattern in sub e relazione
 a = split_subgraph(path+"testBank2000NoRandomNoise_new_patterns_filtered_original.subs")
 
 #split del grafo scelto con matching cost piu basso
@@ -285,9 +271,10 @@ for relation in subs_relations:
 
             # Applichiamo l'algoritmo di Bellman-Ford per individuare il percorso minimo tra
             # i nodi di start della seconda sub e i nodi di end della prima sub       
-            bellman_starts = []
+
             # END_PRIMA NON SERVE A NULLA PERCHE NON SARA MAI RAGGIUNGIBILE DALL'ALBERO
             end_shortest_path = end_prima+start_seconda
+
             # individuazione dei nodi di start della seconda sub non agganciati direttamente ai nodi della seconda sub
             for id in enumerate(final_pattern):
                 if final_pattern[id[0]]=='d':
@@ -297,6 +284,7 @@ for relation in subs_relations:
 
             #CAMBIO NODI DI START PER PROVARE CON TUTTI I NODI DI END DELLA PRIMA SUB, ANCHE QUELLI NON COLLEGATI            
             #---------------------------
+            bellman_starts = []
             bellman_starts = end_prima
             #---------------------------
 
@@ -335,8 +323,8 @@ for relation in subs_relations:
 
                 trees[bellman_start] = [distances,previouses]
 
-            # per ciascun nodo di start della seconda sun non agganciato direttamente alla prima
-            # andiamo a prendere l'albero di costo minimo
+            # per ciascun nodo di start della seconda sub non agganciato direttamente alla prima
+            # andiamo a prendere l'albero contenente il percorso di costo minimo 
             for nodo in end_shortest_path:
                 min_cost = 1000000
                 current_bellman_start = ""
@@ -347,9 +335,11 @@ for relation in subs_relations:
                         distances = value[0]
                         current_bellman_start = key
 
-                # fintanto che non si arriva al nodo di end della prima sub
+                # fintanto che non si arriva al nodo di end della prima sub (origine del percorso minimo di bellman-ford)
                 # considerato come nodo di start per l'algorimo di Bellman-Ford
                 while(nodo != current_bellman_start):
+                    
+                    #SIGNIFICATO DEI 3 FLAG
                     #flag = entrambi i nodi che l'arco tra essi sono gia presenti nel pattern finale
                     #flag2 = entrambi i nodi sono presenti nel pattern finale ma se flag=false non è presente l'arco tra di essi
                     #tempFlag = è stato trovato uno dei due nodi nel pattern finale
@@ -369,6 +359,7 @@ for relation in subs_relations:
                                 nodo_name = row[2]
                     
                     # controllo se i nodi e gli archi sono presenti o meno nel pattern finale, altrimenti vengono inseriti
+                    
                     for id in enumerate(final_pattern):
                         if final_pattern[id[0]]==previouses[nodo] or final_pattern[id[0]]==nodo:
                             if tempFlag:
@@ -517,7 +508,7 @@ for relation in subs_relations:
         big_sub_instance = []
         tiny_sub_instance = []
         
-        #individuazione dell'istanza di sub pià grande tra le due (quella che ha il maggior numero di elementi)
+        #individuazione dell'istanza di sub piu' grande tra le due (quella che ha il maggior numero di elementi)
         if len(istances[0]) > len(istances[1]):
             big_sub_instance = istances[0]
             tiny_sub_instance = istances[1]
@@ -589,13 +580,44 @@ for relation in subs_relations:
            
     # visualizziamo il modello riparato                   
     visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
-   
 
 
-        
+#========FINE ALGORITMO ===========#
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+#=======SEZIONE PROVE E MATERIALE POSSIBILMETNE UTILE IN FUTURO============#
+
+#-------------- 
+# Questo al momento non serve, viene utilizzato per estrarre le istanze di sub dal database
+"""
+in_list = ""
+for idx, x in enumerate(selected_subgraphs):
+    in_list += selected_subgraphs[idx]
+    if(idx<len(selected_subgraphs)-1):
+        in_list += ","
+
+conn = None
+conn = connect("testbank2000sccupdated")
+sql_select_query = "SELECT subcontent FROM submeasures WHERE idsub IN ("+in_list+")"
+cursor = conn.cursor()
+cursor.execute(sql_select_query)
+record = cursor.fetchall()
+"""
+#record[0] = 'v 7 FRPP\nv 8 REPC\nv 9 RIBPC\nv 10 RBPC\nv 11 SRPP\nd 7 8 FRPP__REPC\nd 7 9 FRPP__RIBPC\nd 7 10 FRPP__RBPC\nd 10 11 RBPC__SRPP\nd 9 11 RIBPC__SRPP\nd 8 11 REPC__SRPP\n'
+#-------------
 
 
 """
