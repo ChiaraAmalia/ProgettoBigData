@@ -64,6 +64,9 @@ net, initial_marking, final_marking = pnml_importer.apply(path+path_cartella + d
 #estrazione delle tracce dal database
 dict_trace = create_dict_trace("testbanklaura_new")
 
+# da decommentare se il file subelements.txt deve essere generato
+#create_subelements_file("testbank2000sccupdated",path+path_cartella)
+
 # BISOGNA AGGIUNGERE +1 AL PATTERN PERCHE SOPRA LO PRENDEVAMO DALL'ARRAY
 # estrazione dei grafi in cui occorre il pattern (si utilizza il file .csv generato tramite il file OccurencePatterns.py)
 selected_graphs = list_pattern_occurence(path + path_cartella+ dataset + "_pattern_occurrence_matrix.csv", str(pattern_num+1))
