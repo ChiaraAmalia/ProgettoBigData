@@ -1,0 +1,66 @@
+Eventually: 15
+Sequentially: 17
+interleaving: 21
+
+
+
+if relation[2]=='strictlySeq' or relation[2]=='sequentially':
+
+	#UNIAMO LE DUE SUB	
+	
+	if (relation[2]=='sequentially' and not precision_mode):
+		
+		#REPAIRING POCO PRECISO
+	
+	if (relation[2]=='sequentially' and precision_mode):
+
+		#REPAIRING BELMAN FORD
+
+	if relation[2]=='strictlySeq' or (relation[2]=='sequentially' and precision_mode):
+		
+		#REPAIRING SEQUENZIALE (diverso dagli altri 2 casi)
+	
+if relation[2]=='eventually'
+
+	#REPAIRING EVENTUALLY
+
+elif relation[2] == 'interleaving':
+	
+	#REPAIRING INTERLEAVING
+
+visualizza_rete_performance(log,net_repaired,initial_marking,final_marking)
+
+
+if (relation[2]=='sequentially' and precision_mode):
+    
+    #INDIVIDUAZIONE DEI NODI DI START E DI END DELLA PRIMA E DELLA SECONDA SUB
+    
+    #PER OGNI ISTANZA DI SUB
+    for id in enumerate(final_pattern):
+        if final_pattern[id[0]]=='d':
+            if (final_pattern[id[0]+1] in end_prima) and (final_pattern[id[0]+2] in start_seconda):
+                    #INDIVIDUAZIONE NODI DI END DELLA PRIMA SUB DIRETTAMENTE COLLEGATI CON I NODI DI START DELLA SECONDA SUB
+                    #INDIVIDUAZIONE NODI DI START DELLA SECONDA SUB NON AGGANCIATI DIRETTAMENTE AI NODI DELLA PRIMA SUB
+    
+    for row in chosen_graph_split:
+        #INDIVIDUAZIONE NODI E ARCHI
+    
+    #PER OGNI NODI DI END DELLA PRIMA SUB DIRETTAMENTE COLLEGATO AI NODI DI START DELLA SECONDA SUB
+    for bellman_start in bellman_starts:
+        #INIZIALIZZAZIONE COSTI
+        for node in nodes:
+            #INIZIALIZZAZIONE COSTI NODI DIVERSI DA QUELLI INIZIALI AD INFINITO
+            #INIZIALIZZAZIONE COSTO NODO INIZIALE A ZERO
+        #APPLICAZIONE DELL'ALGORITMO BELLMAN-FORD
+        for node in nodes:
+            #CALCOLO DEI COSTI PER OGNI NODO E COSTRUZIONE DELL'ALBERO
+    #PER OGNI NODO DI START DELLA SECONDA SUB NON AGGANCIATO DIRETTAMENTE AI NODI DI END DELLA PRIMA SUB
+    for nodo in end_shortest_path:
+            #PER OGNI ALBERO
+            for key, value in trees.items():
+                if value[0][nodo] < min_cost:
+                    #VIENE PRESO L'ALBERO DI COSTO MINIMO
+            
+            #FINCHE' NON SI ARRIVA AL NODO DI END DELLA PRIMA SUB, CONSIDERATO COME NODO DI START PER L'ALGORITMO BELLMAN FORD
+            while(nodo != current_bellman_start):
+                    #PROCEDENDO A RITROSO VIENE COSTRUITO L'ALBERO DI COSTO MINIMO
